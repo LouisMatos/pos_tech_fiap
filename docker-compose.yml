@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: db_postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db_lanchonete
+    networks:
+      - network_postgres
+    volumes:
+      - jlapp:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 256M
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: web_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "pos@tech.com"
+      PGADMIN_DEFAULT_PASSWORD: "postech123"
+    ports:
+      - "54321:80"
+    networks:
+      - network_postgres
+    depends_on:
+      - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.15'
+          memory: 128M
+
+  jlapp:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: testeluismatos/jlapp:1.0.0
+    container_name: jlapp_service
+    ports:
+      - 8070:8070
+    networks:
+      - network_postgres
+    depends_on:
+      - postgres
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 512M
+
+volumes:
+  jlapp:
+    driver: local
+
+networks:
+  network_postgres:
+    driver: bridge

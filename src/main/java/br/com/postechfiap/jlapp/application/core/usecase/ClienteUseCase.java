@@ -3,6 +3,7 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 import java.util.List;
 
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
+import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
 
@@ -39,8 +40,7 @@ public class ClienteUseCase implements ClienteInputPort {
 
 	@Override
 	public Cliente buscar(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return clienteOutputPort.buscar(id).orElseThrow(() -> new NotFoundException("Cliente informado não encontrado!"));
 	}
 
 }

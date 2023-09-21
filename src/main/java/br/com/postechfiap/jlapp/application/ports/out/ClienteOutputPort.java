@@ -1,6 +1,7 @@
 package br.com.postechfiap.jlapp.application.ports.out;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 
@@ -14,6 +15,6 @@ public interface ClienteOutputPort {
 
 	public List<Cliente> buscarTodos();
 
-	public Cliente buscar(Long id);
+	public Optional<Cliente> buscar(Long id);
 
 }

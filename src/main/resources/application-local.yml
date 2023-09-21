@@ -4,7 +4,7 @@ spring:
   jpa:
     show-sql: false
     generate-ddl: true
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
     task:
     scheduling:
@@ -41,3 +41,4 @@ spring:
    console:
    enabled: true
    path: /h2-console
+   

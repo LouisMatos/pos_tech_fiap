@@ -43,4 +43,9 @@ public class ClienteUseCase implements ClienteInputPort {
 		return clienteOutputPort.buscar(id).orElseThrow(() -> new NotFoundException("Cliente informado não encontrado!"));
 	}
 
+	@Override
+	public Cliente buscarClientePorCpf(String cpf) {
+		return clienteOutputPort.buscarClientePorCpf(cpf).orElseThrow(() -> new NotFoundException("Cliente informado não encontrado!"));
+	}
+
 }

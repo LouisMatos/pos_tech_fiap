@@ -8,10 +8,10 @@ import br.com.postechfiap.jlapp.application.core.usecase.ClienteUseCase;
 
 @Configuration
 public class ClienteConfig {
-	
+
 	@Bean
-	public ClienteUseCase clienteUseCase(ClienteAdapter clienteAdapter ) {
-		return new ClienteUseCase( clienteAdapter);
+	public ClienteUseCase clienteUseCase(ClienteAdapter clienteAdapter) {
+		return new ClienteUseCase(clienteAdapter);
 	}
 
 }

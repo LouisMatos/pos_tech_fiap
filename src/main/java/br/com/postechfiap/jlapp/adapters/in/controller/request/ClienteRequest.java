@@ -12,4 +12,7 @@ public class ClienteRequest {
 	@NotBlank
 	private String cpf;
 
+	@NotBlank
+	private String email;
+
 }

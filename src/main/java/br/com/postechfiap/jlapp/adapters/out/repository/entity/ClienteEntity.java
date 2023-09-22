@@ -1,6 +1,5 @@
 package br.com.postechfiap.jlapp.adapters.out.repository.entity;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,5 +17,7 @@ public class ClienteEntity {
 	private String nome;
 
 	private String cpf;
+
+	private String email;
 
 }

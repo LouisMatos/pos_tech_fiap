@@ -51,4 +51,10 @@ public class ClienteAdapter implements ClienteOutputPort {
 		return customerEntity.map(entity -> clienteEntityMapper.toCliente(entity));
 	}
 
+	@Override
+	public Optional<Cliente> buscarClientePorCpf(String cpf) {
+		Optional<ClienteEntity> customerEntity = clienteRepository.findByCpf(cpf);
+		return customerEntity.map(entity -> clienteEntityMapper.toCliente(entity));
+	}
+
 }

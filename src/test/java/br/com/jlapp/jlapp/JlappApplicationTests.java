@@ -5,7 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.postechfiap.jlapp.JlappApplication;
 
-
 @SpringBootTest(classes = { JlappApplication.class })
 class JlappApplicationTests {
 

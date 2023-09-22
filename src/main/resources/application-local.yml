@@ -1,11 +1,24 @@
+#Configuracao do Server
+logging:
+  pattern: 
+    console: "[%d{yyyy-MM-dd HH:mm:ss}] [X-ReqID=%X{CorrelationId}] [%-5level] [%logger{70}] - %msg%n"
+
+cors:
+  origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+
 server:
   port: 8070
 spring:
+  sql:
+    init:
+      mode: always
   jpa:
     show-sql: false
-    generate-ddl: true
+    generate-ddl: false
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    defer-datasource-initialization: true
     task:
     scheduling:
       pool:
@@ -18,6 +31,7 @@ spring:
           time_zone: America/Sao_Paulo
         timezone:
           default_storage: NORMALIZE_UTC
+          
 
   datasource:
     url: jdbc:h2:mem:testdb
@@ -25,6 +39,7 @@ spring:
     username: sa
     password: 
     type: com.zaxxer.hikari.HikariDataSource
+    data: data.sql
     hikari:
       pool-name: ps-demo
       maximum-pool-size: 20

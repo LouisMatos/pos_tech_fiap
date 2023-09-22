@@ -1,0 +1,5 @@
+INSERT INTO CLIENTES (NOME, EMAIL, CPF) VALUES ('Daniel Teste', 'daniel@teste.com', '12345678901');
+INSERT INTO CLIENTES (NOME, EMAIL, CPF) VALUES ('Luis Teste', 'luis@teste.com', '12345678902');
+INSERT INTO CLIENTES (NOME, EMAIL, CPF) VALUES ('Lucas Teste', 'lucas@teste.com', '12345678903');
+INSERT INTO CLIENTES (NOME, EMAIL, CPF) VALUES ('Ana Teste', 'ana@teste.com', '12345678904');
+INSERT INTO CLIENTES (NOME, EMAIL, CPF) VALUES ('Jessica Teste', 'jessica@teste.com', '12345678905');

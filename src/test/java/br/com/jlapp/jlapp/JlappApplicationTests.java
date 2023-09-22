@@ -1,9 +1,11 @@
 package br.com.jlapp.jlapp;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import br.com.postechfiap.jlapp.JlappApplication;
+
+@SpringBootTest(classes = { JlappApplication.class })
 class JlappApplicationTests {
 
 	@Test

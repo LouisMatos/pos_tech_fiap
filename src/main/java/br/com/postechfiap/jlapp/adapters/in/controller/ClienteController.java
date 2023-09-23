@@ -36,13 +36,6 @@ public class ClienteController {
 		return ResponseEntity.ok().build();
 	}
 
-//	@GetMapping("/{id}")
-//	public ResponseEntity<ClienteResponse> buscarPorId(@PathVariable final Long id) {
-//		Cliente cliente = clienteInputPort.buscar(id);
-//		ClienteResponse clienteResponse = clienteMapper.toClienteResponse(cliente);
-//		return ResponseEntity.ok().body(clienteResponse);
-//	}
-	
 	@GetMapping("/{cpf}")
 	public ResponseEntity<ClienteResponse> buscarClientePorCpf(@PathVariable final String cpf) {
 		Cliente cliente = clienteInputPort.buscarClientePorCpf(cpf);

@@ -36,7 +36,7 @@ public class ProdutoController {
 	public ResponseEntity<Void> inserirProduto(@Valid @RequestBody ProdutoRequest produtoRequest) {
 		Produto produto = produtoMapper.toProduto(produtoRequest);
 		log.info("cadastrando produto {}", produto.toString());
-		produtoInputPort.inserir(produto);
+		produtoInputPort.inserir(produto, produtoRequest.getCategoria());
 		return ResponseEntity.ok().build();
 	}
 

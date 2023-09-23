@@ -6,7 +6,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Produto;
 
 public interface ProdutoInputPort {
 
-	public void inserir(Produto produto);
+	public void inserir(Produto produto, Long categoriaId);
 
 	public Produto atualizar(Produto produto, Long id);
 

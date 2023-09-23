@@ -13,6 +13,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Produto;
 public interface ProdutoMapper {
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "categoria", ignore = true)
 	Produto toProduto(ProdutoRequest produtoRequest);
 
 	ProdutoResponse toProdutoResponse(Produto produto);

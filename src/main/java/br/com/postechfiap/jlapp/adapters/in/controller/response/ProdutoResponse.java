@@ -1,6 +1,7 @@
 package br.com.postechfiap.jlapp.adapters.in.controller.response;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,5 +15,7 @@ public class ProdutoResponse {
 	private String descricao;
 
 	private BigDecimal preco;
+
+	private List<String> imagens;
 
 }

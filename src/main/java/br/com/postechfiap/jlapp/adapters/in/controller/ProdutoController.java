@@ -46,6 +46,13 @@ public class ProdutoController {
 				.toListProdutoResponse(produtoInputPort.buscarTodosProdutos());
 		return ResponseEntity.ok().body(produtoResponse);
 	}
+	
+	@GetMapping("/{id}/categoria")
+	public ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable Long id) {
+		List<ProdutoResponse> produtoResponse = produtoMapper
+				.toListProdutoResponse(produtoInputPort.buscarProdutosPorCategoria(id));
+		return ResponseEntity.ok().body(produtoResponse);
+	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<ProdutoResponse> atualizarProduto(@Valid @RequestBody ProdutoRequest produtoRequest,

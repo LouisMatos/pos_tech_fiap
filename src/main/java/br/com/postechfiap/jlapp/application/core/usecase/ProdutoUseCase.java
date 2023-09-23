@@ -8,15 +8,18 @@ import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityException;
 import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
+import br.com.postechfiap.jlapp.application.ports.out.CategoriaOutputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
 
 public class ProdutoUseCase implements ProdutoInputPort {
 
 	private final ProdutoOutputPort produtoOutputPort;
 
+
 	private final CategoriaInputPort categoriaInputPort;
 
-	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort, CategoriaInputPort categoriaInputPort) {
+	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort,
+			CategoriaInputPort categoriaInputPort) {
 		this.produtoOutputPort = produtoOutputPort;
 		this.categoriaInputPort = categoriaInputPort;
 	}
@@ -59,6 +62,17 @@ public class ProdutoUseCase implements ProdutoInputPort {
 	public Produto buscarProdutoPorId(Long id) {
 		return produtoOutputPort.buscarProdutoPorId(id)
 				.orElseThrow(() -> new NotFoundException("Produto informado não encontrado!"));
+	}
+
+	@Override
+	public List<Produto> buscarProdutosPorCategoria(Long categoriaId) {
+		List<Produto> produtos = categoriaInputPort.buscarCategoriaPorId(categoriaId).getProdutos();
+
+		if (produtos.isEmpty()) {
+			throw new UnprocessableEntityException("Nenhum produto cadastrado com essa categoria!");
+		}
+
+		return produtos;
 	}
 
 }

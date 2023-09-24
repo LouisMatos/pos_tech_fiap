@@ -27,7 +27,7 @@ public class ProdutoEntity {
 
 	private BigDecimal preco;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_id")
 	private CategoriaEntity categoriaEntity;
 

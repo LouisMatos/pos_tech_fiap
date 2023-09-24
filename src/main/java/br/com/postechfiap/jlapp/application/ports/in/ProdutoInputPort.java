@@ -13,6 +13,8 @@ public interface ProdutoInputPort {
 	public void deletar(Long id);
 
 	public List<Produto> buscarTodosProdutos();
+	
+	public List<Produto> buscarProdutosPorCategoria(Long categoriaId);
 
 	public Produto buscarProdutoPorId(Long id);
 

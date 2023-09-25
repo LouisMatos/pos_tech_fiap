@@ -15,7 +15,7 @@ spring:
   jpa:
     show-sql: false
     generate-ddl: false
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create-drop
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     defer-datasource-initialization: always

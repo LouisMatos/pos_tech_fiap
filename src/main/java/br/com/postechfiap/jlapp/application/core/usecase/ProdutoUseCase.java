@@ -14,22 +14,20 @@ public class ProdutoUseCase implements ProdutoInputPort {
 
 	private final ProdutoOutputPort produtoOutputPort;
 
-
 	private final CategoriaInputPort categoriaInputPort;
 
-	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort,
-			CategoriaInputPort categoriaInputPort) {
+	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort, CategoriaInputPort categoriaInputPort) {
 		this.produtoOutputPort = produtoOutputPort;
 		this.categoriaInputPort = categoriaInputPort;
 	}
 
 	@Override
-	public void inserir(Produto produto, Long categoriaId) {
+	public Produto inserir(Produto produto, Long categoriaId) {
 		Categoria categoria = categoriaInputPort.buscarCategoriaPorId(categoriaId);
 
 		produto.setCategoria(categoria);
 
-		produtoOutputPort.inserir(produto);
+		return produtoOutputPort.inserir(produto);
 	}
 
 	@Override

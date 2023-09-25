@@ -22,9 +22,9 @@ public class ClienteAdapter implements ClienteOutputPort {
 	private ClienteEntityMapper clienteEntityMapper;
 
 	@Override
-	public void inserir(Cliente cliente) {
+	public Cliente inserir(Cliente cliente) {
 		ClienteEntity clienteEntity = clienteEntityMapper.toClienteEntity(cliente);
-		clienteRepository.save(clienteEntity);
+		return clienteEntityMapper.toCliente(clienteRepository.save(clienteEntity));
 	}
 
 	@Override

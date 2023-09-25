@@ -16,8 +16,8 @@ public class ClienteUseCase implements ClienteInputPort {
 	}
 
 	@Override
-	public void inserir(Cliente cliente) {
-		clienteOutputPort.inserir(cliente);
+	public Cliente inserir(Cliente cliente) {
+		return clienteOutputPort.inserir(cliente);
 	}
 
 	@Override

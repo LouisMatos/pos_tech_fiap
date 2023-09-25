@@ -24,9 +24,9 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 	private ProdutoEntityMapper produtoEntityMapper;
 
 	@Override
-	public void inserir(Produto produto) {
+	public Produto inserir(Produto produto) {
 		ProdutoEntity produtoEntity = produtoEntityMapper.toProdutoEntity(produto);
-		produtoRepository.save(produtoEntity);
+		return produtoEntityMapper.toProduto(produtoRepository.save(produtoEntity));
 	}
 
 	@Override

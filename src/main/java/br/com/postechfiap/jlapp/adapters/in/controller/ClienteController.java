@@ -29,11 +29,11 @@ public class ClienteController {
 	private ClienteMapper clienteMapper;
 
 	@PostMapping
-	public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteRequest clienteRequest) {
+	public ResponseEntity<ClienteResponse> inserir(@Valid @RequestBody ClienteRequest clienteRequest) {
 		Cliente cliente = clienteMapper.toCliente(clienteRequest);
 		log.info("cadastrando cliente {}", cliente.toString());
-		clienteInputPort.inserir(cliente);
-		return ResponseEntity.ok().build();
+		ClienteResponse clienteResponse = clienteMapper.toClienteResponse(clienteInputPort.inserir(cliente));
+		return ResponseEntity.ok().body(clienteResponse);
 	}
 
 	@GetMapping("/{cpf}")

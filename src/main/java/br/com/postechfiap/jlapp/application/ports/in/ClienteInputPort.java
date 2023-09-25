@@ -6,7 +6,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 
 public interface ClienteInputPort {
 
-	public void inserir(Cliente cliente);
+	public Cliente inserir(Cliente cliente);
 
 	public void atualizar(Cliente cliente);
 

@@ -8,7 +8,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Produto;
 
 public interface ProdutoOutputPort {
 
-	public void inserir(Produto produto);
+	public Produto inserir(Produto produto);
 
 	public Produto atualizar(Produto produto);
 

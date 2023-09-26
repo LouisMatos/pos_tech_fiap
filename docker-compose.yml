@@ -10,6 +10,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=db_lanchonete
+    ports:
+      - "5432:5432"
     networks:
       - network_postgres
     volumes:
@@ -44,6 +46,9 @@ services:
       dockerfile: Dockerfile
     image: testeluismatos/jlapp:1.0.0
     container_name: jlapp_service
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+      - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=75000 -Xss4M -XX:NativeMemoryTracking=summary
     ports:
       - 8070:8070
     networks:
@@ -53,7 +58,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.3'
+          cpus: '1'
           memory: 512M
 
 volumes:

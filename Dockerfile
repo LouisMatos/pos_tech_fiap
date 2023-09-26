@@ -7,10 +7,13 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-#RUN ./mvnw clean install -DskipTests
-RUN ./mvnw install
+RUN chmod +x mvnw 
+RUN chmod +x .mvn 
+
+RUN ./mvnw package -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 WORKDIR /app/target
 
 ENTRYPOINT java -jar jlapp-0.0.1-SNAPSHOT.jar
+

@@ -33,11 +33,11 @@ public class ProdutoController {
 	private ProdutoMapper produtoMapper;
 
 	@PostMapping
-	public ResponseEntity<Void> inserirProduto(@Valid @RequestBody ProdutoRequest produtoRequest) {
+	public ResponseEntity<ProdutoResponse> inserirProduto(@Valid @RequestBody ProdutoRequest produtoRequest) {
 		Produto produto = produtoMapper.toProduto(produtoRequest);
 		log.info("cadastrando produto {}", produto.toString());
-		produtoInputPort.inserir(produto, produtoRequest.getCategoria());
-		return ResponseEntity.ok().build();
+		ProdutoResponse produtoResponse = produtoMapper.toProdutoResponse(produtoInputPort.inserir(produto, produtoRequest.getCategoria()));
+		return ResponseEntity.ok().body(produtoResponse);
 	}
 
 	@GetMapping
@@ -66,7 +66,7 @@ public class ProdutoController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletarProduto(@PathVariable Long id) {
 		produtoInputPort.deletar(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 }

@@ -10,6 +10,7 @@ import br.com.postechfiap.jlapp.adapters.out.repository.ClienteRepository;
 import br.com.postechfiap.jlapp.adapters.out.repository.entity.ClienteEntity;
 import br.com.postechfiap.jlapp.adapters.out.repository.mapper.ClienteEntityMapper;
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
+import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityException;
 import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
 
 @Component
@@ -22,9 +23,13 @@ public class ClienteAdapter implements ClienteOutputPort {
 	private ClienteEntityMapper clienteEntityMapper;
 
 	@Override
-	public void inserir(Cliente cliente) {
+	public Cliente inserir(Cliente cliente) {
+		Optional<Cliente> clienteExiste = this.buscarClientePorCpf(cliente.getCpf());
+		if(clienteExiste.isEmpty()) {
+			throw new UnprocessableEntityException("Cliente já cadastrado com esse CPF!");
+		}
 		ClienteEntity clienteEntity = clienteEntityMapper.toClienteEntity(cliente);
-		clienteRepository.save(clienteEntity);
+		return clienteEntityMapper.toCliente(clienteRepository.save(clienteEntity));
 	}
 
 	@Override

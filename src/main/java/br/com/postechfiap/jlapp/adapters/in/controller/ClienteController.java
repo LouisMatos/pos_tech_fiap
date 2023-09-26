@@ -30,8 +30,8 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<ClienteResponse> inserir(@Valid @RequestBody ClienteRequest clienteRequest) {
+		log.info("Iniciando o cadastro de cliente");
 		Cliente cliente = clienteMapper.toCliente(clienteRequest);
-		log.info("cadastrando cliente {}", cliente.toString());
 		ClienteResponse clienteResponse = clienteMapper.toClienteResponse(clienteInputPort.inserir(cliente));
 		return ResponseEntity.ok().body(clienteResponse);
 	}

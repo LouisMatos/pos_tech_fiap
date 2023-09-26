@@ -11,17 +11,19 @@ import jakarta.servlet.http.HttpServletResponse;
 public class MdcInterceptor implements HandlerInterceptor {
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		MDC.put("CorrelationId", getCorrelationId());
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		MDC.put("X-ReqId", getXReqId());
 		return true;
 	}
 
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-		MDC.remove("CorrelationId");
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		MDC.remove("X-ReqId");
 	}
 
-	private String getCorrelationId() {
+	private String getXReqId() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 }

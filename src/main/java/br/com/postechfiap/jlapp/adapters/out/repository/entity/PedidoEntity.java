@@ -1,5 +1,7 @@
 package br.com.postechfiap.jlapp.adapters.out.repository.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +26,17 @@ public class PedidoEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cliente_id")
 	private ClienteEntity clienteEntity;
 
-	@OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<ItemPedidoEntity> itensPedidoEntities = new ArrayList<>();;
 
 	@Enumerated
 	private Estado estado;
+	
+	private LocalDateTime data_pedido;
+	
+	private BigDecimal valor_pedido;
 }

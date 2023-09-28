@@ -1,7 +1,7 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import br.com.postechfiap.jlapp.application.enums.Estado;
@@ -16,7 +16,7 @@ public class Pedido {
 
 	private Estado estado;
 
-	private Date data_pedido;
+	private LocalDateTime data_pedido;
 
 	private BigDecimal valor_pedido;
 
@@ -24,7 +24,7 @@ public class Pedido {
 
 	}
 
-	public Pedido(Long id, Cliente cliente, List<ItemPedido> itens, Estado estado, Date data_pedido,
+	public Pedido(Long id, Cliente cliente, List<ItemPedido> itens, Estado estado, LocalDateTime data_pedido,
 			BigDecimal valor_pedido) {
 		this.id = id;
 		this.cliente = cliente;
@@ -66,11 +66,11 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public Date getData_pedido() {
+	public LocalDateTime getData_pedido() {
 		return data_pedido;
 	}
 
-	public void setData_pedido(Date data_pedido) {
+	public void setData_pedido(LocalDateTime data_pedido) {
 		this.data_pedido = data_pedido;
 	}
 

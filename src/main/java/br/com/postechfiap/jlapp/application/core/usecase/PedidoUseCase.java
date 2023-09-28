@@ -1,11 +1,11 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
-import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.PedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
@@ -21,14 +21,11 @@ public class PedidoUseCase implements PedidoInputPort {
 
 	private final ProdutoInputPort produtoInputPort;
 
-	private final CategoriaInputPort categoriaInputPort;
-
 	public PedidoUseCase(PedidoOutputPort pedidoOutputPort, ClienteInputPort clienteInputPort,
-			ProdutoInputPort produtoInputPort, CategoriaInputPort categoriaInputPort) {
+			ProdutoInputPort produtoInputPort) {
 		this.pedidoOutputPort = pedidoOutputPort;
 		this.clienteInputPort = clienteInputPort;
 		this.produtoInputPort = produtoInputPort;
-		this.categoriaInputPort = categoriaInputPort;
 	}
 
 	@Override
@@ -43,9 +40,6 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		for (ItemPedido itemPedido : pedido.getItens()) {
 			itemPedido.setProduto(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()));
-			// itemPedido.getProduto().setCategoria(categoriaInputPort.buscarCategoriaPorId(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()).getCategoria().getId()));
-//			itemPedido.getProduto().setCategoria(null);
-
 			valorPedido = valorPedido.add(itemPedido.getProduto().getPreco());
 		}
 
@@ -53,6 +47,7 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		pedido.setEstado(Estado.RECEBIDO);
 		pedido.setValor_pedido(valorPedido);
+		pedido.setData_pedido(LocalDateTime.now());
 
 		log.info(pedido.toString());
 

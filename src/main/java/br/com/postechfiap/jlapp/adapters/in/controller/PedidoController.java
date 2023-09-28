@@ -30,6 +30,7 @@ public class PedidoController {
 	public ResponseEntity<PedidoResponse> inserir(@Valid @RequestBody PedidoRequest pedidoRequest) {
 		log.info("Iniciando o cadastro de pedido");
 		Pedido pedido = pedidoMapper.toPedido(pedidoRequest);
+		log.info("Pedido: {}", pedido.toString());
 		PedidoResponse pedidoResponse = pedidoMapper.toPedidoResponse(pedidoInputPort.inserir(pedido));
 		return ResponseEntity.ok().body(pedidoResponse);
 	}

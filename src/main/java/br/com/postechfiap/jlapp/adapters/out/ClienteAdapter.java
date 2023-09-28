@@ -25,7 +25,7 @@ public class ClienteAdapter implements ClienteOutputPort {
 	@Override
 	public Cliente inserir(Cliente cliente) {
 		Optional<Cliente> clienteExiste = this.buscarClientePorCpf(cliente.getCpf());
-		if(clienteExiste.isEmpty()) {
+		if(!clienteExiste.isEmpty()) {
 			throw new UnprocessableEntityException("Cliente já cadastrado com esse CPF!");
 		}
 		ClienteEntity clienteEntity = clienteEntityMapper.toClienteEntity(cliente);

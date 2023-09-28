@@ -2,6 +2,8 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 public class ItemPedido {
 
+	private Pedido pedido;
+
 	private Produto produto;
 
 	private int quantidade;
@@ -12,7 +14,8 @@ public class ItemPedido {
 
 	}
 
-	public ItemPedido(Produto produto, int quantidade, String observacao) {
+	public ItemPedido(Pedido pedido, Produto produto, int quantidade, String observacao) {
+		this.pedido = pedido;
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.observacao = observacao;
@@ -42,9 +45,18 @@ public class ItemPedido {
 		this.observacao = observacao;
 	}
 
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemPedido [produto=" + produto + ", quantidade=" + quantidade + ", observacao=" + observacao + "]";
+		return "ItemPedido [pedido=" + pedido + ", produto=" + produto + ", quantidade=" + quantidade + ", observacao="
+				+ observacao + "]";
 	}
 
 }

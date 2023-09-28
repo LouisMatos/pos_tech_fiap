@@ -24,7 +24,7 @@ public class CategoriaEntity {
 
 	private String descricao;
 
-	@OneToMany(mappedBy = "categoriaEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "categoriaEntity", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	private List<ProdutoEntity> produtoEntities = new ArrayList<>();
 
 }

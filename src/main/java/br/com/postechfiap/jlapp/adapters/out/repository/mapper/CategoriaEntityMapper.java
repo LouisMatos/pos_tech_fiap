@@ -10,7 +10,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 @Mapper(componentModel = "spring", uses = { ProdutoEntityMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CategoriaEntityMapper {
 
-//	@Mapping(source = "produto", target = "produtoEntity")
+	@Mapping(source = "produtos", target = "produtoEntities")
 	CategoriaEntity toCategoriaEntity(Categoria categoria);
 
 	@Mapping(source = "produtoEntities", target = "produtos")

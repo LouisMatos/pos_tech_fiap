@@ -13,6 +13,7 @@ public interface ProdutoEntityMapper {
 	@Mapping(source = "categoria", target = "categoriaEntity")
 	ProdutoEntity toProdutoEntity(Produto produto);
 
+//	@Mapping(source = "categoriaEntity", target = "categoria")
 	Produto toProduto(ProdutoEntity produtoEntity);
 
 }

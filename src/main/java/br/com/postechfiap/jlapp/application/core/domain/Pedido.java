@@ -6,6 +6,8 @@ import br.com.postechfiap.jlapp.application.enums.Estado;
 
 public class Pedido {
 
+	private Long id;
+
 	private Cliente cliente;
 
 	private List<ItemPedido> itens;
@@ -16,7 +18,8 @@ public class Pedido {
 
 	}
 
-	public Pedido(Cliente cliente, List<ItemPedido> itens, Estado estado) {
+	public Pedido(Long id, Cliente cliente, List<ItemPedido> itens, Estado estado) {
+		this.id = id;
 		this.cliente = cliente;
 		this.itens = itens;
 		this.estado = estado;
@@ -46,11 +49,17 @@ public class Pedido {
 		this.estado = estado;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "Pedido [cliente=" + cliente + ", itens=" + itens + ", estado=" + estado + "]";
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", estado=" + estado + "]";
 	}
-	
-	
 
 }

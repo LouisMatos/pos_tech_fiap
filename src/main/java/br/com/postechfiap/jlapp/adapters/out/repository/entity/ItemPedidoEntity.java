@@ -1,8 +1,5 @@
 package br.com.postechfiap.jlapp.adapters.out.repository.entity;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,22 +11,24 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
-@Entity(name = "produtos")
-public class ProdutoEntity {
+@Entity(name = "items_pedido")
+public class ItemPedidoEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "pedido_id")
+	private PedidoEntity pedidoEntity;
 
-	private String nome;
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+	@JoinColumn(name = "produto_id")
+	private ProdutoEntity produtoEntity;
 
-	private String descricao;
+	private int quantidade;
 
-	private BigDecimal preco;
+	private String observacao;
+	
 
-	@ManyToOne(targetEntity =CategoriaEntity.class,  cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-	@JoinColumn(name = "categoria_id")
-	private CategoriaEntity categoriaEntity;
-
-	private List<String> imagens;
 }

@@ -11,6 +11,7 @@ import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
 public interface ItemPedidoMapper {
 
 	@Mapping(source = "produto", target = "produto.id")
+//	@Mapping(source = "categoria", target = "produto.categoria.id")
 	ItemPedido toItemPedido(ItemPedidoRequest itemPedidoRequest);
 
 //	PedidoResponse toPedidoResponse(Pedido pedido);

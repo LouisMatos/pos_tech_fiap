@@ -1,5 +1,7 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
+import java.math.BigDecimal;
+
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
@@ -32,21 +34,26 @@ public class PedidoUseCase implements PedidoInputPort {
 	@Override
 	public Pedido inserir(Pedido pedido) {
 
+		BigDecimal valorPedido = BigDecimal.ZERO;
+		;
+
 		if (!pedido.getCliente().getCpf().isBlank()) {
 			pedido.setCliente(clienteInputPort.buscarClientePorCpf(pedido.getCliente().getCpf()));
 		}
 
 		for (ItemPedido itemPedido : pedido.getItens()) {
 			itemPedido.setProduto(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()));
-			//itemPedido.getProduto().setCategoria(categoriaInputPort.buscarCategoriaPorId(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()).getCategoria().getId()));
-			itemPedido.getProduto().setCategoria(null);
+			// itemPedido.getProduto().setCategoria(categoriaInputPort.buscarCategoriaPorId(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()).getCategoria().getId()));
+//			itemPedido.getProduto().setCategoria(null);
+
+			valorPedido = valorPedido.add(itemPedido.getProduto().getPreco());
 		}
-		
+
 		log.info(pedido.getItens().get(1).getProduto().toString());
-		
 
 		pedido.setEstado(Estado.RECEBIDO);
-		
+		pedido.setValor_pedido(valorPedido);
+
 		log.info(pedido.toString());
 
 		return pedidoOutputPort.inserir(pedido);

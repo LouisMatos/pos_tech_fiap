@@ -70,8 +70,6 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>1.5.2.Final</version>
 		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -87,6 +85,7 @@
 	</dependencies>
 
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -98,6 +97,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+
 				</configuration>
 			</plugin>
 			<plugin>
@@ -106,9 +106,30 @@
 				<configuration>
 					<source>20</source>
 					<target>20</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.30</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>1.5.2.Final</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct</artifactId>
+							<version>1.5.2.Final</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>0.2.0</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

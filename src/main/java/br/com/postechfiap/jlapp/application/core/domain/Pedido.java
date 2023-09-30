@@ -2,6 +2,7 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.postechfiap.jlapp.application.enums.Estado;
@@ -12,7 +13,7 @@ public class Pedido {
 
 	private Cliente cliente;
 
-	private List<ItemPedido> itens;
+	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
 
 	private Estado estado;
 

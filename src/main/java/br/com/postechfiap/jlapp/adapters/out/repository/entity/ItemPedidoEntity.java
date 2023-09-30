@@ -11,18 +11,18 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
-@Entity(name = "items_pedido")
+@Entity(name = "itens_pedido")
 public class ItemPedidoEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pedido_id")
 	private PedidoEntity pedidoEntity;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "produto_id")
 	private ProdutoEntity produtoEntity;
 

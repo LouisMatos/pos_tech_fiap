@@ -26,7 +26,7 @@ public class ClienteEntity {
 
 	private String email;
 	
-	@OneToMany(mappedBy = "clienteEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "clienteEntity", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	private List<PedidoEntity> pedidosEntities = new ArrayList<>();
 
 }

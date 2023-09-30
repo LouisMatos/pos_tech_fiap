@@ -15,6 +15,8 @@ public class ProdutoResponse {
 	private String descricao;
 
 	private BigDecimal preco;
+	
+	private String categoria;
 
 	private List<String> imagens;
 

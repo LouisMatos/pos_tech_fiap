@@ -1,5 +1,7 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
+import java.util.List;
+
 public class Cliente {
 
 	private Long id;
@@ -10,14 +12,17 @@ public class Cliente {
 
 	private String email;
 
+	private List<Pedido> pedidos;
+
 	public Cliente() {
 	}
 
-	public Cliente(Long id, String nome, String cpf, String email) {
+	public Cliente(Long id, String nome, String cpf, String email, List<Pedido> pedidos) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
+		this.pedidos = pedidos;
 	}
 
 	public Long getId() {
@@ -52,9 +57,18 @@ public class Cliente {
 		this.email = email;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + "]";
+		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", pedidos=" + pedidos
+				+ "]";
 	}
 
 }

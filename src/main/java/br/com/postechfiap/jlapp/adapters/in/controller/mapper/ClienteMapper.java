@@ -9,10 +9,11 @@ import br.com.postechfiap.jlapp.adapters.in.controller.request.ClienteRequest;
 import br.com.postechfiap.jlapp.adapters.in.controller.response.ClienteResponse;
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { PedidoMapper.class })
 public interface ClienteMapper {
 
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "pedidos", ignore = true)
 	Cliente toCliente(ClienteRequest clienteRequest);
 
 	ClienteResponse toClienteResponse(Cliente cliente);

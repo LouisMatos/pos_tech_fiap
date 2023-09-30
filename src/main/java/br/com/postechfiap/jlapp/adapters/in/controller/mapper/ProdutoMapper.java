@@ -14,10 +14,14 @@ public interface ProdutoMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "categoria", ignore = true)
+	@Mapping(source = "categoria", target = "categoria.id")
 	Produto toProduto(ProdutoRequest produtoRequest);
 
+	@Mapping(source = "categoria.nome", target = "categoria")
 	ProdutoResponse toProdutoResponse(Produto produto);
 
-	List<ProdutoResponse> toListProdutoResponse(List<Produto> produto);
+	
+	@Mapping(source = "categoria.nome", target = "categoria")
+	List<ProdutoResponse> toListProdutoResponse(List<Produto> produtos);
 
 }

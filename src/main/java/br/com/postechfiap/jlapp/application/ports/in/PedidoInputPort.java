@@ -6,5 +6,5 @@ public interface PedidoInputPort {
 
 	public Pedido inserir(Pedido pedido);
 
-
+	public Pedido buscarPedidoPorId(Long id);
 }

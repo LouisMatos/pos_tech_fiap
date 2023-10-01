@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
+import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
+import br.com.postechfiap.jlapp.application.ports.in.ItemPedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.PedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.PedidoOutputPort;
@@ -21,11 +23,14 @@ public class PedidoUseCase implements PedidoInputPort {
 
 	private final ProdutoInputPort produtoInputPort;
 
+	private final ItemPedidoInputPort itemPedidoInputPort;
+
 	public PedidoUseCase(PedidoOutputPort pedidoOutputPort, ClienteInputPort clienteInputPort,
-			ProdutoInputPort produtoInputPort) {
+			ProdutoInputPort produtoInputPort, ItemPedidoInputPort itemPedidoInputPort) {
 		this.pedidoOutputPort = pedidoOutputPort;
 		this.clienteInputPort = clienteInputPort;
 		this.produtoInputPort = produtoInputPort;
+		this.itemPedidoInputPort = itemPedidoInputPort;
 	}
 
 	@Override
@@ -51,7 +56,25 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		log.info(pedido.toString());
 
+		Pedido pedidoSalvo = pedidoOutputPort.inserir(pedido);
+
+		for (ItemPedido itensPedido : pedidoSalvo.getItens()) {
+
+			itemPedidoInputPort.inserir(itensPedido, pedidoSalvo.getId());
+
+//			System.out.println(pedidoSalvo.getItens());
+//			itensPedido.getPedido().setId(pedidoSalvo.getId());
+//			
+//			System.out.println(itensPedido.toString());
+		}
+
 		return pedidoOutputPort.inserir(pedido);
+	}
+
+	@Override
+	public Pedido buscarPedidoPorId(Long id) {
+		return pedidoOutputPort.buscarPedidoPorId(id)
+				.orElseThrow(() -> new NotFoundException("Pedido Não encontrado!"));
 	}
 
 }

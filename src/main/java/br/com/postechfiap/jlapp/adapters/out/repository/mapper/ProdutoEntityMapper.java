@@ -14,7 +14,7 @@ public interface ProdutoEntityMapper {
 	ProdutoEntity toProdutoEntity(Produto produto);
 
 	@InheritInverseConfiguration
-//	@Mapping(source = "categoriaEntity", target = "categoria")
+	@Mapping(source = "categoriaEntity", target = "categoria")
 	Produto toProduto(ProdutoEntity produtoEntity);
 
 }

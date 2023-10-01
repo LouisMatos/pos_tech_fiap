@@ -12,7 +12,10 @@ springdoc:
 
 server:
   port: 8070
+  
 spring:
+  main:
+    allow-circular-references: true
   sql:
     init:
       mode: always
@@ -22,7 +25,7 @@ spring:
     hibernate.ddl-auto: create-drop
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
-    defer-datasource-initialization: always
+    defer-datasource-initialization: true
     task:
     scheduling:
       pool:
@@ -30,6 +33,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        globally_quoted_identifiers: true
         jdbc:
           lob:
             non_contextual_creation: true

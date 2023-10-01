@@ -10,9 +10,10 @@ import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 @Mapper(componentModel = "spring", uses = { ProdutoEntityMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ClienteEntityMapper {
 
-    ClienteEntity toClienteEntity(Cliente cliente);
+	@Mapping(source = "pedidos", target = "pedidosEntities")
+	ClienteEntity toClienteEntity(Cliente cliente);
 
-    @Mapping(source = "pedidosEntities", target = "pedidos")
-    Cliente toCliente(ClienteEntity clienteEntity);
+	@Mapping(source = "pedidosEntities", target = "pedidos")
+	Cliente toCliente(ClienteEntity clienteEntity);
 
 }

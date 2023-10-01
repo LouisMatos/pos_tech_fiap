@@ -2,6 +2,8 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 public class ItemPedido {
 
+	private Long id;
+
 	private Pedido pedido;
 
 	private Produto produto;
@@ -14,7 +16,8 @@ public class ItemPedido {
 
 	}
 
-	public ItemPedido(Pedido pedido, Produto produto, int quantidade, String observacao) {
+	public ItemPedido(Long id, Pedido pedido, Produto produto, int quantidade, String observacao) {
+		this.id = id;
 		this.pedido = pedido;
 		this.produto = produto;
 		this.quantidade = quantidade;
@@ -53,10 +56,18 @@ public class ItemPedido {
 		this.pedido = pedido;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemPedido [pedido=" + pedido + ", produto=" + produto + ", quantidade=" + quantidade + ", observacao="
-				+ observacao + "]";
+		return "ItemPedido [id=" + id + ", pedido=" + pedido + ", produto=" + produto + ", quantidade=" + quantidade
+				+ ", observacao=" + observacao + "]";
 	}
 
 }

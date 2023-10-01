@@ -3,9 +3,9 @@ package br.com.postechfiap.jlapp.adapters.out.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.postechfiap.jlapp.adapters.out.repository.entity.CategoriaEntity;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.ItemPedidoEntity;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<CategoriaEntity, Long> {
+public interface ItemPedidoRepository extends JpaRepository<ItemPedidoEntity, Long> {
 
 }

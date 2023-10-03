@@ -1,10 +1,10 @@
-package br.com.postechfiap.jlapp.adapters.in.controller.response;
+package br.com.postechfiap.jlapp.adapters.in.controller.dto;
 
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import lombok.Data;
 
 @Data
-public class ClienteResponse {
+public class ClienteDTO {
 
 	private Long id;
 
@@ -14,7 +14,7 @@ public class ClienteResponse {
 
 	private String email;
 
-	public ClienteResponse toClienteResponse(Cliente cliente) {
+	public ClienteDTO toClienteDTO(Cliente cliente) {
 		this.id = cliente.getId();
 		this.nome = cliente.getNome();
 		this.cpf = cliente.getCpf();

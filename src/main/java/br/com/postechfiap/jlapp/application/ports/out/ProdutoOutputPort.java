@@ -20,4 +20,6 @@ public interface ProdutoOutputPort {
 
 	public Optional<Produto> buscarProdutoPorId(Long id);
 
+	public List<Produto> buscarProdutosPorCategoria(Long categoriaId);
+
 }

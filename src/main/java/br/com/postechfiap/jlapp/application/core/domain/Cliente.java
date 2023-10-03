@@ -2,6 +2,9 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.util.List;
 
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ClienteDTO;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.ClienteEntity;
+
 public class Cliente {
 
 	private Long id;
@@ -69,6 +72,21 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", pedidos=" + pedidos
 				+ "]";
+	}
+
+	public Cliente toCliente(ClienteDTO clienteDTO) {
+		this.nome = clienteDTO.getNome();
+		this.cpf = clienteDTO.getCpf();
+		this.email = clienteDTO.getEmail();
+		return this;
+	}
+
+	public Cliente toCliente(ClienteEntity clienteEntity) {
+		this.id = clienteEntity.getId();
+		this.nome = clienteEntity.getNome();
+		this.cpf = clienteEntity.getCpf();
+		this.email = clienteEntity.getEmail();
+		return this;
 	}
 
 }

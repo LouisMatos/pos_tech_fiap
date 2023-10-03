@@ -1,7 +1,11 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+import br.com.postechfiap.jlapp.adapters.in.controller.request.ProdutoRequest;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.ProdutoEntity;
 
 public class Produto {
 
@@ -15,7 +19,7 @@ public class Produto {
 
 	private Categoria categoria;
 
-	private List<String> imagens;
+	private List<String> imagens = new ArrayList<String>();
 
 	public Produto() {
 	}
@@ -82,6 +86,26 @@ public class Produto {
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + ", categoria="
 				+ categoria + ", imagens=" + imagens + "]";
+	}
+
+	public Produto toProduto(ProdutoRequest produtoRequest) {
+		this.categoria = new Categoria();
+		this.nome = produtoRequest.getNome();
+		this.descricao = produtoRequest.getDescricao();
+		this.preco = produtoRequest.getPreco();
+		this.categoria.setId(produtoRequest.getCategoria());
+		this.imagens = produtoRequest.getImagens();
+		return this;
+	}
+
+	public Produto toProduto(ProdutoEntity produtoEntity) {
+		this.categoria = produtoEntity.getCategoriaEntity().toCategoria();
+		this.id = produtoEntity.getId();
+		this.nome = produtoEntity.getNome();
+		this.descricao = produtoEntity.getDescricao();
+		this.preco = produtoEntity.getPreco();
+		this.imagens = produtoEntity.getImagens();
+		return this;
 	}
 
 }

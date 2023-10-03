@@ -8,7 +8,9 @@ import br.com.postechfiap.jlapp.adapters.out.repository.entity.PedidoEntity;
 import br.com.postechfiap.jlapp.adapters.out.repository.mapper.PedidoEntityMapper;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.ports.out.PedidoOutputPort;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class PedidoAdapter implements PedidoOutputPort {
 
@@ -21,7 +23,10 @@ public class PedidoAdapter implements PedidoOutputPort {
 	@Override
 	public Pedido inserir(Pedido pedido) {
 		PedidoEntity pedidoEntity = pedidoEntityMapper.toPedidoEntity(pedido);
-		return pedidoEntityMapper.toPedido(pedidoRepository.save(pedidoEntity));
+		PedidoEntity entity = pedidoRepository.save(pedidoEntity);
+		log.info("Pedido Entity: {}", entity);
+
+		return pedidoEntityMapper.toPedido(entity);
 	}
 
 }

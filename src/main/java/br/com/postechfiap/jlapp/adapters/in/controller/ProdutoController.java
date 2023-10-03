@@ -13,15 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.mapper.ProdutoMapper;
 import br.com.postechfiap.jlapp.adapters.in.controller.request.ProdutoRequest;
 import br.com.postechfiap.jlapp.adapters.in.controller.response.ProdutoResponse;
-import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(path = "/api/v1/produtos")
 public class ProdutoController {
@@ -29,38 +25,25 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoInputPort produtoInputPort;
 
-	@Autowired
-	private ProdutoMapper produtoMapper;
-
 	@PostMapping
 	public ResponseEntity<ProdutoResponse> inserirProduto(@Valid @RequestBody ProdutoRequest produtoRequest) {
-		Produto produto = produtoMapper.toProduto(produtoRequest);
-		log.info("cadastrando produto {}", produto.toString());
-		ProdutoResponse produtoResponse = produtoMapper.toProdutoResponse(produtoInputPort.inserir(produto, produtoRequest.getCategoria()));
-		return ResponseEntity.ok().body(produtoResponse);
+		return ResponseEntity.ok().body(produtoInputPort.inserir(produtoRequest));
 	}
 
 	@GetMapping
 	public ResponseEntity<List<ProdutoResponse>> buscarTodosProdutos() {
-		List<ProdutoResponse> produtoResponse = produtoMapper
-				.toListProdutoResponse(produtoInputPort.buscarTodosProdutos());
-		return ResponseEntity.ok().body(produtoResponse);
+		return ResponseEntity.ok().body(produtoInputPort.buscarTodosProdutos());
 	}
-	
+
 	@GetMapping("/{id}/categoria")
 	public ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable Long id) {
-		List<ProdutoResponse> produtoResponse = produtoMapper
-				.toListProdutoResponse(produtoInputPort.buscarProdutosPorCategoria(id));
-		return ResponseEntity.ok().body(produtoResponse);
+		return ResponseEntity.ok().body(produtoInputPort.buscarProdutosPorCategoria(id));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<ProdutoResponse> atualizarProduto(@Valid @RequestBody ProdutoRequest produtoRequest,
 			@PathVariable Long id) {
-		Produto produto = produtoMapper.toProduto(produtoRequest);
-		log.info("alterando produto {}", produto.toString());
-		ProdutoResponse produtoResponse = produtoMapper.toProdutoResponse(produtoInputPort.atualizar(produto, id));
-		return ResponseEntity.ok().body(produtoResponse);
+		return ResponseEntity.ok().body(produtoInputPort.atualizar(produtoRequest, id));
 	}
 
 	@DeleteMapping("/{id}")

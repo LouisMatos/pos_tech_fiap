@@ -2,21 +2,20 @@ package br.com.postechfiap.jlapp.application.ports.in;
 
 import java.util.List;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.request.ProdutoRequest;
-import br.com.postechfiap.jlapp.adapters.in.controller.response.ProdutoResponse;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
 
 public interface ProdutoInputPort {
 
-	public ProdutoResponse inserir(ProdutoRequest produtoRequest);
+	public ProdutoDTO inserir(ProdutoDTO produtoDTO);
 
-	public ProdutoResponse atualizar(ProdutoRequest produtoRequest, Long id);
+	public ProdutoDTO atualizar(ProdutoDTO produtoDTO, Long id);
 
 	public void deletar(Long id);
 
-	public List<ProdutoResponse> buscarTodosProdutos();
+	public List<ProdutoDTO> buscarTodosProdutos();
 
-	public List<ProdutoResponse> buscarProdutosPorCategoria(Long categoriaId);
+	public List<ProdutoDTO> buscarProdutosPorCategoria(Long categoriaId);
 
-	public ProdutoResponse buscarProdutoPorId(Long id);
+	public ProdutoDTO buscarProdutoPorId(Long id);
 
 }

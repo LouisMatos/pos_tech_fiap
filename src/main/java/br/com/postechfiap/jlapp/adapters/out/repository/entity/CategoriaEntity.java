@@ -44,7 +44,7 @@ public class CategoriaEntity implements Serializable {
 	public CategoriaEntity toCategoriaEntity(Categoria categoria) {
 		this.id = categoria.getId();
 		this.nome = categoria.getNome();
-		this.descricao = categoria.getDescricao();
+ 		this.descricao = categoria.getDescricao();
 		return this;
 	}
 

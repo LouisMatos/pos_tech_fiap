@@ -1,21 +1,27 @@
-package br.com.postechfiap.jlapp.adapters.in.controller.response;
+package br.com.postechfiap.jlapp.adapters.in.controller.dto;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import lombok.Data;
 
 @Data
-public class CategoriaResponse {
-
+public class CategoriaDTO {
+	
+	@JsonProperty("id")
 	private Long id;
 
+	@JsonProperty("nome")
 	private String nome;
 
+	@JsonProperty("descricao")
 	private String descricao;
 
-	public CategoriaResponse toCategoriaResponse(Categoria categoria) {
+	public CategoriaDTO toCategoriaDTO(Categoria categoria) {
 		this.id = categoria.getId();
 		this.nome = categoria.getNome();
 		this.descricao = categoria.getDescricao();
 		return this;
 	}
+
 }

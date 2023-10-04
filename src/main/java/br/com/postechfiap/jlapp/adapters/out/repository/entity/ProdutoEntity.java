@@ -45,7 +45,7 @@ public class ProdutoEntity implements Serializable {
 
 	public ProdutoEntity toProdutoEntity(Produto produto) {
 		this.id = produto.getId();
-		this.categoriaEntity = new CategoriaEntity();
+		this.categoriaEntity = new CategoriaEntity().toCategoriaEntity(produto.getCategoria());
 		this.nome = produto.getNome();
 		this.descricao = produto.getDescricao();
 		this.preco = produto.getPreco();

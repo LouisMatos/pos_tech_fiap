@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.PedidoDTO;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.PedidoEntity;
 import br.com.postechfiap.jlapp.application.enums.Estado;
 
 public class Pedido {
@@ -87,6 +90,29 @@ public class Pedido {
 	public String toString() {
 		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", estado=" + estado
 				+ ", data_pedido=" + data_pedido + ", valor_pedido=" + valor_pedido + "]";
+	}
+
+	public Pedido toPedido(PedidoDTO pedidoDTO) {
+		this.id = pedidoDTO.getId();
+		this.cliente = new Cliente().toCliente(pedidoDTO.getClienteDTO());
+		this.itens = pedidoDTO.getItemPedidoDTOs().stream().map(dto -> new ItemPedido().toItemPedido(dto))
+				.collect((Collectors.toList()));
+		this.estado = pedidoDTO.getEstado();
+		this.data_pedido = pedidoDTO.getData_pedido();
+		this.valor_pedido = pedidoDTO.getValor_pedido();
+		return this;
+
+	}
+
+	public Pedido toPedido(PedidoEntity pedidoEntity) {
+		this.id = pedidoEntity.getId();
+		this.cliente = new Cliente().toCliente(pedidoEntity.getClienteEntity());
+		this.itens = pedidoEntity.getItensPedidoEntities().stream().map(dto -> new ItemPedido().toItemPedido(dto))
+				.collect((Collectors.toList()));
+		this.estado = pedidoEntity.getEstado();
+		this.data_pedido = pedidoEntity.getData_pedido();
+		this.valor_pedido = pedidoEntity.getValor_pedido();
+		return this;
 	}
 
 }

@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.request.ProdutoRequest;
-import br.com.postechfiap.jlapp.adapters.in.controller.response.ProdutoResponse;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import jakarta.validation.Valid;
 
@@ -26,24 +25,24 @@ public class ProdutoController {
 	private ProdutoInputPort produtoInputPort;
 
 	@PostMapping
-	public ResponseEntity<ProdutoResponse> inserirProduto(@Valid @RequestBody ProdutoRequest produtoRequest) {
-		return ResponseEntity.ok().body(produtoInputPort.inserir(produtoRequest));
+	public ResponseEntity<ProdutoDTO> inserirProduto(@Valid @RequestBody ProdutoDTO produtoDTO) {
+		return ResponseEntity.ok().body(produtoInputPort.inserir(produtoDTO));
 	}
 
 	@GetMapping
-	public ResponseEntity<List<ProdutoResponse>> buscarTodosProdutos() {
+	public ResponseEntity<List<ProdutoDTO>> buscarTodosProdutos() {
 		return ResponseEntity.ok().body(produtoInputPort.buscarTodosProdutos());
 	}
 
 	@GetMapping("/{id}/categoria")
-	public ResponseEntity<List<ProdutoResponse>> buscarProdutosPorCategoria(@PathVariable Long id) {
+	public ResponseEntity<List<ProdutoDTO>> buscarProdutosPorCategoria(@PathVariable Long id) {
 		return ResponseEntity.ok().body(produtoInputPort.buscarProdutosPorCategoria(id));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ProdutoResponse> atualizarProduto(@Valid @RequestBody ProdutoRequest produtoRequest,
+	public ResponseEntity<ProdutoDTO> atualizarProduto(@Valid @RequestBody ProdutoDTO produtoDTO,
 			@PathVariable Long id) {
-		return ResponseEntity.ok().body(produtoInputPort.atualizar(produtoRequest, id));
+		return ResponseEntity.ok().body(produtoInputPort.atualizar(produtoDTO, id));
 	}
 
 	@DeleteMapping("/{id}")

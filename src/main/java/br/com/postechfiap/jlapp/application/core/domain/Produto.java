@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.request.ProdutoRequest;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
 import br.com.postechfiap.jlapp.adapters.out.repository.entity.ProdutoEntity;
 
 public class Produto {
@@ -88,19 +88,22 @@ public class Produto {
 				+ categoria + ", imagens=" + imagens + "]";
 	}
 
-	public Produto toProduto(ProdutoRequest produtoRequest) {
+	public Produto toProduto(ProdutoDTO produtoDTO) {
 		this.categoria = new Categoria();
-		this.nome = produtoRequest.getNome();
-		this.descricao = produtoRequest.getDescricao();
-		this.preco = produtoRequest.getPreco();
-		this.categoria.setId(produtoRequest.getCategoria());
-		this.imagens = produtoRequest.getImagens();
+		this.id = produtoDTO.getId();
+		this.categoria.setNome(produtoDTO.getCategoria_nome());
+		this.categoria.setId(produtoDTO.getCategoria_id());
+		this.nome = produtoDTO.getNome();
+		this.descricao = produtoDTO.getDescricao();
+		this.preco = produtoDTO.getPreco();
+		this.categoria.setId(produtoDTO.getCategoria_id());
+		this.imagens = produtoDTO.getImagens();
 		return this;
 	}
 
 	public Produto toProduto(ProdutoEntity produtoEntity) {
-		this.categoria = produtoEntity.getCategoriaEntity().toCategoria();
 		this.id = produtoEntity.getId();
+		this.categoria = produtoEntity.getCategoriaEntity().toCategoria();
 		this.nome = produtoEntity.getNome();
 		this.descricao = produtoEntity.getDescricao();
 		this.preco = produtoEntity.getPreco();

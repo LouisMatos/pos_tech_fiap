@@ -2,7 +2,7 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.util.List;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.response.CategoriaResponse;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.CategoriaDTO;
 import br.com.postechfiap.jlapp.adapters.out.repository.entity.CategoriaEntity;
 
 public class Categoria {
@@ -63,10 +63,10 @@ public class Categoria {
 		return "Categoria [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", produtos=" + produtos + "]";
 	}
 
-	public Categoria toCategoria(CategoriaResponse categoriaResponse) {
-		this.id = categoriaResponse.getId();
-		this.nome = categoriaResponse.getNome();
-		this.descricao = categoriaResponse.getDescricao();
+	public Categoria toCategoria(CategoriaDTO categoriaDTO) {
+		this.id = categoriaDTO.getId();
+		this.nome = categoriaDTO.getNome();
+		this.descricao = categoriaDTO.getDescricao();
 		return this;
 	}
 

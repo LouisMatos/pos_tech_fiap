@@ -3,7 +3,8 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
@@ -29,29 +30,31 @@ public class PedidoUseCase implements PedidoInputPort {
 	}
 
 	@Override
-	public Pedido inserir(Pedido pedido) {
+	public PedidoDTO inserir(PedidoDTO pedidoDTO) {
 
-//		BigDecimal valorPedido = BigDecimal.ZERO;
-//		;
-//
-//		if (!pedido.getCliente().getCpf().isBlank()) {
-//			pedido.setCliente(clienteInputPort.buscarClientePorCpf(pedido.getCliente().getCpf()));
-//		}
-//
-//		for (ItemPedido itemPedido : pedido.getItens()) {
-//			itemPedido.setProduto(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()));
-//			valorPedido = valorPedido.add(itemPedido.getProduto().getPreco());
-//		}
-//
-//		log.info(pedido.getItens().get(1).getProduto().toString());
-//
-//		pedido.setEstado(Estado.RECEBIDO);
-//		pedido.setValor_pedido(valorPedido);
-//		pedido.setData_pedido(LocalDateTime.now());
-//
-//		log.info(pedido.toString());
+		BigDecimal valorPedido = BigDecimal.ZERO;
 
-		return pedidoOutputPort.inserir(pedido);
+		if (!pedidoDTO.getClienteDTO().getCpf().isBlank()) {
+			pedidoDTO.setClienteDTO(clienteInputPort.buscarClientePorCpf(pedidoDTO.getClienteDTO().getCpf()));
+		}
+
+		for (ItemPedidoDTO itemPedidoDTO : pedidoDTO.getItemPedidoDTOs()) {
+			itemPedidoDTO.setProdutoDTO(produtoInputPort.buscarProdutoPorId(itemPedidoDTO.getProdutoDTO().getId()));
+			valorPedido = valorPedido.add(itemPedidoDTO.getProdutoDTO().getPreco());
+		}
+
+		log.info(pedidoDTO.getItemPedidoDTOs().get(0).getProdutoDTO().toString());
+
+		pedidoDTO.setEstado(Estado.RECEBIDO);
+		pedidoDTO.setValor_pedido(valorPedido);
+		pedidoDTO.setData_pedido(LocalDateTime.now());
+
+		log.info(pedidoDTO.toString());
+
+		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
+
+		return pedidoDTO;
+
 	}
 
 }

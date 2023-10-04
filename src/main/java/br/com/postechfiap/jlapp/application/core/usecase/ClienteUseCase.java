@@ -3,7 +3,6 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 import java.util.List;
 
 import br.com.postechfiap.jlapp.adapters.in.controller.dto.ClienteDTO;
-import br.com.postechfiap.jlapp.adapters.in.controller.response.ClienteResponse;
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;

@@ -1,5 +1,8 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.ItemPedidoEntity;
+
 public class ItemPedido {
 
 	private Long id;
@@ -68,6 +71,24 @@ public class ItemPedido {
 	public String toString() {
 		return "ItemPedido [id=" + id + ", pedido=" + pedido + ", produto=" + produto + ", quantidade=" + quantidade
 				+ ", observacao=" + observacao + "]";
+	}
+
+	public ItemPedido toItemPedido(ItemPedidoDTO itemPedidoDTO) {
+		this.id = itemPedidoDTO.getId();
+//		this.pedido = new Pedido().toPedido(itemPedidoDTO.getPedidoDTO());
+		this.produto = new Produto().toProduto(itemPedidoDTO.getProdutoDTO());
+		this.quantidade = itemPedidoDTO.getQuantidade();
+		this.observacao = itemPedidoDTO.getObservacao();
+		return this;
+	}
+
+	public ItemPedido toItemPedido(ItemPedidoEntity itemPedidoEntity) {
+		this.id = itemPedidoEntity.getId();
+//		this.pedido = new Pedido().toPedido(itemPedidoEntity.getPedidoEntity());
+		this.produto = new Produto().toProduto(itemPedidoEntity.getProdutoEntity());
+		this.quantidade = itemPedidoEntity.getQuantidade();
+		this.observacao = itemPedidoEntity.getObservacao();
+		return this;
 	}
 
 }

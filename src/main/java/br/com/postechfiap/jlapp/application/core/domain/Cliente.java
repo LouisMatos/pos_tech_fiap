@@ -75,6 +75,7 @@ public class Cliente {
 	}
 
 	public Cliente toCliente(ClienteDTO clienteDTO) {
+		this.id = clienteDTO.getId();
 		this.nome = clienteDTO.getNome();
 		this.cpf = clienteDTO.getCpf();
 		this.email = clienteDTO.getEmail();

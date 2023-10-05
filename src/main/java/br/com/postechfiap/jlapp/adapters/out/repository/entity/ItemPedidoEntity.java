@@ -3,16 +3,11 @@ package br.com.postechfiap.jlapp.adapters.out.repository.entity;
 import java.io.Serializable;
 
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +38,15 @@ public class ItemPedidoEntity implements Serializable {
 	private String observacao;
 
 	public ItemPedidoEntity toItensPedidosEntities(ItemPedido itemPedido) {
+		this.id = itemPedido.getId();
+//		this.pedidoEntity = new PedidoEntity().toPedidoEntity(itemPedido.getPedido());
+		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());
+		this.quantidade = itemPedido.getQuantidade();
+		this.observacao = itemPedido.getObservacao();
+		return this;
+	}
+
+	public ItemPedidoEntity toItemPedidoEntity(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
 //		this.pedidoEntity = new PedidoEntity().toPedidoEntity(itemPedido.getPedido());
 		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());

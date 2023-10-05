@@ -84,7 +84,7 @@ public class ItemPedido {
 
 	public ItemPedido toItemPedido(ItemPedidoEntity itemPedidoEntity) {
 		this.id = itemPedidoEntity.getId();
-//		this.pedido = new Pedido().toPedido(itemPedidoEntity.getPedidoEntity());
+		this.pedido = new Pedido().toPedido(itemPedidoEntity.getPedidoEntity());
 		this.produto = new Produto().toProduto(itemPedidoEntity.getProdutoEntity());
 		this.quantidade = itemPedidoEntity.getQuantidade();
 		this.observacao = itemPedidoEntity.getObservacao();

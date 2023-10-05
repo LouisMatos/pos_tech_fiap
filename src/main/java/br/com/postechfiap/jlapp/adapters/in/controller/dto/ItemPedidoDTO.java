@@ -11,8 +11,8 @@ public class ItemPedidoDTO {
 	@JsonProperty("id")
 	private Long id;
 
-	@JsonProperty("pedido")
-	private PedidoDTO pedidoDTO;
+//	@JsonProperty("pedido")
+//	private PedidoDTO pedidoDTO;
 
 	@JsonProperty("produto")
 	private ProdutoDTO produtoDTO;
@@ -25,7 +25,7 @@ public class ItemPedidoDTO {
 
 	public ItemPedidoDTO toItemPedidoDTO(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
-//		this.pedidoDTO = new PedidoDTO().toPedidoDTO(itemPedido.getPedido());
+//		this.pedidoDTO = new PedidoDTO();
 		this.produtoDTO = new ProdutoDTO().toProdutoDTO(itemPedido.getProduto());
 		this.quantidade = itemPedido.getQuantidade();
 		this.observacao = itemPedido.getObservacao();

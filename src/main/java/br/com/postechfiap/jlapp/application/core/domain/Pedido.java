@@ -107,8 +107,8 @@ public class Pedido {
 	public Pedido toPedido(PedidoEntity pedidoEntity) {
 		this.id = pedidoEntity.getId();
 		this.cliente = new Cliente().toCliente(pedidoEntity.getClienteEntity());
-		this.itens = pedidoEntity.getItensPedidoEntities().stream().map(dto -> new ItemPedido().toItemPedido(dto))
-				.collect((Collectors.toList()));
+//		this.itens = pedidoEntity.getItensPedidoEntities().stream().map(dto -> new ItemPedido().toItemPedido(dto))
+//				.collect((Collectors.toList()));
 		this.estado = pedidoEntity.getEstado();
 		this.data_pedido = pedidoEntity.getData_pedido();
 		this.valor_pedido = pedidoEntity.getValor_pedido();

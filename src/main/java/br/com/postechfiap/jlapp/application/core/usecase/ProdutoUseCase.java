@@ -1,7 +1,9 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
@@ -22,21 +24,36 @@ public class ProdutoUseCase implements ProdutoInputPort {
 	}
 
 	@Override
-	public Produto inserir(Produto produto, Long categoriaId) {
-		Categoria categoria = categoriaInputPort.buscarCategoriaPorId(categoriaId);
+	public ProdutoDTO inserir(ProdutoDTO produtoDTO) {
+
+		Produto produto = new Produto().toProduto(produtoDTO);
+
+		Categoria categoria = new Categoria()
+				.toCategoria(categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId()));
 
 		produto.setCategoria(categoria);
 
-		return produtoOutputPort.inserir(produto);
+		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.inserir(produto));
+
+		return dto;
 	}
 
 	@Override
-	public Produto atualizar(Produto produto, Long id) {
+	public ProdutoDTO atualizar(ProdutoDTO produtoDTO, Long id) {
 		this.buscarProdutoPorId(id);
+
+		Produto produto = new Produto().toProduto(produtoDTO);
+
+		Categoria categoria = new Categoria()
+				.toCategoria(categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId()));
+
+		produto.setCategoria(categoria);
 
 		produto.setId(id);
 
-		return produtoOutputPort.atualizar(produto);
+		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.atualizar(produto));
+
+		return dto;
 
 	}
 
@@ -47,29 +64,33 @@ public class ProdutoUseCase implements ProdutoInputPort {
 	}
 
 	@Override
-	public List<Produto> buscarTodosProdutos() {
+	public List<ProdutoDTO> buscarTodosProdutos() {
 		List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
 		if (produtos.isEmpty()) {
 			throw new UnprocessableEntityException("Nenhum produto cadastrado!");
 		}
-		return produtos;
+		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).collect(Collectors.toList());
 	}
 
 	@Override
-	public Produto buscarProdutoPorId(Long id) {
-		return produtoOutputPort.buscarProdutoPorId(id)
-				.orElseThrow(() -> new NotFoundException("Produto informado não encontrado!"));
+	public ProdutoDTO buscarProdutoPorId(Long id) {
+		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.buscarProdutoPorId(id)
+				.orElseThrow(() -> new NotFoundException("Produto informado não encontrado!")));
+		return dto;
 	}
 
 	@Override
-	public List<Produto> buscarProdutosPorCategoria(Long categoriaId) {
-		List<Produto> produtos = categoriaInputPort.buscarCategoriaPorId(categoriaId).getProdutos();
+	public List<ProdutoDTO> buscarProdutosPorCategoria(Long categoriaId) {
+
+		List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
+
+		produtos.removeIf(p -> p.getCategoria().getId() != categoriaId);
 
 		if (produtos.isEmpty()) {
 			throw new UnprocessableEntityException("Nenhum produto cadastrado com essa categoria!");
 		}
 
-		return produtos;
+		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).collect(Collectors.toList());
 	}
 
 }

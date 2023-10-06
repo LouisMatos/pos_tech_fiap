@@ -1,6 +1,6 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
-import br.com.postechfiap.jlapp.application.core.domain.Categoria;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.CategoriaDTO;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.CategoriaOutputPort;
@@ -14,9 +14,10 @@ public class CategoriaUseCase implements CategoriaInputPort {
 	}
 
 	@Override
-	public Categoria buscarCategoriaPorId(Long id) {
-		return categoriaOutputPort.buscarCategoriaPorId(id)
-				.orElseThrow(() -> new NotFoundException("Categoria informado não encontrado!"));
+	public CategoriaDTO buscarCategoriaPorId(Long id) {
+		CategoriaDTO categoriaDTO = new CategoriaDTO().toCategoriaDTO(categoriaOutputPort.buscarCategoriaPorId(id)
+				.orElseThrow(() -> new NotFoundException("Categoria informado não encontrado!")));
+		return categoriaDTO;
 	}
 
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import br.com.postechfiap.jlapp.adapters.out.repository.ProdutoRepository;
 import br.com.postechfiap.jlapp.adapters.out.repository.entity.ProdutoEntity;
-import br.com.postechfiap.jlapp.adapters.out.repository.mapper.ProdutoEntityMapper;
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
@@ -20,22 +19,17 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
-	@Autowired
-	private ProdutoEntityMapper produtoEntityMapper;
-
 	@Override
 	public Produto inserir(Produto produto) {
-		ProdutoEntity produtoEntity = produtoEntityMapper.toProdutoEntity(produto);
-		
-		ProdutoEntity salvado = produtoRepository.save(produtoEntity);
-		
-		return produtoEntityMapper.toProduto(salvado);
+		ProdutoEntity produtoEntity = new ProdutoEntity().toProdutoEntity(produto);
+
+		return produto.toProduto(produtoRepository.save(produtoEntity));
 	}
 
 	@Override
 	public Produto atualizar(Produto produto) {
-		ProdutoEntity produtoEntity = produtoEntityMapper.toProdutoEntity(produto);
-		return produtoEntityMapper.toProduto(produtoRepository.save(produtoEntity));
+		ProdutoEntity produtoEntity = new ProdutoEntity().toProdutoEntity(produto);
+		return produto.toProduto(produtoRepository.save(produtoEntity));
 	}
 
 	@Override
@@ -46,19 +40,25 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 	@Override
 	public List<Produto> buscarTodosProdutos() {
 		List<ProdutoEntity> produtoEntity = produtoRepository.findAll();
-		return produtoEntity.stream().map(entity -> produtoEntityMapper.toProduto(entity)).collect(Collectors.toList());
+		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
 	}
 
 	@Override
 	public Optional<Produto> buscarProdutoPorId(Long id) {
 		Optional<ProdutoEntity> produtoEntity = produtoRepository.findById(id);
-		return produtoEntity.map(entity -> produtoEntityMapper.toProduto(entity));
+		return produtoEntity.map(entity -> new Produto().toProduto(entity));
 	}
 
 	@Override
 	public List<Produto> buscarProdutosPorCategoria(Categoria categoria) {
 		List<ProdutoEntity> produtoEntity = produtoRepository.findCategoriaEntityById(categoria.getId());
-		return produtoEntity.stream().map(entity -> produtoEntityMapper.toProduto(entity)).collect(Collectors.toList());
+		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Produto> buscarProdutosPorCategoria(Long categoriaId) {
+		List<ProdutoEntity> produtoEntity = produtoRepository.findCategoriaEntityById(categoriaId);
+		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
 	}
 
 }

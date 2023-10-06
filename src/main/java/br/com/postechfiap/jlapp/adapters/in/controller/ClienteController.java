@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.mapper.ClienteMapper;
-import br.com.postechfiap.jlapp.adapters.in.controller.request.ClienteRequest;
-import br.com.postechfiap.jlapp.adapters.in.controller.response.ClienteResponse;
-import br.com.postechfiap.jlapp.application.core.domain.Cliente;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ClienteDTO;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -25,22 +22,15 @@ public class ClienteController {
 	@Autowired
 	private ClienteInputPort clienteInputPort;
 
-	@Autowired
-	private ClienteMapper clienteMapper;
-
 	@PostMapping
-	public ResponseEntity<ClienteResponse> inserir(@Valid @RequestBody ClienteRequest clienteRequest) {
+	public ResponseEntity<ClienteDTO> inserir(@Valid @RequestBody ClienteDTO clienteDTO) {
 		log.info("Iniciando o cadastro de cliente");
-		Cliente cliente = clienteMapper.toCliente(clienteRequest);
-		ClienteResponse clienteResponse = clienteMapper.toClienteResponse(clienteInputPort.inserir(cliente));
-		return ResponseEntity.ok().body(clienteResponse);
+		return ResponseEntity.ok().body(clienteInputPort.inserir(clienteDTO));
 	}
 
 	@GetMapping("/{cpf}")
-	public ResponseEntity<ClienteResponse> buscarClientePorCpf(@PathVariable final String cpf) {
-		Cliente cliente = clienteInputPort.buscarClientePorCpf(cpf);
-		ClienteResponse clienteResponse = clienteMapper.toClienteResponse(cliente);
-		return ResponseEntity.ok().body(clienteResponse);
+	public ResponseEntity<ClienteDTO> buscarClientePorCpf(@PathVariable final String cpf) {
+		return ResponseEntity.ok().body(clienteInputPort.buscarClientePorCpf(cpf));
 	}
 
 }

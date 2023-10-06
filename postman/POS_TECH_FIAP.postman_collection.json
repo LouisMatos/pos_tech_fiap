@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"{{$randomFullName}}\",\r\n    \"cpf\": \"12342256789132\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"{{$randomFullName}}\",\r\n    \"cpf\": \"12342256789131\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,7 +67,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8070/api/v1/clientes/12345678901",
+							"raw": "http://localhost:8070/api/v1/clientes/12345678902",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -77,7 +77,7 @@
 								"api",
 								"v1",
 								"clientes",
-								"12345678901"
+								"12345678902"
 							]
 						}
 					},
@@ -95,7 +95,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Tyr\",\r\n    \"descricao\": \"Hamburguer topezera\",\r\n    \"preco\": 12.55,\r\n    \"categoria\": 4,\r\n    \"imagens\": [\r\n        \"testeqwe.jpg\",\r\n        \"teste123.jpg\"\r\n    ]\r\n}",
+							"raw": "{\r\n    \"nome\": \"Tyr\",\r\n    \"descricao\": \"Hamburguer topezera\",\r\n    \"preco\": 12.55,\r\n    \"categoria\": 1,\r\n    \"imagens\": [\r\n        \"testeqwe.jpg\",\r\n        \"teste123.jpg\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,7 +145,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8070/api/v1/produtos/4/categoria",
+							"raw": "http://localhost:8070/api/v1/produtos/1/categoria",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -155,7 +155,7 @@
 								"api",
 								"v1",
 								"produtos",
-								"4",
+								"1",
 								"categoria"
 							]
 						}
@@ -169,7 +169,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Loki\",\r\n    \"descricao\": \"bicho Louco\",\r\n    \"preco\": 46.01,\r\n    \"categoria\": 2,\r\n    \"imagens\": [\r\n        \"testeqwe.jpg\",\r\n        \"teste123.jpg\"\r\n    ]\r\n}",
+							"raw": "{\r\n    \"nome\": \"Loki\",\r\n    \"descricao\": \"bicho Louco\",\r\n    \"preco\": 102.01,\r\n    \"categoria\": 3,\r\n    \"imagens\": [\r\n        \"testeqwe.jpg\",\r\n        \"teste123.jpg\"\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -199,7 +199,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8070/api/v1/produtos/1",
+							"raw": "http://localhost:8070/api/v1/produtos/6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -209,7 +209,7 @@
 								"api",
 								"v1",
 								"produtos",
-								"1"
+								"6"
 							]
 						}
 					},
@@ -227,7 +227,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cliente\": {\n        \"cpf\": \"12345678901\"\n    },\n    \"itens\": [\n        {\n            \"produto\": 1,\n            \"quantidade\": 2,\n            \"observacao\": \"tirar a salada\"\n        },\n        {\n            \"produto\": 2,\n            \"quantidade\": 2,\n            \"observacao\": \"Colocar bacon\"\n        }\n    ]\n}",
+							"raw": "{\n    \"cliente\": {\n        \"cpf\": \"12345678902\"\n    },\n    \"itens\": [\n        {\n            \"produto\": {\n                \"id\": 1\n            },\n            \"quantidade\": 2,\n            \"observacao\": \"tirar a salada\"\n        },\n        {\n            \"produto\": {\n                \"id\": 4\n            },\n            \"quantidade\": 6,\n            \"observacao\": \"COLOCA TUDO\"\n        },\n        {\n            \"produto\": {\n                \"id\": 2\n            },\n            \"quantidade\": 20,\n            \"observacao\": \"Colocar bacon\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -258,7 +258,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8070/actuator/health",
+					"raw": "http://localhost:8070/actuator/health/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -266,7 +266,8 @@
 					"port": "8070",
 					"path": [
 						"actuator",
-						"health"
+						"health",
+						""
 					]
 				}
 			},

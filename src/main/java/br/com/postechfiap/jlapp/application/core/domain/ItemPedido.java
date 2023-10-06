@@ -1,8 +1,13 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.ItemPedidoEntity;
+
 public class ItemPedido {
 
-	private Pedido pedido;
+	private Long id;
+
+	private Long id_pedido;
 
 	private Produto produto;
 
@@ -14,8 +19,9 @@ public class ItemPedido {
 
 	}
 
-	public ItemPedido(Pedido pedido, Produto produto, int quantidade, String observacao) {
-		this.pedido = pedido;
+	public ItemPedido(Long id, Long id_pedido, Produto produto, int quantidade, String observacao) {
+		this.id = id;
+		this.id_pedido = id_pedido;
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.observacao = observacao;
@@ -45,18 +51,44 @@ public class ItemPedido {
 		this.observacao = observacao;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public Long getId_pedido() {
+		return id_pedido;
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setId_pedido(Long id_pedido) {
+		this.id_pedido = id_pedido;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "ItemPedido [pedido=" + pedido + ", produto=" + produto + ", quantidade=" + quantidade + ", observacao="
-				+ observacao + "]";
+		return "ItemPedido [id=" + id + ", id_pedido=" + id_pedido + ", produto=" + produto + ", quantidade="
+				+ quantidade + ", observacao=" + observacao + "]";
+	}
+
+	public ItemPedido toItemPedido(ItemPedidoDTO itemPedidoDTO) {
+		this.id = itemPedidoDTO.getId();
+		this.id_pedido = itemPedidoDTO.getId_pedido();
+		this.produto = new Produto().toProduto(itemPedidoDTO.getProdutoDTO());
+		this.quantidade = itemPedidoDTO.getQuantidade();
+		this.observacao = itemPedidoDTO.getObservacao();
+		return this;
+	}
+
+	public ItemPedido toItemPedido(ItemPedidoEntity itemPedidoEntity) {
+		this.id = itemPedidoEntity.getId();
+		this.id_pedido = itemPedidoEntity.getId_pedido();
+		this.produto = new Produto().toProduto(itemPedidoEntity.getProdutoEntity());
+		this.quantidade = itemPedidoEntity.getQuantidade();
+		this.observacao = itemPedidoEntity.getObservacao();
+		return this;
 	}
 
 }

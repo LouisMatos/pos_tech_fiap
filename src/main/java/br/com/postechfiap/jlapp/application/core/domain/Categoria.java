@@ -2,6 +2,9 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.util.List;
 
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.CategoriaDTO;
+import br.com.postechfiap.jlapp.adapters.out.repository.entity.CategoriaEntity;
+
 public class Categoria {
 
 	private Long id;
@@ -58,6 +61,20 @@ public class Categoria {
 	@Override
 	public String toString() {
 		return "Categoria [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", produtos=" + produtos + "]";
+	}
+
+	public Categoria toCategoria(CategoriaDTO categoriaDTO) {
+		this.id = categoriaDTO.getId();
+		this.nome = categoriaDTO.getNome();
+		this.descricao = categoriaDTO.getDescricao();
+		return this;
+	}
+
+	public Categoria toCategoria(CategoriaEntity categoriaEntity) {
+		this.id = categoriaEntity.getId();
+		this.nome = categoriaEntity.getNome();
+		this.descricao = categoriaEntity.getDescricao();
+		return this;
 	}
 
 }

@@ -2,20 +2,20 @@ package br.com.postechfiap.jlapp.application.ports.in;
 
 import java.util.List;
 
-import br.com.postechfiap.jlapp.application.core.domain.Cliente;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ClienteDTO;
 
 public interface ClienteInputPort {
 
-	public Cliente inserir(Cliente cliente);
+	public ClienteDTO inserir(ClienteDTO clienteRequest);
 
-	public void atualizar(Cliente cliente);
+	public void atualizar(ClienteDTO clienteRequest);
 
 	public void deletar(Long id);
 
-	public List<Cliente> buscarTodos();
+	public List<ClienteDTO> buscarTodos();
 
-	public Cliente buscar(Long id);
-	
-	public Cliente buscarClientePorCpf(String cpf);
+	public ClienteDTO buscar(Long id);
+
+	public ClienteDTO buscarClientePorCpf(String cpf);
 
 }

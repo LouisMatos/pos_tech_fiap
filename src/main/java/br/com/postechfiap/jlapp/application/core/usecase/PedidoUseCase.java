@@ -2,11 +2,14 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.adapters.in.controller.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
+import br.com.postechfiap.jlapp.application.ports.in.ItemPedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.PedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.PedidoOutputPort;
@@ -21,37 +24,53 @@ public class PedidoUseCase implements PedidoInputPort {
 
 	private final ProdutoInputPort produtoInputPort;
 
+	private final ItemPedidoInputPort itemPedidoInputPort;
+
 	public PedidoUseCase(PedidoOutputPort pedidoOutputPort, ClienteInputPort clienteInputPort,
-			ProdutoInputPort produtoInputPort) {
+			ProdutoInputPort produtoInputPort, ItemPedidoInputPort itemPedidoInputPort) {
 		this.pedidoOutputPort = pedidoOutputPort;
 		this.clienteInputPort = clienteInputPort;
 		this.produtoInputPort = produtoInputPort;
+		this.itemPedidoInputPort = itemPedidoInputPort;
 	}
 
 	@Override
-	public Pedido inserir(Pedido pedido) {
+	public PedidoDTO inserir(PedidoDTO pedidoDTO) {
 
+		if (!pedidoDTO.getClienteDTO().getCpf().isBlank()) {
+			pedidoDTO.setClienteDTO(clienteInputPort.buscarClientePorCpf(pedidoDTO.getClienteDTO().getCpf()));
+		}
+
+		pedidoDTO.setEstado(Estado.RECEBIDO);
+		pedidoDTO.setData_pedido(LocalDateTime.now());
+
+		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
+
+		for (int i = 0; i < pedidoDTO.getItemPedidoDTOs().size(); i++) {
+			pedidoDTO.getItemPedidoDTOs().get(i).setProdutoDTO(
+					produtoInputPort.buscarProdutoPorId(pedidoDTO.getItemPedidoDTOs().get(i).getProdutoDTO().getId()));
+			pedidoDTO.getItemPedidoDTOs().get(i).setId_pedido(pedidoDTO.getId());
+
+		}
+
+		pedidoDTO.setItemPedidoDTOs(itemPedidoInputPort.inserir(pedidoDTO.getItemPedidoDTOs()));
+
+		pedidoDTO.setValor_pedido(calcularValorTotalPedido(pedidoDTO.getItemPedidoDTOs()));
+
+		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
+
+		return pedidoDTO;
+
+	}
+
+	private BigDecimal calcularValorTotalPedido(List<ItemPedidoDTO> itemPedidoDTOs) {
 		BigDecimal valorPedido = BigDecimal.ZERO;
-		;
 
-		if (!pedido.getCliente().getCpf().isBlank()) {
-			pedido.setCliente(clienteInputPort.buscarClientePorCpf(pedido.getCliente().getCpf()));
+		for (ItemPedidoDTO itemPedidoDTO : itemPedidoDTOs) {
+			valorPedido = valorPedido.add(
+					itemPedidoDTO.getProdutoDTO().getPreco().multiply(new BigDecimal(itemPedidoDTO.getQuantidade())));
 		}
-
-		for (ItemPedido itemPedido : pedido.getItens()) {
-			itemPedido.setProduto(produtoInputPort.buscarProdutoPorId(itemPedido.getProduto().getId()));
-			valorPedido = valorPedido.add(itemPedido.getProduto().getPreco());
-		}
-
-		log.info(pedido.getItens().get(1).getProduto().toString());
-
-		pedido.setEstado(Estado.RECEBIDO);
-		pedido.setValor_pedido(valorPedido);
-		pedido.setData_pedido(LocalDateTime.now());
-
-		log.info(pedido.toString());
-
-		return pedidoOutputPort.inserir(pedido);
+		return valorPedido;
 	}
 
 }

@@ -18,9 +18,9 @@ public class ItemPedidoUseCase implements ItemPedidoInputPort {
 
 	@Override
 	public List<ItemPedidoDTO> inserir(List<ItemPedidoDTO> dtos) {
-		List<ItemPedido> itemPedidos = itemPedidoOutputPort.inserir(dtos.stream().map(it -> new ItemPedido().toItemPedido(it)).collect(Collectors.toList()));
+		List<ItemPedido> itemPedidos = itemPedidoOutputPort
+				.inserir(dtos.stream().map(it -> new ItemPedido().toItemPedido(it)).collect(Collectors.toList()));
 		return itemPedidos.stream().map(it -> new ItemPedidoDTO().toItemPedidoDTO(it)).collect(Collectors.toList());
-		
 	}
 
 }

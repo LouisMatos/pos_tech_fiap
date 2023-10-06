@@ -25,13 +25,8 @@ public class ItemPedidoEntity implements Serializable {
 	@Column(name = "id_item_pedido")
 	private Long id;
 
-//	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "id_pedido_fk", referencedColumnName = "id_pedido", foreignKey = @ForeignKey(name = "id_pedido_fk_esta_para_id_pedido"))
-//	private PedidoEntity pedidoEntity;
 	private Long id_pedido;
 
-//	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "id_produto_fk", referencedColumnName = "id_produto", foreignKey = @ForeignKey(name = "id_produto_fk_esta_para_id_produto"))
 	private ProdutoEntity produtoEntity;
 
 	private int quantidade;

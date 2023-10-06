@@ -31,4 +31,12 @@ public class ItemPedidoAdapter implements ItemPedidoOutputPort {
 
 	}
 
+	@Override
+	public List<ItemPedido> buscarItemPedido(Long id_pedido) {
+
+		List<ItemPedidoEntity> list = itemPedidoRepository.findAllByPedidoid(id_pedido);
+
+		return list.stream().map(it -> new ItemPedido().toItemPedido(it)).collect(Collectors.toList());
+	}
+
 }

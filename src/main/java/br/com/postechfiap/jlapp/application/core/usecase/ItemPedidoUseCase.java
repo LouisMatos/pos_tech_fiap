@@ -23,4 +23,12 @@ public class ItemPedidoUseCase implements ItemPedidoInputPort {
 		return itemPedidos.stream().map(it -> new ItemPedidoDTO().toItemPedidoDTO(it)).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<ItemPedidoDTO> buscarItemPedido(Long id_pedido) {
+		List<ItemPedido> itemPedidos = itemPedidoOutputPort.buscarItemPedido(id_pedido);
+
+		return itemPedidos.stream().map(it -> new ItemPedidoDTO().toItemPedidoDTO(it)).collect(Collectors.toList());
+
+	}
+
 }

@@ -15,7 +15,6 @@ import lombok.Data;
 @Data
 public class PedidoDTO {
 
-	
 	private Long id;
 
 	@JsonProperty("cliente")
@@ -35,9 +34,15 @@ public class PedidoDTO {
 
 	public PedidoDTO toPedidoDTO(Pedido pedido) {
 		this.id = pedido.getId();
-		this.clienteDTO = new ClienteDTO().toClienteDTO(pedido.getCliente());
+		if (pedido.getCliente() != null) {
+			this.clienteDTO = new ClienteDTO().toClienteDTO(pedido.getCliente());
+		}
 		this.itemPedidoDTOs = pedido.getItens().stream().map(p -> new ItemPedidoDTO().toItemPedidoDTO(p))
 				.collect((Collectors.toList()));
+
+		this.estado = pedido.getEstado();
+		this.data_pedido = pedido.getData_pedido();
+		this.valor_pedido = pedido.getValor_pedido();
 		return this;
 	}
 }

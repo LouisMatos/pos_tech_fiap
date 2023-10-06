@@ -25,7 +25,8 @@ public class ItemPedidoEntity implements Serializable {
 	@Column(name = "id_item_pedido")
 	private Long id;
 
-	private Long id_pedido;
+	@Column(name = "pedidoid")
+	private Long pedidoid;
 
 	private ProdutoEntity produtoEntity;
 
@@ -35,7 +36,7 @@ public class ItemPedidoEntity implements Serializable {
 
 	public ItemPedidoEntity toItensPedidosEntities(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
-		this.id_pedido = itemPedido.getId_pedido();
+		this.pedidoid = itemPedido.getPedidoid();
 		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());
 		this.quantidade = itemPedido.getQuantidade();
 		this.observacao = itemPedido.getObservacao();
@@ -44,7 +45,7 @@ public class ItemPedidoEntity implements Serializable {
 
 	public ItemPedidoEntity toItemPedidoEntity(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
-		this.id_pedido = itemPedido.getId_pedido();
+		this.pedidoid = itemPedido.getPedidoid();
 		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());
 		this.quantidade = itemPedido.getQuantidade();
 		this.observacao = itemPedido.getObservacao();

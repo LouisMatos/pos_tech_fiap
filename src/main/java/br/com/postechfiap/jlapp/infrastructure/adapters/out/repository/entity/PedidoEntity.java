@@ -33,8 +33,8 @@ public class PedidoEntity implements Serializable {
 	@Column(name = "id_pedido")
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_cliente")
+	@ManyToOne(optional = true, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@JoinColumn(nullable = true, name = "id_cliente")
 	private ClienteEntity clienteEntity;
 
 	@Enumerated
@@ -46,7 +46,9 @@ public class PedidoEntity implements Serializable {
 
 	public PedidoEntity toPedidoEntity(Pedido pedido) {
 		this.id = pedido.getId();
-		this.clienteEntity = new ClienteEntity().toClienteEntity(pedido.getCliente());
+		if (pedido.getCliente() != null) {
+			this.clienteEntity = new ClienteEntity().toClienteEntity(pedido.getCliente());
+		}
 		this.estado = pedido.getEstado();
 		this.data_pedido = pedido.getData_pedido();
 		this.valor_pedido = pedido.getValor_pedido();

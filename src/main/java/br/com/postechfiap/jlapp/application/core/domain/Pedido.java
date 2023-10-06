@@ -94,7 +94,9 @@ public class Pedido {
 
 	public Pedido toPedido(PedidoDTO pedidoDTO) {
 		this.id = pedidoDTO.getId();
-		this.cliente = new Cliente().toCliente(pedidoDTO.getClienteDTO());
+		if(pedidoDTO.getClienteDTO()!= null) {
+			this.cliente = new Cliente().toCliente(pedidoDTO.getClienteDTO());
+		}
 		this.itens = pedidoDTO.getItemPedidoDTOs().stream().map(dto -> new ItemPedido().toItemPedido(dto))
 				.collect((Collectors.toList()));
 		this.estado = pedidoDTO.getEstado();
@@ -106,7 +108,9 @@ public class Pedido {
 
 	public Pedido toPedido(PedidoEntity pedidoEntity) {
 		this.id = pedidoEntity.getId();
-		this.cliente = new Cliente().toCliente(pedidoEntity.getClienteEntity());
+		if(pedidoEntity.getClienteEntity() != null) {
+			this.cliente = new Cliente().toCliente(pedidoEntity.getClienteEntity());
+		}
 //		this.itens = pedidoEntity.getItensPedidoEntities().stream().map(dto -> new ItemPedido().toItemPedido(dto))
 //				.collect((Collectors.toList()));
 		this.estado = pedidoEntity.getEstado();

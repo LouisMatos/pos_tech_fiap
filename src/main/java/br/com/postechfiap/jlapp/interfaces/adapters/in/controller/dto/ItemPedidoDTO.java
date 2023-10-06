@@ -12,7 +12,7 @@ public class ItemPedidoDTO {
 	private Long id;
 
 	@JsonProperty("pedido")
-	private Long id_pedido;
+	private Long pedidoid;
 
 	@JsonProperty("produto")
 	private ProdutoDTO produtoDTO;
@@ -25,7 +25,7 @@ public class ItemPedidoDTO {
 
 	public ItemPedidoDTO toItemPedidoDTO(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
-		this.id_pedido = itemPedido.getId_pedido();
+		this.pedidoid = itemPedido.getPedidoid();
 		this.produtoDTO = new ProdutoDTO().toProdutoDTO(itemPedido.getProduto());
 		this.quantidade = itemPedido.getQuantidade();
 		this.observacao = itemPedido.getObservacao();

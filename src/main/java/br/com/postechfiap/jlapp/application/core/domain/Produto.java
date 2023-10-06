@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
-import br.com.postechfiap.jlapp.adapters.out.repository.entity.ProdutoEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.ProdutoEntity;
+import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ProdutoDTO;
 
 public class Produto {
 

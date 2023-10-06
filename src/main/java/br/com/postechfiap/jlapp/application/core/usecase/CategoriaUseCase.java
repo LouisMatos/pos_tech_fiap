@@ -1,9 +1,9 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.CategoriaDTO;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.CategoriaOutputPort;
+import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.CategoriaDTO;
 
 public class CategoriaUseCase implements CategoriaInputPort {
 

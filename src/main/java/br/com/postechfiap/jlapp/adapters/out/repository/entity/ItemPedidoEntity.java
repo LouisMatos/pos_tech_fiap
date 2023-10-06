@@ -27,7 +27,8 @@ public class ItemPedidoEntity implements Serializable {
 
 //	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "id_pedido_fk", referencedColumnName = "id_pedido", foreignKey = @ForeignKey(name = "id_pedido_fk_esta_para_id_pedido"))
-	private PedidoEntity pedidoEntity;
+//	private PedidoEntity pedidoEntity;
+	private Long id_pedido;
 
 //	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 //	@JoinColumn(name = "id_produto_fk", referencedColumnName = "id_produto", foreignKey = @ForeignKey(name = "id_produto_fk_esta_para_id_produto"))
@@ -39,7 +40,7 @@ public class ItemPedidoEntity implements Serializable {
 
 	public ItemPedidoEntity toItensPedidosEntities(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
-//		this.pedidoEntity = new PedidoEntity().toPedidoEntity(itemPedido.getPedido());
+		this.id_pedido = itemPedido.getId_pedido();
 		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());
 		this.quantidade = itemPedido.getQuantidade();
 		this.observacao = itemPedido.getObservacao();
@@ -48,7 +49,7 @@ public class ItemPedidoEntity implements Serializable {
 
 	public ItemPedidoEntity toItemPedidoEntity(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();
-//		this.pedidoEntity = new PedidoEntity().toPedidoEntity(itemPedido.getPedido());
+		this.id_pedido = itemPedido.getId_pedido();
 		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());
 		this.quantidade = itemPedido.getQuantidade();
 		this.observacao = itemPedido.getObservacao();

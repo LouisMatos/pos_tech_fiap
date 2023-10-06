@@ -3,9 +3,7 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.ItemPedidoDTO;
 import br.com.postechfiap.jlapp.adapters.in.controller.dto.PedidoDTO;
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
@@ -46,20 +44,19 @@ public class PedidoUseCase implements PedidoInputPort {
 		pedidoDTO.setEstado(Estado.RECEBIDO);
 		pedidoDTO.setValor_pedido(valorPedido);
 		pedidoDTO.setData_pedido(LocalDateTime.now());
-//		pedidoDTO.setValor_pedido(pedidoDTO.getItemPedidoDTOs().stream().map(ItemPedidoDTO::getProdutoDTO)
-//				.map(ProdutoDTO::getPreco).reduce(BigDecimal::add).get());
-		
-		log.info(pedidoDTO.getItemPedidoDTOs().stream().map(ItemPedidoDTO::getProdutoDTO)
-				.map(ProdutoDTO::getPreco).reduce(BigDecimal::add).get()+"");
 
 		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
 
 		// Ate Aqui esta certo!!!!!
 
-		for (ItemPedidoDTO itemPedidoDTO : pedidoDTO.getItemPedidoDTOs()) {
-			itemPedidoDTO.setProdutoDTO(produtoInputPort.buscarProdutoPorId(itemPedidoDTO.getProdutoDTO().getId()));
-			valorPedido = valorPedido.add(itemPedidoDTO.getProdutoDTO().getPreco());
+		for (int i = 0; i < pedidoDTO.getItemPedidoDTOs().size(); i++) {
+			pedidoDTO.getItemPedidoDTOs().get(i).setProdutoDTO(
+					produtoInputPort.buscarProdutoPorId(pedidoDTO.getItemPedidoDTOs().get(i).getProdutoDTO().getId()));
+			pedidoDTO.getItemPedidoDTOs().get(i).setId_pedido(pedidoDTO.getId());
+
 		}
+
+		pedidoDTO.setItemPedidoDTOs(itemPedidoInputPort.inserir(pedidoDTO.getItemPedidoDTOs()));
 
 		return pedidoDTO;
 

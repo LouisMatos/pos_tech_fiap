@@ -2,8 +2,8 @@ package br.com.postechfiap.jlapp.application.core.domain;
 
 import java.util.List;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.CategoriaDTO;
-import br.com.postechfiap.jlapp.adapters.out.repository.entity.CategoriaEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.CategoriaEntity;
+import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.CategoriaDTO;
 
 public class Categoria {
 

@@ -3,7 +3,6 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
@@ -11,6 +10,7 @@ import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityExcepti
 import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
+import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ProdutoDTO;
 
 public class ProdutoUseCase implements ProdutoInputPort {
 

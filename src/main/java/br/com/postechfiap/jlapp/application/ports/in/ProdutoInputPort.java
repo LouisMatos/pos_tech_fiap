@@ -2,7 +2,7 @@ package br.com.postechfiap.jlapp.application.ports.in;
 
 import java.util.List;
 
-import br.com.postechfiap.jlapp.adapters.in.controller.dto.ProdutoDTO;
+import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ProdutoDTO;
 
 public interface ProdutoInputPort {
 

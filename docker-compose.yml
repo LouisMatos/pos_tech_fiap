@@ -47,7 +47,8 @@ services:
     image: testeluismatos/jlapp:1.0.0
     container_name: jlapp_service
     environment:
-      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATABASE=postgres
       - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=75000 -Xss4M -XX:NativeMemoryTracking=summary
     ports:
       - 8070:8070

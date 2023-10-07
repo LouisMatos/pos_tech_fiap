@@ -227,13 +227,34 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cliente\": {\n        \"cpf\": \"12345678902\"\n    },\n    \"itens\": [\n        {\n            \"produto\": {\n                \"id\": 1\n            },\n            \"quantidade\": 2,\n            \"observacao\": \"tirar a salada\"\n        },\n        {\n            \"produto\": {\n                \"id\": 4\n            },\n            \"quantidade\": 6,\n            \"observacao\": \"COLOCA TUDO\"\n        },\n        {\n            \"produto\": {\n                \"id\": 2\n            },\n            \"quantidade\": 20,\n            \"observacao\": \"Colocar bacon\"\n        }\n    ]\n}",
+							"raw": "{\n    \"cliente\": {\n        \"cpf\": \"12345678905\"\n    },\n    \"itens\": [\n        {\n            \"produto\": {\n                \"id\": 1\n            },\n            \"quantidade\": 1,\n            \"observacao\": \"tirar a salada\"\n        },\n        {\n            \"produto\": {\n                \"id\": 2\n            },\n            \"quantidade\": 3,\n            \"observacao\": \"COLOCA TUDO\"\n        },\n        {\n            \"produto\": {\n                \"id\": 3\n            },\n            \"quantidade\": 3,\n            \"observacao\": \"Colocar bacon\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
+						"url": {
+							"raw": "http://localhost:8070/api/v1/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"api",
+								"v1",
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "http://localhost:8070/api/v1/pedidos",
 							"protocol": "http",

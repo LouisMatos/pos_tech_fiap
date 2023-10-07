@@ -22,10 +22,12 @@ spring:
     init:
       mode: always
   jpa:
-    hibernate.temp.use_jdbc_metadata_defaults: false
-    show-sql: false
-    generate-ddl: false
-    hibernate.ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      temp:
+        use_jdbc_metadata_defaults: false
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     defer-datasource-initialization: always
@@ -45,7 +47,7 @@ spring:
           default_storage: NORMALIZE_UTC
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/db_lanchonete
+    url: jdbc:postgresql://${SPRING_DATABASE:localhost}:5432/db_lanchonete
     driverClassName: org.postgresql.Driver
     username: root
     password: root

@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out;
+package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
 import br.com.postechfiap.jlapp.application.ports.out.ItemPedidoOutputPort;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.ItemPedidoRepository;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.ItemPedidoEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ItemPedidoRepository;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ItemPedidoEntity;
 
 @Component
 public class ItemPedidoAdapter implements ItemPedidoOutputPort {

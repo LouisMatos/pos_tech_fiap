@@ -6,7 +6,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ClienteDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.ClienteDTO;
 
 public class ClienteUseCase implements ClienteInputPort {
 

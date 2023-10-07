@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.postechfiap.jlapp.application.enums.Estado;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.PedidoEntity;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.PedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.PedidoEntity;
+import br.com.postechfiap.jlapp.interfaces.dto.PedidoDTO;
 
 public class Pedido {
 

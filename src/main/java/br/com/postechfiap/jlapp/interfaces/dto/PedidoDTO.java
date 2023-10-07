@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto;
+package br.com.postechfiap.jlapp.interfaces.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out;
+package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityException;
 import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.ClienteRepository;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.ClienteEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ClienteRepository;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ClienteEntity;
 
 @Component
 public class ClienteAdapter implements ClienteOutputPort {

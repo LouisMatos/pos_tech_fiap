@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.postechfiap.jlapp.application.core.usecase.ItemPedidoUseCase;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.ItemPedidoAdapter;
+import br.com.postechfiap.jlapp.infrastructure.adapters.ItemPedidoAdapter;
 
 @Configuration
 public class ItemPedidoConfig {

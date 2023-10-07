@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.interfaces.adapters.in.controller;
+package br.com.postechfiap.jlapp.interfaces.adapters.controller;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.postechfiap.jlapp.application.ports.in.PedidoInputPort;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.PedidoDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.PedidoDTO;
 import jakarta.validation.Valid;
 
 @RestController

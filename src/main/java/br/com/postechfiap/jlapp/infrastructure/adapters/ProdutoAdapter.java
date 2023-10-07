@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out;
+package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.ProdutoRepository;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.ProdutoEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ProdutoRepository;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ProdutoEntity;
 
 @Component
 public class ProdutoAdapter implements ProdutoOutputPort {

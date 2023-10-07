@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.postechfiap.jlapp.application.core.usecase.ClienteUseCase;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.ClienteAdapter;
+import br.com.postechfiap.jlapp.infrastructure.adapters.ClienteAdapter;
 
 @Configuration
 public class ClienteConfig {

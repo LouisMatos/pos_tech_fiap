@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out;
+package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.ports.out.PedidoOutputPort;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.PedidoRepository;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.PedidoEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.PedidoRepository;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.PedidoEntity;
 
 @Component
 public class PedidoAdapter implements PedidoOutputPort {

@@ -10,7 +10,7 @@ import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityExcepti
 import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ProdutoDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.ProdutoDTO;
 
 public class ProdutoUseCase implements ProdutoInputPort {
 

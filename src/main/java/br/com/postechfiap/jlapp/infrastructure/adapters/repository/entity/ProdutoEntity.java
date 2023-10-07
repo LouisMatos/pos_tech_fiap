@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity;
+package br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Entity(name = "produtos")
 public class ProdutoEntity implements Serializable {
 
-	private static final long serialVersionUID = -155386334328457449L;
+	private static final long serialVersionUID = -6484803166859187193L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import br.com.postechfiap.jlapp.application.core.usecase.CategoriaUseCase;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.CategoriaAdpter;
+import br.com.postechfiap.jlapp.infrastructure.adapters.CategoriaAdpter;
 
 @Configuration
 public class CategoriaConfig {

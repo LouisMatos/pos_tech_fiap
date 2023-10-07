@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out;
+package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.Optional;
 
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.ports.out.CategoriaOutputPort;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.CategoriaRepository;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.CategoriaEntity;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.CategoriaRepository;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.CategoriaEntity;
 
 @Component
 public class CategoriaAdpter implements CategoriaOutputPort {

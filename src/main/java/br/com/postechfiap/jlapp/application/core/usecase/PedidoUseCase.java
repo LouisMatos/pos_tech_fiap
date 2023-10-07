@@ -12,8 +12,8 @@ import br.com.postechfiap.jlapp.application.ports.in.ItemPedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.PedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.PedidoOutputPort;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ItemPedidoDTO;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.PedidoDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.PedidoDTO;
 
 public class PedidoUseCase implements PedidoInputPort {
 

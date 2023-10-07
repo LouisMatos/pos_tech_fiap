@@ -7,7 +7,7 @@ import br.com.postechfiap.jlapp.application.core.usecase.ClienteUseCase;
 import br.com.postechfiap.jlapp.application.core.usecase.ItemPedidoUseCase;
 import br.com.postechfiap.jlapp.application.core.usecase.PedidoUseCase;
 import br.com.postechfiap.jlapp.application.core.usecase.ProdutoUseCase;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.PedidoAdapter;
+import br.com.postechfiap.jlapp.infrastructure.adapters.PedidoAdapter;
 
 @Configuration
 public class PedidoConfig {

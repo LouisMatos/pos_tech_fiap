@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.interfaces.adapters.in.controller;
+package br.com.postechfiap.jlapp.interfaces.adapters.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ClienteDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.ClienteDTO;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 

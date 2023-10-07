@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
 import br.com.postechfiap.jlapp.application.ports.in.ItemPedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ItemPedidoOutputPort;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.interfaces.dto.ItemPedidoDTO;
 
 public class ItemPedidoUseCase implements ItemPedidoInputPort {
 

@@ -1,7 +1,7 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity.ItemPedidoEntity;
-import br.com.postechfiap.jlapp.interfaces.adapters.in.controller.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ItemPedidoEntity;
+import br.com.postechfiap.jlapp.interfaces.dto.ItemPedidoDTO;
 
 public class ItemPedido {
 

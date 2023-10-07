@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.adapters.out.repository.entity;
+package br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

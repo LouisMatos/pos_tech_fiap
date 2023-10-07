@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.postechfiap.jlapp.application.core.usecase.CategoriaUseCase;
 import br.com.postechfiap.jlapp.application.core.usecase.ProdutoUseCase;
-import br.com.postechfiap.jlapp.infrastructure.adapters.out.ProdutoAdapter;
+import br.com.postechfiap.jlapp.infrastructure.adapters.ProdutoAdapter;
 
 @Configuration
 public class ProdutoConfig {

@@ -16,8 +16,7 @@ server:
 spring:
   main:
     banner-mode: "CONSOLE"   # por algum motivo tem que ser entre aspas duplas
-    allow-bean-definition-overriding: true
-      
+    allow-bean-definition-overriding: true   
   sql:
     init:
       mode: always

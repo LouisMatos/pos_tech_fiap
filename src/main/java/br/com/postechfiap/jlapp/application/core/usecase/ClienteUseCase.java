@@ -7,19 +7,25 @@ import br.com.postechfiap.jlapp.application.exception.NotFoundException;
 import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
 import br.com.postechfiap.jlapp.interfaces.dto.ClienteDTO;
+import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 
 public class ClienteUseCase implements ClienteInputPort {
 
+	private final Logger log;
+
 	private final ClienteOutputPort clienteOutputPort;
 
-	public ClienteUseCase(ClienteOutputPort clienteOutputPort) {
+	public ClienteUseCase(ClienteOutputPort clienteOutputPort, Logger log) {
 		this.clienteOutputPort = clienteOutputPort;
+		this.log = log;
 	}
 
 	@Override
 	public ClienteDTO inserir(ClienteDTO clienteDTO) {
 		Cliente cliente = new Cliente().toCliente(clienteDTO);
+		log.info("Convertendo para Dominio Cliente");
 		ClienteDTO dto = new ClienteDTO().toClienteDTO(clienteOutputPort.inserir(cliente));
+		log.info("Cliente salvo com sucesso!");
 		return dto;
 	}
 

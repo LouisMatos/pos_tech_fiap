@@ -15,8 +15,6 @@ public interface ClienteOutputPort {
 
 	public List<Cliente> buscarTodos();
 
-	public Optional<Cliente> buscar(Long id);
-	
 	public Optional<Cliente> buscarClientePorCpf(String cpf);
 
 }

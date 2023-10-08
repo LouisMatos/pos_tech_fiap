@@ -11,6 +11,7 @@ import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityExcepti
 import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ClienteRepository;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ClienteEntity;
+import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 
 @Component
 public class ClienteAdapter implements ClienteOutputPort {
@@ -18,12 +19,20 @@ public class ClienteAdapter implements ClienteOutputPort {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	@Autowired
+	private Logger log;
+
 	@Override
 	public Cliente inserir(Cliente cliente) {
+
+		log.info("Verificando se o cliente já existe na base!");
+
 		Optional<Cliente> clienteExiste = this.buscarClientePorCpf(cliente.getCpf());
 		if (!clienteExiste.isEmpty()) {
-			throw new UnprocessableEntityException("Cliente já cadastrado com esse CPF!");
+			throw new UnprocessableEntityException("Já existe um cliente cadastrado para o cpf: " + cliente.getCpf());
 		}
+
+		log.info("Cadastrando novo cliente!");
 		ClienteEntity clienteEntity = new ClienteEntity().toClienteEntity(cliente);
 		return cliente.toCliente(clienteRepository.save(clienteEntity));
 	}
@@ -47,13 +56,8 @@ public class ClienteAdapter implements ClienteOutputPort {
 	}
 
 	@Override
-	public Optional<Cliente> buscar(Long id) {
-		Optional<ClienteEntity> customerEntity = clienteRepository.findById(id);
-		return customerEntity.map(entity -> new Cliente().toCliente(entity));
-	}
-
-	@Override
 	public Optional<Cliente> buscarClientePorCpf(String cpf) {
+		log.info("Buscando cliente com o cpf {} na base de dados!", cpf);
 		Optional<ClienteEntity> customerEntity = clienteRepository.findByCpf(cpf);
 		return customerEntity.map(entity -> new Cliente().toCliente(entity));
 	}

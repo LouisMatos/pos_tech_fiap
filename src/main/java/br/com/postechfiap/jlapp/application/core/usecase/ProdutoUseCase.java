@@ -11,6 +11,7 @@ import br.com.postechfiap.jlapp.application.ports.in.CategoriaInputPort;
 import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
 import br.com.postechfiap.jlapp.interfaces.dto.ProdutoDTO;
+import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 
 public class ProdutoUseCase implements ProdutoInputPort {
 
@@ -18,23 +19,29 @@ public class ProdutoUseCase implements ProdutoInputPort {
 
 	private final CategoriaInputPort categoriaInputPort;
 
-	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort, CategoriaInputPort categoriaInputPort) {
+	private final Logger log;
+
+	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort, CategoriaInputPort categoriaInputPort, Logger log) {
 		this.produtoOutputPort = produtoOutputPort;
 		this.categoriaInputPort = categoriaInputPort;
+		this.log = log;
 	}
 
 	@Override
 	public ProdutoDTO inserir(ProdutoDTO produtoDTO) {
 
+		log.info("Convertendo para o dominio de Produto!");
 		Produto produto = new Produto().toProduto(produtoDTO);
 
+		log.info("Convertendo para o dominio de Categoria!");
 		Categoria categoria = new Categoria()
 				.toCategoria(categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId()));
 
+		log.info("Atribuindo {} ao novo produto!", categoria.toString());
 		produto.setCategoria(categoria);
 
 		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.inserir(produto));
-
+		log.info("{} salvo com sucesso!", dto.toString());
 		return dto;
 	}
 
@@ -75,7 +82,8 @@ public class ProdutoUseCase implements ProdutoInputPort {
 	@Override
 	public ProdutoDTO buscarProdutoPorId(Long id) {
 		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.buscarProdutoPorId(id)
-				.orElseThrow(() -> new NotFoundException("Produto informado não encontrado!")));
+				.orElseThrow(() -> new NotFoundException("Produto com ID: " + id + " não encontrado!")));
+		log.info("Produto com ID: {} encontrado!", id);
 		return dto;
 	}
 

@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.infrastructure.config;
+package br.com.postechfiap.jlapp.shared.config;
 
 import java.util.List;
 
@@ -21,11 +21,18 @@ public class OpenAPIConfig {
 	@Value("${jlapp.openapi.prod-url}")
 	private String prodUrl;
 
+	@Value("${jlapp.openapi.hom-url}")
+	private String homUrl;
+
 	@Bean
 	public OpenAPI myOpenAPI() {
 		Server devServer = new Server();
 		devServer.setUrl(devUrl);
 		devServer.setDescription("Server URL in Development environment");
+
+		Server homServer = new Server();
+		homServer.setUrl(homUrl);
+		homServer.setDescription("Server URL in Homologation environment");
 
 		Server prodServer = new Server();
 		prodServer.setUrl(prodUrl);
@@ -42,6 +49,6 @@ public class OpenAPIConfig {
 				.description("This API exposes endpoints to manage tutorials.")
 				.termsOfService("https://www.localhost.com/terms").license(mitLicense);
 
-		return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+		return new OpenAPI().info(info).servers(List.of(devServer, homServer, prodServer));
 	}
 }

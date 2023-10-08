@@ -28,6 +28,7 @@ public class ItemPedidoEntity implements Serializable {
 	@Column(name = "pedidoid")
 	private Long pedidoid;
 
+	@Column(name = "produtoEntity", length = 2048)
 	private ProdutoEntity produtoEntity;
 
 	private int quantidade;

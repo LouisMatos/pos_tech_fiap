@@ -30,6 +30,7 @@ public class ClienteController {
 
 	@GetMapping("/{cpf}")
 	public ResponseEntity<ClienteDTO> buscarClientePorCpf(@PathVariable final String cpf) {
+		log.info("Iniciando a busca do cliente com o cpf: {}", cpf);
 		return ResponseEntity.ok().body(clienteInputPort.buscarClientePorCpf(cpf));
 	}
 

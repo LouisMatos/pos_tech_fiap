@@ -12,6 +12,7 @@ import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ProdutoRepository;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ProdutoEntity;
+import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 
 @Component
 public class ProdutoAdapter implements ProdutoOutputPort {
@@ -19,10 +20,13 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+	@Autowired
+	private Logger log;
+
 	@Override
 	public Produto inserir(Produto produto) {
 		ProdutoEntity produtoEntity = new ProdutoEntity().toProdutoEntity(produto);
-
+		log.info("Cadastrando novo produto!");
 		return produto.toProduto(produtoRepository.save(produtoEntity));
 	}
 
@@ -57,6 +61,7 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 
 	@Override
 	public List<Produto> buscarProdutosPorCategoria(Long categoriaId) {
+		log.info("Buscando produto com o ID: {} na base de dados!", categoriaId);
 		List<ProdutoEntity> produtoEntity = produtoRepository.findCategoriaEntityById(categoriaId);
 		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
 	}

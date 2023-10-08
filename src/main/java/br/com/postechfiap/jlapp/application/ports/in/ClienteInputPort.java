@@ -14,8 +14,6 @@ public interface ClienteInputPort {
 
 	public List<ClienteDTO> buscarTodos();
 
-	public ClienteDTO buscar(Long id);
-
 	public ClienteDTO buscarClientePorCpf(String cpf);
 
 }

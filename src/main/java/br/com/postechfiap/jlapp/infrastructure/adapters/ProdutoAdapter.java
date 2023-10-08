@@ -26,35 +26,40 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 	@Override
 	public Produto inserir(Produto produto) {
 		ProdutoEntity produtoEntity = new ProdutoEntity().toProdutoEntity(produto);
-		log.info("Cadastrando novo produto!");
+		log.info("Cadastrando novo produto na base de dados!");
 		return produto.toProduto(produtoRepository.save(produtoEntity));
 	}
 
 	@Override
 	public Produto atualizar(Produto produto) {
 		ProdutoEntity produtoEntity = new ProdutoEntity().toProdutoEntity(produto);
+		log.info("Alterando produto na base de dados!");
 		return produto.toProduto(produtoRepository.save(produtoEntity));
 	}
 
 	@Override
 	public void deletar(Long id) {
+		log.info("Deletando produto com ID: {} na base de dados!", id);
 		produtoRepository.deleteById(id);
 	}
 
 	@Override
 	public List<Produto> buscarTodosProdutos() {
+		log.info("Buscando todos os produtos cadastrados na base de dados!");
 		List<ProdutoEntity> produtoEntity = produtoRepository.findAll();
 		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
 	}
 
 	@Override
 	public Optional<Produto> buscarProdutoPorId(Long id) {
+		log.info("Buscando produto com o ID: {} na base de dados!", id);
 		Optional<ProdutoEntity> produtoEntity = produtoRepository.findById(id);
 		return produtoEntity.map(entity -> new Produto().toProduto(entity));
 	}
 
 	@Override
 	public List<Produto> buscarProdutosPorCategoria(Categoria categoria) {
+		log.info("Buscando todos os produtos cadastrados com a categoria: {} na base de dados!", categoria.getNome());
 		List<ProdutoEntity> produtoEntity = produtoRepository.findCategoriaEntityById(categoria.getId());
 		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
 	}

@@ -49,16 +49,21 @@ public class ProdutoUseCase implements ProdutoInputPort {
 	public ProdutoDTO atualizar(ProdutoDTO produtoDTO, Long id) {
 		this.buscarProdutoPorId(id);
 
+		log.info("Convertendo para o dominio de Produto!");
 		Produto produto = new Produto().toProduto(produtoDTO);
 
+		log.info("Convertendo para o dominio de Categoria!");
 		Categoria categoria = new Categoria()
 				.toCategoria(categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId()));
 
+		log.info("Atribuindo {} ao novo produto!", categoria.toString());
 		produto.setCategoria(categoria);
 
+		log.info("Atribuindo o ID: {} do produto que será alterado!", id);
 		produto.setId(id);
 
 		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.atualizar(produto));
+		log.info("{} alterado com sucesso!", dto.toString());
 
 		return dto;
 
@@ -68,6 +73,7 @@ public class ProdutoUseCase implements ProdutoInputPort {
 	public void deletar(Long id) {
 		this.buscarProdutoPorId(id);
 		produtoOutputPort.deletar(id);
+		log.info("Produto com ID: {} deletado com sucesso!", id);
 	}
 
 	@Override
@@ -76,6 +82,7 @@ public class ProdutoUseCase implements ProdutoInputPort {
 		if (produtos.isEmpty()) {
 			throw new UnprocessableEntityException("Nenhum produto cadastrado!");
 		}
+		log.info("Produtos encontrados! {}", produtos);
 		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).collect(Collectors.toList());
 	}
 
@@ -92,12 +99,14 @@ public class ProdutoUseCase implements ProdutoInputPort {
 
 		List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
 
+		log.info("Recuperando produtos com a categoria ID: {}", categoriaId);
 		produtos.removeIf(p -> p.getCategoria().getId() != categoriaId);
 
 		if (produtos.isEmpty()) {
 			throw new UnprocessableEntityException("Nenhum produto cadastrado com essa categoria!");
 		}
 
+		log.info("Produtos com a categoria ID: {} encontrados {} !", categoriaId, produtos);
 		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).collect(Collectors.toList());
 	}
 

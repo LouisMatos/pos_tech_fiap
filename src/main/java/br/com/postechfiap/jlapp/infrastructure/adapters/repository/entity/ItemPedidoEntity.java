@@ -3,11 +3,15 @@ package br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity;
 import java.io.Serializable;
 
 import br.com.postechfiap.jlapp.application.core.domain.ItemPedido;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,11 +28,13 @@ public class ItemPedidoEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_item_pedido")
 	private Long id;
+	
 
 	@Column(name = "pedidoid")
 	private Long pedidoid;
 
-	@Column(name = "produtoEntity", length = 2048)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
 	private ProdutoEntity produtoEntity;
 
 	private int quantidade;

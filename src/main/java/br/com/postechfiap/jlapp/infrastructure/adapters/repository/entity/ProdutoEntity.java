@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,9 @@ public class ProdutoEntity implements Serializable {
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "categoria_id")
 	private CategoriaEntity categoriaEntity;
+
+	@OneToMany(mappedBy = "produtoEntity")
+	private List<ItemPedidoEntity> itemPedidoEntity;
 
 	private List<String> imagens;
 

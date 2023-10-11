@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ${APP_PROFILE:local}
+    active: ${APP_PROFILE:dev}
   devtools:
     add-properties: false
   main: 

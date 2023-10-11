@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"{{$randomFullName}}\",\r\n    \"cpf\": \"12342256789131\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"{{$randomFullName}}\",\r\n    \"cpf\": \"25399444003\",\r\n    \"email\": \"{{$randomEmail}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -40,34 +40,12 @@
 					"response": []
 				},
 				{
-					"name": "Buscar Cliente Por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8070/api/v1/clientes/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8070",
-							"path": [
-								"api",
-								"v1",
-								"clientes",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Buscar Cliente Por CPF",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8070/api/v1/clientes/12345678902",
+							"raw": "http://localhost:8070/api/v1/clientes/60904915000",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -77,7 +55,7 @@
 								"api",
 								"v1",
 								"clientes",
-								"12345678902"
+								"60904915000"
 							]
 						}
 					},
@@ -218,7 +196,7 @@
 			]
 		},
 		{
-			"name": "Pedito",
+			"name": "Pedido",
 			"item": [
 				{
 					"name": "Cadastrar Pedido",
@@ -227,7 +205,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cliente\": {\n        \"cpf\": \"12345678905\"\n    },\n    \"itens\": [\n        {\n            \"produto\": {\n                \"id\": 1\n            },\n            \"quantidade\": 1,\n            \"observacao\": \"tirar a salada\"\n        },\n        {\n            \"produto\": {\n                \"id\": 2\n            },\n            \"quantidade\": 3,\n            \"observacao\": \"COLOCA TUDO\"\n        },\n        {\n            \"produto\": {\n                \"id\": 3\n            },\n            \"quantidade\": 3,\n            \"observacao\": \"Colocar bacon\"\n        }\n    ]\n}",
+							"raw": "{\n    \"cliente\": {\n        \"cpf\": \"02304335020\"\n    },\n    \"itens\": [\n        {\n            \"produto\": {\n                \"id\": 4\n            },\n            \"quantidade\": 2,\n            \"observacao\": \"tirar a salada\"\n        },\n        {\n            \"produto\": {\n                \"id\": 2\n            },\n            \"quantidade\": 1,\n            \"observacao\": \"COLOCA TUDO\"\n        },\n        {\n            \"produto\": {\n                \"id\": 5\n            },\n            \"quantidade\": 15,\n            \"observacao\": \"Colocar bacon\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"

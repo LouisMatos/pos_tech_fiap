@@ -19,7 +19,7 @@ spring:
     allow-bean-definition-overriding: true   
   sql:
     init:
-      mode: always
+      mode: NEVER
   jpa:
     show-sql: false
     generate-ddl: false

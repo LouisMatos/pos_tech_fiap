@@ -1,7 +1,25 @@
-# Primeira fase
+
+<h1 align="center"> Sistema de Controle de Pedidos de Lanchonete </h1>
+
+> Status do Projeto: em desenvolvimento :warning
 
 
-Sistema de Controle de Pedidos de Lanchonete
+### Tópicos 
+
+:small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)
+
+:small_blue_diamond: [Funcionalidades](#funcionalidades)
+
+:small_blue_diamond: [Pré-requisitos](#pré-requisitos)
+
+:small_blue_diamond: [Como rodar a aplicação](#como-rodar-a-aplicação-arrow_forward)
+
+# 
+
+## Descrição do Projeto
+
+<p align="justify"> Projeto desenvolvido durante o curso de Pós-Graduação em software architecture na instituição FIAP, visando aplicar todos os conceitos aprendidos durante o curso! </p>
+
 
 1. Contexto do Domínio
 Com o crescimento de uma lanchonete local, surge a necessidade de otimizar e organizar o processo de pedidos e entregas. Para garantir a eficiência e a satisfação dos clientes, desenvolvemos um sistema de controle de pedidos que aborda desde a escolha do produto até a retirada do pedido.

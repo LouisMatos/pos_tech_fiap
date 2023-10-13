@@ -77,7 +77,43 @@ Realização do pedido e pagamento
 
 
 Preparação e Entrega do Pedido
+
 ![Preparacao_EntregaPedido](https://github.com/Jeffe-git/First-Project/assets/40615923/fb7c901d-e6c9-4f90-8c6e-f508ba67557e)
 
+## Pré-requisitos
 
-9. docker-compose build --no-cache && docker-compose up -d --scale jlapp=3
+1. Para rodar a aplicação via ambiente docker:
+
+    :warning: [Docker](https://docs.docker.com/engine/install/)
+
+    :warning: [Docker compose](https://docs.docker.com/compose/install/)
+
+2. Para rodar  a aplicação em localhost:
+
+    :warning: [Docker](https://docs.docker.com/engine/install/)
+
+    :warning: [Docker compose](https://docs.docker.com/compose/install/)
+
+    :warning: [Eclipse](https://www.eclipse.org/downloads/) ou [IntelliJ](https://www.jetbrains.com/idea/download/)
+
+    :warning: [JDK Development Kit 21](https://www.oracle.com/br/java/technologies/downloads/) 
+
+
+## Como rodar a aplicação :arrow_forward:
+
+1. No terminal, clone o projeto: 
+
+    ```
+    git clone https://github.com/LouisMatos/pos_tech_fiap.git
+    ```
+
+2. Entre na pasta do projeto: 
+
+    ```
+    cd pos_tech_fiap
+    ```
+3. Execute no terminal o comando: 
+
+    ```
+    docker-compose build --no-cache && docker-compose up -d --scale jlapp=3
+    ```

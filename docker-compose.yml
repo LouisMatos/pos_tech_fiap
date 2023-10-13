@@ -54,7 +54,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.15'
+          cpus: '0.5'
           memory: 256M
 
   jlapp:
@@ -63,11 +63,10 @@ services:
       dockerfile: Dockerfile
     image: testeluismatos/jlapp:1.0.0
     hostname: jlapp01
-#    container_name: jlapp_service
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_DATABASE=postgres
-      - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=75000 -Xss4M -XX:NativeMemoryTracking=summary
+      - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=20000 -Xss4M -XX:NativeMemoryTracking=summary
     expose:
       - "8070"
     networks:
@@ -78,8 +77,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.3'
-          memory: 256M
+          cpus: '0.5'
+          memory: 512M
 
 
 volumes:

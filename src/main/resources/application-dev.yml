@@ -26,7 +26,7 @@ spring:
     hibernate:
       temp:
         use_jdbc_metadata_defaults: false
-      ddl-auto: create-drop
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     defer-datasource-initialization: always

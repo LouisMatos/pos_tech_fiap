@@ -40,32 +40,53 @@ services:
           cpus: '0.15'
           memory: 128M
 
+  nginx:
+    restart: 'always'
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    networks:
+      - network_service
+    ports:
+      - "8070:7000"
+    depends_on: 
+      - jlapp
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
   jlapp:
     build:
       context: ./
       dockerfile: Dockerfile
     image: testeluismatos/jlapp:1.0.0
-    container_name: jlapp_service
+    hostname: jlapp01
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_DATABASE=postgres
-      - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=75000 -Xss4M -XX:NativeMemoryTracking=summary
-    ports:
-      - 8070:8070
+      - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=20000 -Xss4M -XX:NativeMemoryTracking=summary
+    expose:
+      - "8070"
     networks:
       - network_postgres
+      - network_service
     depends_on:
       - postgres
     deploy:
       resources:
         limits:
-          cpus: '1'
+          cpus: '0.5'
           memory: 512M
+
 
 volumes:
   jlapp:
     driver: local
 
 networks:
+  network_service:
+    driver: bridge
   network_postgres:
     driver: bridge

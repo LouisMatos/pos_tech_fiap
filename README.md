@@ -24,7 +24,7 @@
 
 Contexto do Domínio:
 
-        Com o crescimento de uma lanchonete local, surge a necessidade de otimizar e organizar o processo de pedidos e entregas. Para garantir a eficiência e a satisfação dos clientes, desenvolvemos um sistema de controle de pedidos que aborda desde a escolha do produto até a retirada do pedido.
+Com o crescimento de uma lanchonete local, surge a necessidade de otimizar e organizar o processo de pedidos e entregas. Para garantir a eficiência e a satisfação dos clientes, desenvolvemos um sistema de controle de pedidos que aborda desde a escolha do produto até a retirada do pedido.
 
 
 ## Domain-driven design

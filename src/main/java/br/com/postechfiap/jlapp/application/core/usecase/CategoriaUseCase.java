@@ -20,9 +20,8 @@ public class CategoriaUseCase implements CategoriaInputPort {
 	@Override
 	public CategoriaDTO buscarCategoriaPorId(Long id) {
 		log.info("Verificando se a categoria está cadastrada na base");
-		CategoriaDTO categoriaDTO = new CategoriaDTO().toCategoriaDTO(categoriaOutputPort.buscarCategoriaPorId(id)
+		return new CategoriaDTO().toCategoriaDTO(categoriaOutputPort.buscarCategoriaPorId(id)
 				.orElseThrow(() -> new NotFoundException("Categoria informado não encontrado!")));
-		return categoriaDTO;
 	}
 
 }

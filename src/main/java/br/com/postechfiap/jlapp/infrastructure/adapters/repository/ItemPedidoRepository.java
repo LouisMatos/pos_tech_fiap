@@ -10,6 +10,6 @@ import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ItemPe
 @Repository
 public interface ItemPedidoRepository extends JpaRepository<ItemPedidoEntity, Long> {
 
-	List<ItemPedidoEntity> findAllByPedidoid(Long id_pedido);
+	List<ItemPedidoEntity> findAllByPedidoid(Long idPedido);
 
 }

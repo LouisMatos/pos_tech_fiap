@@ -1,7 +1,5 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
-import java.util.List;
-
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import br.com.postechfiap.jlapp.application.exception.BadRequestException;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
@@ -29,28 +27,10 @@ public class ClienteUseCase implements ClienteInputPort {
 
 		log.info("Convertendo para Dominio Cliente");
 		Cliente cliente = new Cliente().toCliente(clienteDTO);
-		
+
 		ClienteDTO dto = new ClienteDTO().toClienteDTO(clienteOutputPort.inserir(cliente));
 		log.info("{} salvo com sucesso!", dto.toString());
 		return dto;
-	}
-
-	@Override
-	public void atualizar(ClienteDTO clienteDTO) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deletar(Long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<ClienteDTO> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -66,7 +46,6 @@ public class ClienteUseCase implements ClienteInputPort {
 
 	private void validaCpf(String cpf) {
 		if (!ValidaCPF.isValidCPF(cpf)) {
-			log.info("CPF {} não é valido!", cpf);
 			throw new BadRequestException("CPF " + cpf + " não é valido!");
 		}
 	}

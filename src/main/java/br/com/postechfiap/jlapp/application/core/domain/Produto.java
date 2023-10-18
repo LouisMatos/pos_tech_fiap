@@ -19,7 +19,7 @@ public class Produto {
 
 	private Categoria categoria;
 
-	private List<String> imagens = new ArrayList<String>();
+	private List<String> imagens = new ArrayList<>();
 
 	public Produto() {
 	}
@@ -91,12 +91,11 @@ public class Produto {
 	public Produto toProduto(ProdutoDTO produtoDTO) {
 		this.categoria = new Categoria();
 		this.id = produtoDTO.getId();
-		this.categoria.setNome(produtoDTO.getCategoria_nome());
-		this.categoria.setId(produtoDTO.getCategoria_id());
+		this.categoria.setNome(produtoDTO.getCategoriaNome());
+		this.categoria.setId(produtoDTO.getCategoriaId());
 		this.nome = produtoDTO.getNome();
 		this.descricao = produtoDTO.getDescricao();
 		this.preco = produtoDTO.getPreco();
-		this.categoria.setId(produtoDTO.getCategoria_id());
 		this.imagens = produtoDTO.getImagens();
 		return this;
 	}

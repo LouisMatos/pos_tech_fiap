@@ -21,16 +21,16 @@ public class PedidoDTO {
 	private ClienteDTO clienteDTO;
 
 	@JsonProperty("itens")
-	private List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<ItemPedidoDTO>();
+	private List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<>();
 
 	@JsonProperty("estado")
 	private Estado estado;
 
 	@JsonProperty("data_pedido")
-	private LocalDateTime data_pedido;
+	private LocalDateTime dataPedido;
 
 	@JsonProperty("valor_pedido")
-	private BigDecimal valor_pedido;
+	private BigDecimal valorPedido;
 
 	public PedidoDTO toPedidoDTO(Pedido pedido) {
 		this.id = pedido.getId();
@@ -41,8 +41,8 @@ public class PedidoDTO {
 				.collect((Collectors.toList()));
 
 		this.estado = pedido.getEstado();
-		this.data_pedido = pedido.getData_pedido();
-		this.valor_pedido = pedido.getValor_pedido();
+		this.dataPedido = pedido.getDataPedido();
+		this.valorPedido = pedido.getValorPedido();
 		return this;
 	}
 }

@@ -1,6 +1,5 @@
 package br.com.postechfiap.jlapp.infrastructure.adapters;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,24 +34,6 @@ public class ClienteAdapter implements ClienteOutputPort {
 		log.info("Cadastrando novo cliente!");
 		ClienteEntity clienteEntity = new ClienteEntity().toClienteEntity(cliente);
 		return cliente.toCliente(clienteRepository.save(clienteEntity));
-	}
-
-	@Override
-	public void atualizar(Cliente cliente) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deletar(Long id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Cliente> buscarTodos() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

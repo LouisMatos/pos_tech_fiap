@@ -3,6 +3,7 @@ package br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
@@ -16,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,12 +39,15 @@ public class PedidoEntity implements Serializable {
 	@JoinColumn(nullable = true, name = "id_cliente")
 	private ClienteEntity clienteEntity;
 
+	@OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER, mappedBy = "pedidoEntity")
+	private List<ItemPedidoEntity> itemPedidoEntities;
+
 	@Enumerated
 	private Estado estado;
 
-	private LocalDateTime data_pedido;
+	private LocalDateTime dataPedido;
 
-	private BigDecimal valor_pedido;
+	private BigDecimal valorPedido;
 
 	public PedidoEntity toPedidoEntity(Pedido pedido) {
 		this.id = pedido.getId();
@@ -50,8 +55,8 @@ public class PedidoEntity implements Serializable {
 			this.clienteEntity = new ClienteEntity().toClienteEntity(pedido.getCliente());
 		}
 		this.estado = pedido.getEstado();
-		this.data_pedido = pedido.getData_pedido();
-		this.valor_pedido = pedido.getValor_pedido();
+		this.dataPedido = pedido.getDataPedido();
+		this.valorPedido = pedido.getValorPedido();
 		return this;
 	}
 }

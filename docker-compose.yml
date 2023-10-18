@@ -49,6 +49,12 @@ services:
       - network_service
     ports:
       - "8070:7000"
+    healthcheck:
+      test: curl --fail http://localhost:7000/actuator/health || exit 1
+      interval: 10s
+      retries: 3
+      start_period: 60s
+      timeout: 6s
     depends_on: 
       - jlapp
     deploy:
@@ -66,7 +72,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_DATABASE=postgres
-      - JAVA_OPTS=-server -Xms256M -Xmx512M -XX:ThreadStackSize=20000 -Xss4M -XX:NativeMemoryTracking=summary
+      - JAVA_OPTS=-server -Xms64M -Xmx512M -XX:ThreadStackSize=20000 -Xss4M 
     expose:
       - "8070"
     networks:
@@ -75,11 +81,28 @@ services:
     depends_on:
       - postgres
     deploy:
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - disktype=ssd
+        max_replicas_per_node: 10
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
       resources:
         limits:
           cpus: '0.5'
           memory: 512M
-
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+          devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
 
 volumes:
   jlapp:

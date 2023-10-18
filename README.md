@@ -130,5 +130,5 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 3. Execute no terminal o comando: 
 
     ```
-    docker-compose build --no-cache && docker-compose up -d --scale jlapp=3
+    docker-compose build --no-cache && docker-compose up -d
     ```

@@ -10,8 +10,14 @@ COPY src src
 RUN chmod +x mvnw 
 RUN chmod +x .mvn 
 
-RUN ./mvnw package -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+#RUN ./mvnw package -DskipTests
+
+# clean up the file
+RUN sed -i 's/\r$//' mvnw 
+# run with the SH path
+RUN /bin/sh mvnw package -DskipTests dependency:resolve
+
+#RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 WORKDIR /app/target
 

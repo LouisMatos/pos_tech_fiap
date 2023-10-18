@@ -61,14 +61,14 @@ public class ProdutoAdapter implements ProdutoOutputPort {
 	public List<Produto> buscarProdutosPorCategoria(Categoria categoria) {
 		log.info("Buscando todos os produtos cadastrados com a categoria: {} na base de dados!", categoria.getNome());
 		List<ProdutoEntity> produtoEntity = produtoRepository.findCategoriaEntityById(categoria.getId());
-		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
+		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).toList();
 	}
 
 	@Override
 	public List<Produto> buscarProdutosPorCategoria(Long categoriaId) {
 		log.info("Buscando produto com o ID: {} na base de dados!", categoriaId);
 		List<ProdutoEntity> produtoEntity = produtoRepository.findCategoriaEntityById(categoriaId);
-		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).collect(Collectors.toList());
+		return produtoEntity.stream().map(entity -> new Produto().toProduto(entity)).toList();
 	}
 
 }

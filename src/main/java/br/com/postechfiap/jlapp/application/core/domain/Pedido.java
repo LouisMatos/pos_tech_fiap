@@ -16,26 +16,26 @@ public class Pedido {
 
 	private Cliente cliente;
 
-	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
+	private List<ItemPedido> itens = new ArrayList<>();
 
 	private Estado estado;
 
-	private LocalDateTime data_pedido;
+	private LocalDateTime dataPedido;
 
-	private BigDecimal valor_pedido;
+	private BigDecimal valorPedido;
 
 	public Pedido() {
 
 	}
 
-	public Pedido(Long id, Cliente cliente, List<ItemPedido> itens, Estado estado, LocalDateTime data_pedido,
-			BigDecimal valor_pedido) {
+	public Pedido(Long id, Cliente cliente, List<ItemPedido> itens, Estado estado, LocalDateTime dataPedido,
+			BigDecimal valorPedido) {
 		this.id = id;
 		this.cliente = cliente;
 		this.itens = itens;
 		this.estado = estado;
-		this.data_pedido = data_pedido;
-		this.valor_pedido = valor_pedido;
+		this.dataPedido = dataPedido;
+		this.valorPedido = valorPedido;
 	}
 
 	public Cliente getCliente() {
@@ -70,52 +70,50 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public LocalDateTime getData_pedido() {
-		return data_pedido;
+	public LocalDateTime getDataPedido() {
+		return dataPedido;
 	}
 
-	public void setData_pedido(LocalDateTime data_pedido) {
-		this.data_pedido = data_pedido;
+	public void setDataPedido(LocalDateTime dataPedido) {
+		this.dataPedido = dataPedido;
 	}
 
-	public BigDecimal getValor_pedido() {
-		return valor_pedido;
+	public BigDecimal getValorPedido() {
+		return valorPedido;
 	}
 
-	public void setValor_pedido(BigDecimal valor_pedido) {
-		this.valor_pedido = valor_pedido;
+	public void setValorPedido(BigDecimal valorPedido) {
+		this.valorPedido = valorPedido;
 	}
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", estado=" + estado
-				+ ", data_pedido=" + data_pedido + ", valor_pedido=" + valor_pedido + "]";
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", estado=" + estado + ", dataPedido="
+				+ dataPedido + ", valorPedido=" + valorPedido + "]";
 	}
 
 	public Pedido toPedido(PedidoDTO pedidoDTO) {
 		this.id = pedidoDTO.getId();
-		if(pedidoDTO.getClienteDTO()!= null) {
+		if (pedidoDTO.getClienteDTO() != null) {
 			this.cliente = new Cliente().toCliente(pedidoDTO.getClienteDTO());
 		}
 		this.itens = pedidoDTO.getItemPedidoDTOs().stream().map(dto -> new ItemPedido().toItemPedido(dto))
 				.collect((Collectors.toList()));
 		this.estado = pedidoDTO.getEstado();
-		this.data_pedido = pedidoDTO.getData_pedido();
-		this.valor_pedido = pedidoDTO.getValor_pedido();
+		this.dataPedido = pedidoDTO.getDataPedido();
+		this.valorPedido = pedidoDTO.getValorPedido();
 		return this;
 
 	}
 
 	public Pedido toPedido(PedidoEntity pedidoEntity) {
 		this.id = pedidoEntity.getId();
-		if(pedidoEntity.getClienteEntity() != null) {
+		if (pedidoEntity.getClienteEntity() != null) {
 			this.cliente = new Cliente().toCliente(pedidoEntity.getClienteEntity());
 		}
-//		this.itens = pedidoEntity.getItensPedidoEntities().stream().map(dto -> new ItemPedido().toItemPedido(dto))
-//				.collect((Collectors.toList()));
 		this.estado = pedidoEntity.getEstado();
-		this.data_pedido = pedidoEntity.getData_pedido();
-		this.valor_pedido = pedidoEntity.getValor_pedido();
+		this.dataPedido = pedidoEntity.getDataPedido();
+		this.valorPedido = pedidoEntity.getValorPedido();
 		return this;
 	}
 

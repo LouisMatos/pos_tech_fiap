@@ -24,6 +24,6 @@ public class MdcInterceptor implements HandlerInterceptor {
 	}
 
 	private String getXReqId() {
-		return UUID.randomUUID().toString().replaceAll("-", "");
+		return UUID.randomUUID().toString().replace("-", "");
 	}
 }

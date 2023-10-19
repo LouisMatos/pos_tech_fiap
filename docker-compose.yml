@@ -72,6 +72,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - SPRING_DATABASE=postgres
+      - SPRING_ADMIN=localhost
       - JAVA_OPTS=-server -Xms64M -Xmx512M -XX:ThreadStackSize=20000 -Xss4M 
     expose:
       - "8070"
@@ -99,10 +100,10 @@ services:
         reservations:
           cpus: '0.25'
           memory: 256M
-          devices:
-          - driver: nvidia
-            count: 1
-            capabilities: [gpu]
+ #         devices:
+ #         - driver: nvidia
+ #           count: 1
+ #           capabilities: [gpu]
 
 volumes:
   jlapp:

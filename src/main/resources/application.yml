@@ -5,6 +5,37 @@ spring:
     add-properties: false
   main: 
     allow-circular-references: true
+  boot:
+    admin:
+      client:
+        url: http://${SPRING_ADMIN:localhost}:8070
+
+
+# Note: Spring Boot 2.2 replaces following directive with 
+# server.
+server:
+  forward-headers-strategy: native
+  tomcat:
+    internal-proxies: 90\.91\.92\.93
+  use-forward-headers: true
+  servlet:
+    session:
+      timeout: 1d
+      cookie:
+        max-age: 1d
+
+
+info:
+  app:
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+    encoding: '@project.build.sourceEncoding@'
+    java: 
+      version: '@java.version@'
+# puxa informacoes do projeto do pom.xml
+
+
 
 
 jlapp:

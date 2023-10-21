@@ -39,7 +39,6 @@ public class PedidoDTO {
 		}
 		this.itemPedidoDTOs = pedido.getItens().stream().map(p -> new ItemPedidoDTO().toItemPedidoDTO(p))
 				.collect((Collectors.toList()));
-
 		this.estado = pedido.getEstado();
 		this.dataPedido = pedido.getDataPedido();
 		this.valorPedido = pedido.getValorPedido();

@@ -1,3 +1,9 @@
+jlapp:
+  openapi:
+    dev-url: http://localhost:8070
+    hom-url: http://localhost:8070
+    prod-url: https://localhost:8070
+
 #Configuracao do Server
 logging:
   pattern: 
@@ -10,23 +16,26 @@ springdoc:
   api-docs:
     path: "/api-docs"
 
+server:
+  port: 8070
+
 spring:
-  main:
-    banner-mode: "CONSOLE"   # por algum motivo tem que ser entre aspas duplas
-    allow-bean-definition-overriding: true   
+  devtools:
+    add-properties: false
   sql:
     init:
       mode: always
+  main:
+    banner-mode: "CONSOLE"   # por algum motivo tem que ser entre aspas duplas
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
   jpa:
     show-sql: false
     generate-ddl: false
-    hibernate:
-      temp:
-        use_jdbc_metadata_defaults: false
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
     open-in-view: false
-    defer-datasource-initialization: always
+    defer-datasource-initialization: true
     task:
     scheduling:
       pool:
@@ -35,21 +44,19 @@ spring:
       hibernate:
         format_sql: true
         jdbc:
-          lob:
-            non_contextual_creation: true
           minPoolSize: 5
           time_zone: America/Sao_Paulo
         timezone:
           default_storage: NORMALIZE_UTC
+          
 
   datasource:
-    url: jdbc:postgresql://${SPRING_DATABASE:localhost}:5432/db_lanchonete
-    driverClassName: org.postgresql.Driver
-    username: root
-    password: root
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
     type: com.zaxxer.hikari.HikariDataSource
     data: data.sql
-    initialize: true
     hikari:
       pool-name: ps-demo
       maximum-pool-size: 20
@@ -61,4 +68,8 @@ spring:
       max-active: 50
       max-idle: 15
       min-idle: 8
-   
+      
+  h2:
+   console:
+     enabled: true
+   path: /h2-console

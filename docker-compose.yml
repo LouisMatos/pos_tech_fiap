@@ -19,8 +19,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.2'
-          memory: 256M
+          cpus: '1'
+          memory: 512M
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -48,10 +48,10 @@ services:
     networks:
       - network_service
     ports:
-      - "8070:7000"
+      - "8070:80"
     healthcheck:
-      test: curl --fail http://localhost:7000/actuator/health || exit 1
-      interval: 10s
+      test: curl --fail http://localhost:80/actuator/health || exit 1
+      interval: 30s
       retries: 3
       start_period: 60s
       timeout: 6s
@@ -60,7 +60,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.3'
           memory: 256M
 
   jlapp:
@@ -84,8 +84,6 @@ services:
       mode: replicated
       replicas: 3
       placement:
-        constraints:
-          - disktype=ssd
         max_replicas_per_node: 10
       update_config:
         parallelism: 1
@@ -94,15 +92,11 @@ services:
         delay: 10s
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
+          cpus: '1'
           memory: 256M
-          devices:
-          - driver: nvidia
-            count: 1
-            capabilities: [gpu]
+        reservations:
+          cpus: '0.5'
+          memory: 256M
 
 volumes:
   jlapp:

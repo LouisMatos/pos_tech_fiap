@@ -132,3 +132,8 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     ```
     docker-compose build --no-cache && docker-compose up -d
     ```
+4. Acesse o swagger pela url: 
+
+    ```
+    http://localhost:8070/swagger-ui/index.html
+    ```

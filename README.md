@@ -111,7 +111,7 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
     :warning: [Eclipse](https://www.eclipse.org/downloads/) ou [IntelliJ](https://www.jetbrains.com/idea/download/)
 
-    :warning: [JDK Development Kit 21](https://www.oracle.com/br/java/technologies/downloads/) 
+    :warning: [JDK Development Kit 20](https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html) 
 
 
 ## Como rodar a aplicação :arrow_forward:

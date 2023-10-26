@@ -88,12 +88,12 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
 1. Realização do pedido e pagamento
 
-![image](https://github.com/LouisMatos/pos_tech_fiap/blob/master/DDD/Pedido%20-%20Pagamento%20V2.jpg)
+![image](https://github.com/LouisMatos/pos_tech_fiap/blob/master/DDD/Pedido%20-%20Pagamento%20V3.jpg)
 
 
 2. Preparação e Entrega do Pedido
 
-![Preparacao_EntregaPedido](https://github.com/LouisMatos/pos_tech_fiap/blob/master/DDD/Prepara%C3%A7%C3%A3o%20-%20Entrega%20Pedido%20V2.jpg)
+![Preparacao_EntregaPedido](https://github.com/LouisMatos/pos_tech_fiap/blob/master/DDD/Prepara%C3%A7%C3%A3o%20-%20Entrega%20Pedido%20V3.jpg)
 
 ## Pré-requisitos
 

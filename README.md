@@ -88,12 +88,12 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
 1. Realização do pedido e pagamento
 
-![image](https://github.com/Jeffe-git/First-Project/assets/40615923/13a08458-d713-4738-886f-426ad2e3c720)
+![image](https://github.com/LouisMatos/pos_tech_fiap/blob/readme/DDD/Pedido%20-%20Pagamento%20V3.jpg)
 
 
 2. Preparação e Entrega do Pedido
 
-![Preparacao_EntregaPedido](https://github.com/Jeffe-git/First-Project/assets/40615923/fb7c901d-e6c9-4f90-8c6e-f508ba67557e)
+![Preparacao_EntregaPedido](https://github.com/LouisMatos/pos_tech_fiap/blob/readme/DDD/Prepara%C3%A7%C3%A3o%20-%20Entrega%20Pedido%20V3.jpg)
 
 ## Pré-requisitos
 
@@ -111,7 +111,7 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
     :warning: [Eclipse](https://www.eclipse.org/downloads/) ou [IntelliJ](https://www.jetbrains.com/idea/download/)
 
-    :warning: [JDK Development Kit 21](https://www.oracle.com/br/java/technologies/downloads/) 
+    :warning: [JDK Development Kit 20](https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html) 
 
 
 ## Como rodar a aplicação :arrow_forward:

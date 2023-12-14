@@ -141,7 +141,6 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
     ```
     pos_tech_fiap\k8s> kubectl apply -f
-    pos_tech_fiap\k8s\db> kubectl apply -f
     ```
 
    Banco de dados:

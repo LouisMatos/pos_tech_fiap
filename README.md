@@ -140,13 +140,13 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
    API
 
     ```
-    pos_tech_fiap\k8s> kubectl apply -f
+    pos_tech_fiap\k8s> kubectl apply -f.
     ```
 
    Banco de dados:
 
     ```
-    pos_tech_fiap\k8s\db> kubectl apply -f
+    pos_tech_fiap\k8s\db> kubectl apply -f.
     ```
    
 6. Acesse o swagger pela url: 

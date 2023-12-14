@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jlapp-deployment
+spec:
+  selector:
+    matchLabels:
+      app: jlapp
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: jlapp
+    spec:
+      containers:
+      - name: jlapp
+        image: testeluismatos/jlapp:1.0.0
+        ports:
+        - containerPort: 8070
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:postgresql://postgres:5432/db_lanchonete
+          - name: SPRING_DATASOURCE_USERNAME
+            value: root
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: root

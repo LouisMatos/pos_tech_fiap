@@ -132,6 +132,17 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     ```
     docker-compose build --no-cache && docker-compose up -d
     ```
+
+4. Executar em ambiente Kubernetes
+
+Os arquivos para o Kubernetes se encontram no diretório k8s/
+
+   ```
+    pos_tech_fiap\k8s> kubectl apply -f
+    pos_tech_fiap\k8s\db> kubectl apply -f
+   ```
+
+   
 4. Acesse o swagger pela url: 
 
     ```

@@ -135,16 +135,22 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
 4. Executar em ambiente Kubernetes
 
-   Os arquivos para o Kubernetes se encontram no diretório k8s/
-   Aplique os manifestos do Kubernetes no diretorio K8S e DB
+   Execute os comandos abaixo para aplicar os manifestos do K8S:
+   
+   API
 
-   ```
+    ```
     pos_tech_fiap\k8s> kubectl apply -f
     pos_tech_fiap\k8s\db> kubectl apply -f
-   ```
+    ```
 
+   Banco de dados:
+
+    ```
+    pos_tech_fiap\k8s\db> kubectl apply -f
+    ```
    
-5. Acesse o swagger pela url: 
+6. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html

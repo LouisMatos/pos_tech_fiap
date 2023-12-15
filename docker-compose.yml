@@ -82,7 +82,7 @@ services:
       - postgres
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 1
       placement:
         max_replicas_per_node: 10
       update_config:

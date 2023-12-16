@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: jlapp
-        image: testeluismatos/jlapp:1.0.0
+        image: jeff192/jlapp:1.0.0
         ports:
         - containerPort: 8070
         env:

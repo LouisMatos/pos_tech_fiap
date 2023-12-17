@@ -1,93 +1,65 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.util.List;
+import java.util.Objects;
 
-import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ClienteEntity;
-import br.com.postechfiap.jlapp.interfaces.dto.ClienteDTO;
-
+/**
+ * Representa um cliente no domínio da aplicação.
+ * Contém informações pessoais e os pedidos associados ao cliente.
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cliente {
 
-	private Long id;
+    private Long id;
+    private String nome;
+    private String cpf;
+    private String email;
+    private List<Pedido> pedidos;
 
-	private String nome;
+    /**
+     * Define o nome do cliente.
+     *
+     * @param nome O nome do cliente.
+     * @throws NullPointerException se o nome for nulo.
+     */
+    public void setNome(String nome) {
+        this.nome = Objects.requireNonNull(nome, "O nome não pode ser nulo.");
+    }
 
-	private String cpf;
+    /**
+     * Define o CPF do cliente.
+     *
+     * @param cpf O CPF do cliente.
+     * @throws NullPointerException se o CPF for nulo.
+     */
+    public void setCpf(String cpf) {
+        this.cpf = Objects.requireNonNull(cpf, "O CPF não pode ser nulo.");
+    }
 
-	private String email;
+    /**
+     * Define o e-mail do cliente.
+     *
+     * @param email O e-mail do cliente.
+     * @throws NullPointerException se o e-mail for nulo.
+     */
+    public void setEmail(String email) {
+        this.email = Objects.requireNonNull(email, "O e-mail não pode ser nulo.");
+    }
 
-	private List<Pedido> pedidos;
+    /**
+     * Define a lista de pedidos do cliente.
+     *
+     * @param pedidos A lista de pedidos associados ao cliente.
+     * @throws NullPointerException se a lista de pedidos for nula.
+     */
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = Objects.requireNonNull(pedidos, "A lista de pedidos não pode ser nula.");
+    }
 
-	public Cliente() {
-	}
-
-	public Cliente(Long id, String nome, String cpf, String email, List<Pedido> pedidos) {
-		this.id = id;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-		this.pedidos = pedidos;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public List<Pedido> getPedidos() {
-		return pedidos;
-	}
-
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", pedidos=" + pedidos
-				+ "]";
-	}
-
-	public Cliente toCliente(ClienteDTO clienteDTO) {
-		this.id = clienteDTO.getId();
-		this.nome = clienteDTO.getNome();
-		this.cpf = clienteDTO.getCpf();
-		this.email = clienteDTO.getEmail();
-		return this;
-	}
-
-	public Cliente toCliente(ClienteEntity clienteEntity) {
-		this.id = clienteEntity.getId();
-		this.nome = clienteEntity.getNome();
-		this.cpf = clienteEntity.getCpf();
-		this.email = clienteEntity.getEmail();
-		return this;
-	}
-
+    // O Lombok gera os demais métodos como equals, hashCode e toString.
 }

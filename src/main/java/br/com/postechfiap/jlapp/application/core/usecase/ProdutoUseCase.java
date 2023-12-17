@@ -1,7 +1,7 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.core.domain.Produto;
@@ -12,102 +12,94 @@ import br.com.postechfiap.jlapp.application.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
 import br.com.postechfiap.jlapp.interfaces.dto.ProdutoDTO;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class ProdutoUseCase implements ProdutoInputPort {
 
-	private final ProdutoOutputPort produtoOutputPort;
+    private final ProdutoOutputPort produtoOutputPort;
+    private final CategoriaInputPort categoriaInputPort;
+    private final Logger log;
 
-	private final CategoriaInputPort categoriaInputPort;
+    @Override
+    public ProdutoDTO inserir(ProdutoDTO produtoDTO) {
+        Produto produto = convertToProduto(produtoDTO);
+        processarCategoria(produto);
+        ProdutoDTO dto = convertToProdutoDTO(produtoOutputPort.inserir(produto));
+        log.info("Produto salvo com sucesso: {}", dto);
+        return dto;
+    }
 
-	private final Logger log;
+    @Override
+    public ProdutoDTO atualizar(ProdutoDTO produtoDTO, Long id) {
+        verificarExistenciaProduto(id);
+        Produto produto = convertToProduto(produtoDTO);
+        processarCategoria(produto);
+        produto.setId(id);
+        ProdutoDTO dto = convertToProdutoDTO(produtoOutputPort.atualizar(produto));
+        log.info("Produto atualizado com sucesso: {}", dto);
+        return dto;
+    }
 
-	public ProdutoUseCase(ProdutoOutputPort produtoOutputPort, CategoriaInputPort categoriaInputPort, Logger log) {
-		this.produtoOutputPort = produtoOutputPort;
-		this.categoriaInputPort = categoriaInputPort;
-		this.log = log;
-	}
+    @Override
+    public void deletar(Long id) {
+        verificarExistenciaProduto(id);
+        produtoOutputPort.deletar(id);
+        log.info("Produto com ID: {} deletado com sucesso!", id);
+    }
 
-	@Override
-	public ProdutoDTO inserir(ProdutoDTO produtoDTO) {
+    @Override
+    public List<ProdutoDTO> buscarTodosProdutos() {
+        List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
+        if (produtos.isEmpty()) {
+            throw new UnprocessableEntityException("Nenhum produto cadastrado!");
+        }
+        log.info("Produtos encontrados: {}", produtos);
+        return produtos.stream()
+                       .map(this::convertToProdutoDTO)
+                       .collect(Collectors.toList());
+    }
 
-		log.info("Convertendo para o dominio de Produto!");
-		Produto produto = new Produto().toProduto(produtoDTO);
+    @Override
+    public ProdutoDTO buscarProdutoPorId(Long id) {
+        ProdutoDTO dto = produtoOutputPort.buscarProdutoPorId(id)
+                .map(this::convertToProdutoDTO)
+                .orElseThrow(() -> new NotFoundException("Produto com ID: " + id + " não encontrado!"));
+        log.info("Produto com ID: {} encontrado!", id);
+        return dto;
+    }
 
-		log.info("Convertendo para o dominio de Categoria!");
-		Categoria categoria = new Categoria()
-				.toCategoria(categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId()));
+    @Override
+    public List<ProdutoDTO> buscarProdutosPorCategoria(Long categoriaId) {
+        List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
+        produtos.removeIf(p -> !p.getCategoria().getId().equals(categoriaId));
+        if (produtos.isEmpty()) {
+            throw new UnprocessableEntityException("Nenhum produto cadastrado com essa categoria!");
+        }
+        log.info("Produtos com a categoria ID: {} encontrados: {}", categoriaId, produtos);
+        return produtos.stream()
+                       .map(this::convertToProdutoDTO)
+                       .collect(Collectors.toList());
+    }
 
-		log.info("Atribuindo {} ao novo produto!", categoria.toString());
-		produto.setCategoria(categoria);
+    private void verificarExistenciaProduto(Long id) {
+        produtoOutputPort.buscarProdutoPorId(id)
+                .orElseThrow(() -> new NotFoundException("Produto com ID: " + id + " não encontrado!"));
+    }
 
-		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.inserir(produto));
-		log.info("{} salvo com sucesso!", dto.toString());
-		return dto;
-	}
+    private Produto convertToProduto(ProdutoDTO produtoDTO) {
+        // Lógica para converter ProdutoDTO em Produto
+        return new Produto().toProduto(produtoDTO);
+    }
 
-	@Override
-	public ProdutoDTO atualizar(ProdutoDTO produtoDTO, Long id) {
-		this.buscarProdutoPorId(id);
+    private ProdutoDTO convertToProdutoDTO(Produto produto) {
+        // Lógica para converter Produto em ProdutoDTO
+        return new ProdutoDTO().toProdutoDTO(produto);
+    }
 
-		log.info("Convertendo para o dominio de Produto!");
-		Produto produto = new Produto().toProduto(produtoDTO);
-
-		log.info("Convertendo para o dominio de Categoria!");
-		Categoria categoria = new Categoria()
-				.toCategoria(categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId()));
-
-		log.info("Atribuindo {} ao novo produto!", categoria.toString());
-		produto.setCategoria(categoria);
-
-		log.info("Atribuindo o ID: {} do produto que será alterado!", id);
-		produto.setId(id);
-
-		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.atualizar(produto));
-		log.info("{} alterado com sucesso!", dto.toString());
-
-		return dto;
-
-	}
-
-	@Override
-	public void deletar(Long id) {
-		this.buscarProdutoPorId(id);
-		produtoOutputPort.deletar(id);
-		log.info("Produto com ID: {} deletado com sucesso!", id);
-	}
-
-	@Override
-	public List<ProdutoDTO> buscarTodosProdutos() {
-		List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
-		if (produtos.isEmpty()) {
-			throw new UnprocessableEntityException("Nenhum produto cadastrado!");
-		}
-		log.info("Produtos encontrados! {}", produtos);
-		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).toList();
-	}
-
-	@Override
-	public ProdutoDTO buscarProdutoPorId(Long id) {
-		ProdutoDTO dto = new ProdutoDTO().toProdutoDTO(produtoOutputPort.buscarProdutoPorId(id)
-				.orElseThrow(() -> new NotFoundException("Produto com ID: " + id + " não encontrado!")));
-		log.info("Produto com ID: {} encontrado!", id);
-		return dto;
-	}
-
-	@Override
-	public List<ProdutoDTO> buscarProdutosPorCategoria(Long categoriaId) {
-
-		List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
-
-		log.info("Recuperando produtos com a categoria ID: {}", categoriaId);
-		produtos.removeIf(p -> !Objects.equals(p.getCategoria().getId(), categoriaId));
-
-		if (produtos.isEmpty()) {
-			throw new UnprocessableEntityException("Nenhum produto cadastrado com essa categoria!");
-		}
-
-		log.info("Produtos com a categoria ID: {} encontrados {} !", categoriaId, produtos);
-		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).toList();
-	}
-
+    private void processarCategoria(Produto produto) {
+        Categoria categoria = categoriaInputPort.buscarCategoriaPorId(produto.getCategoria().getId())
+                .orElseThrow(() -> new NotFoundException("Categoria não encontrada!"));
+        produto.setCategoria(categoria);
+    }
 }

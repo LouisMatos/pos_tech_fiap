@@ -67,7 +67,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: testeluismatos/jlapp:1.0.0
+    image: jeff192/jlapp:1.0.0
     hostname: jlapp01
     environment:
       - SPRING_PROFILES_ACTIVE=dev

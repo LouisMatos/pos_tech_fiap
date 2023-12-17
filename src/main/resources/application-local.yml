@@ -18,7 +18,7 @@ spring:
     banner-mode: "CONSOLE"   # por algum motivo tem que ser entre aspas duplas
     allow-bean-definition-overriding: true
   jpa:
-    show-sql: false
+    show-sql: true
     generate-ddl: false
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.H2Dialect

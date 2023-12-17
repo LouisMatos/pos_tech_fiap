@@ -5,9 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.util.Objects;
 
-/**
- * Classe que representa um item individual dentro de um pedido.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,6 +39,4 @@ public class ItemPedido {
         this.observacao = Objects.requireNonNull(observacao, "A observação não pode ser nula.");
     }
 
-    // O Lombok gera os demais métodos como equals, hashCode e toString.
-    // Métodos toItemPedido foram removidos, a lógica de conversão deve estar em uma classe de mapeamento dedicada.
 }

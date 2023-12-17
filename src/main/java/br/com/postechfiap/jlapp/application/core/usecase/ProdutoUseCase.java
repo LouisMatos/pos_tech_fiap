@@ -88,12 +88,10 @@ public class ProdutoUseCase implements ProdutoInputPort {
     }
 
     private Produto convertToProduto(ProdutoDTO produtoDTO) {
-        // Lógica para converter ProdutoDTO em Produto
         return new Produto().toProduto(produtoDTO);
     }
 
     private ProdutoDTO convertToProdutoDTO(Produto produto) {
-        // Lógica para converter Produto em ProdutoDTO
         return new ProdutoDTO().toProdutoDTO(produto);
     }
 

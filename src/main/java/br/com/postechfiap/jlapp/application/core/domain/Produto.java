@@ -72,6 +72,4 @@ public class Produto {
         this.imagens = Objects.requireNonNull(imagens, "A lista de imagens não pode ser nula.");
     }
 
-    // O Lombok gera os demais métodos como equals, hashCode e toString.
-    // Métodos toProduto foram removidos, a lógica de conversão deve estar em uma classe de mapeamento dedicada.
 }

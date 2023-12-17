@@ -42,12 +42,10 @@ public class ItemPedidoUseCase implements ItemPedidoInputPort {
     }
 
     private ItemPedido convertToItemPedido(ItemPedidoDTO dto) {
-        // Lógica para converter ItemPedidoDTO em ItemPedido
         return new ItemPedido().toItemPedido(dto);
     }
 
     private ItemPedidoDTO convertToItemPedidoDTO(ItemPedido itemPedido) {
-        // Lógica para converter ItemPedido em ItemPedidoDTO
         return new ItemPedidoDTO().toItemPedidoDTO(itemPedido);
     }
 }

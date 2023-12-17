@@ -22,7 +22,6 @@ public class CategoriaUseCase implements CategoriaInputPort {
     }
 
     private CategoriaDTO convertToCategoriaDTO(Categoria categoria) {
-        // Lógica para converter Categoria em CategoriaDTO
         return new CategoriaDTO().toCategoriaDTO(categoria);
     }
 }

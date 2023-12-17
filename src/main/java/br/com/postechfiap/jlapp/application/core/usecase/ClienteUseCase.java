@@ -41,12 +41,10 @@ public class ClienteUseCase implements ClienteInputPort {
     }
 
     private Cliente convertToCliente(ClienteDTO clienteDTO) {
-        // Lógica para converter ClienteDTO em Cliente
         return new Cliente().toCliente(clienteDTO);
     }
 
     private ClienteDTO convertToClienteDTO(Cliente cliente) {
-        // Lógica para converter Cliente em ClienteDTO
         return new ClienteDTO().toClienteDTO(cliente);
     }
 }

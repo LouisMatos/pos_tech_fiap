@@ -6,10 +6,6 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Representa um cliente no domínio da aplicação.
- * Contém informações pessoais e os pedidos associados ao cliente.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -61,5 +57,4 @@ public class Cliente {
         this.pedidos = Objects.requireNonNull(pedidos, "A lista de pedidos não pode ser nula.");
     }
 
-    // O Lombok gera os demais métodos como equals, hashCode e toString.
 }

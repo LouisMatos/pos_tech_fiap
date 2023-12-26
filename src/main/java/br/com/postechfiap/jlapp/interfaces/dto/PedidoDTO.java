@@ -21,16 +21,16 @@ public class PedidoDTO {
 	private ClienteDTO clienteDTO;
 
 	@JsonProperty("itens")
-	private List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<>();
+	private List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<ItemPedidoDTO>();
 
 	@JsonProperty("estado")
 	private Estado estado;
 
 	@JsonProperty("data_pedido")
-	private LocalDateTime dataPedido;
+	private LocalDateTime data_pedido;
 
 	@JsonProperty("valor_pedido")
-	private BigDecimal valorPedido;
+	private BigDecimal valor_pedido;
 
 	public PedidoDTO toPedidoDTO(Pedido pedido) {
 		this.id = pedido.getId();
@@ -39,9 +39,10 @@ public class PedidoDTO {
 		}
 		this.itemPedidoDTOs = pedido.getItens().stream().map(p -> new ItemPedidoDTO().toItemPedidoDTO(p))
 				.collect((Collectors.toList()));
+
 		this.estado = pedido.getEstado();
-		this.dataPedido = pedido.getDataPedido();
-		this.valorPedido = pedido.getValorPedido();
+		this.data_pedido = pedido.getData_pedido();
+		this.valor_pedido = pedido.getValor_pedido();
 		return this;
 	}
 }

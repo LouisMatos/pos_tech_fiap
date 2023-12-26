@@ -1,42 +1,94 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.util.Objects;
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ItemPedidoEntity;
+import br.com.postechfiap.jlapp.interfaces.dto.ItemPedidoDTO;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ItemPedido {
 
-    private Long id;
-    private Long pedidoId; // Nome da variável alterado para camelCase
-    private Produto produto;
-    private int quantidade;
-    private String observacao;
+	private Long id;
 
-    /**
-     * Define a quantidade do item pedido.
-     *
-     * @param quantidade A quantidade do produto no pedido.
-     * @throws IllegalArgumentException se a quantidade for menor ou igual a zero.
-     */
-    public void setQuantidade(int quantidade) {
-        if (quantidade <= 0) {
-            throw new IllegalArgumentException("A quantidade deve ser maior que zero.");
-        }
-        this.quantidade = quantidade;
-    }
+	private Long pedidoid;
 
-    /**
-     * Define a observação para o item do pedido.
-     *
-     * @param observacao A observação associada ao item do pedido.
-     * @throws NullPointerException se a observação for nula.
-     */
-    public void setObservacao(String observacao) {
-        this.observacao = Objects.requireNonNull(observacao, "A observação não pode ser nula.");
-    }
+	private Produto produto;
+
+	private int quantidade;
+
+	private String observacao;
+
+	public ItemPedido() {
+
+	}
+
+	public ItemPedido(Long id, Long pedidoid, Produto produto, int quantidade, String observacao) {
+		this.id = id;
+		this.pedidoid = pedidoid;
+		this.produto = produto;
+		this.quantidade = quantidade;
+		this.observacao = observacao;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public Long getPedidoid() {
+		return pedidoid;
+	}
+
+	public void setPedidoid(Long pedidoid) {
+		this.pedidoid = pedidoid;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemPedido [id=" + id + ", pedidoid=" + pedidoid + ", produto=" + produto + ", quantidade=" + quantidade
+				+ ", observacao=" + observacao + "]";
+	}
+
+	public ItemPedido toItemPedido(ItemPedidoDTO itemPedidoDTO) {
+		this.id = itemPedidoDTO.getId();
+		this.pedidoid = itemPedidoDTO.getPedidoid();
+		this.produto = new Produto().toProduto(itemPedidoDTO.getProdutoDTO());
+		this.quantidade = itemPedidoDTO.getQuantidade();
+		this.observacao = itemPedidoDTO.getObservacao();
+		return this;
+	}
+
+	public ItemPedido toItemPedido(ItemPedidoEntity itemPedidoEntity) {
+		this.id = itemPedidoEntity.getId();
+		this.pedidoid = itemPedidoEntity.getPedidoid();
+		this.produto = new Produto().toProduto(itemPedidoEntity.getProdutoEntity());
+		this.quantidade = itemPedidoEntity.getQuantidade();
+		this.observacao = itemPedidoEntity.getObservacao();
+		return this;
+	}
 
 }

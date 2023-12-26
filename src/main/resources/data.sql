@@ -1,5 +1,5 @@
 --Clientes
-INSERT INTO CLIENTES (NOME, EMAIL, CPF) SELECT * FROM (SELECT 'Daniel Teste', 'daniel@teste.com', '59766143021')   AS tmp WHERE NOT EXISTS (SELECT id_cliente FROM clientes WHERE id_cliente = 1) LIMIT 1;
+INSERT INTO CLIENTES (NOME, EMAIL, CPF) SELECT * FROM (SELECT 'Daniel Teste', 'daniel@teste.com', '59766143021') AS tmp WHERE NOT EXISTS (SELECT id_cliente FROM clientes WHERE id_cliente = 1) LIMIT 1;
 INSERT INTO CLIENTES (NOME, EMAIL, CPF) SELECT * FROM (SELECT 'Luis Teste', 'luis@teste.com', '60904915000')       AS tmp WHERE NOT EXISTS (SELECT id_cliente FROM clientes WHERE id_cliente = 2) LIMIT 1;
 INSERT INTO CLIENTES (NOME, EMAIL, CPF) SELECT * FROM (SELECT 'Lucas Teste', 'lucas@teste.com', '42030321052')     AS tmp WHERE NOT EXISTS (SELECT id_cliente FROM clientes WHERE id_cliente = 3) LIMIT 1;
 INSERT INTO CLIENTES (NOME, EMAIL, CPF) SELECT * FROM (SELECT 'Ana Teste', 'ana@teste.com', '02304335020')         AS tmp WHERE NOT EXISTS (SELECT id_cliente FROM clientes WHERE id_cliente = 4) LIMIT 1;
@@ -9,7 +9,7 @@ INSERT INTO CLIENTES (NOME, EMAIL, CPF) SELECT * FROM (SELECT 'Jessica Teste', '
 INSERT INTO CATEGORIAS(NOME, DESCRICAO) SELECT * FROM (SELECT 'LANCHE', 'Conjunto de ingredientes que forma um lanche') AS tmp WHERE NOT EXISTS (SELECT id_categoria FROM categorias WHERE id_categoria = 1) LIMIT 1;
 INSERT INTO CATEGORIAS(NOME, DESCRICAO) SELECT * FROM (SELECT 'ACOMPANHAMENTO', 'Produtos que acompanham o lanche')     AS tmp WHERE NOT EXISTS (SELECT id_categoria FROM categorias WHERE id_categoria = 2) LIMIT 1;
 INSERT INTO CATEGORIAS(NOME, DESCRICAO) SELECT * FROM (SELECT 'BEBIDA', 'Liquido gelado para beber')                    AS tmp WHERE NOT EXISTS (SELECT id_categoria FROM categorias WHERE id_categoria = 3) LIMIT 1;
-INSERT INTO CATEGORIAS(NOME, DESCRICAO) SELECT * FROM (SELECT 'SOBREMESA', 'Alimento doce para comer após a refeição')  AS tmp WHERE NOT EXISTS (SELECT id_categoria FROM categorias WHERE id_categoria = 4) LIMIT 1;
+INSERT INTO CATEGORIAS(NOME, DESCRICAO) SELECT * FROM (SELECT 'SOBREMESA', 'Docinho')                                   AS tmp WHERE NOT EXISTS (SELECT id_categoria FROM categorias WHERE id_categoria = 4) LIMIT 1;
 
 --Lanches
 INSERT INTO PRODUTOS (NOME, DESCRICAO, PRECO, CATEGORIA_ID, IMAGENS) SELECT * FROM (SELECT 'Tião Matador', 'Hamburguer pao brioche, com alface cebola e blend de costela', 33.29, 1, string_to_array('teste001.jpg,teste002.jpg', ','))  AS tmp WHERE NOT EXISTS (SELECT id_produto FROM produtos WHERE id_produto = 1) LIMIT 1;

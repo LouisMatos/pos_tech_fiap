@@ -1,6 +1,7 @@
 package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class PedidoAdapter implements PedidoOutputPort {
 	public List<Pedido> buscarTodos() {
 		log.info("Buscando todos os pedidos cadastrados na base de dados!");
 		List<PedidoEntity> entities = pedidoRepository.findAll();
-		return entities.stream().map(entity -> new Pedido().toPedido(entity)).toList();
+		return entities.stream().map(entity -> new Pedido().toPedido(entity)).collect(Collectors.toList());
 	}
 
 }

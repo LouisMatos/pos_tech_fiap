@@ -1,55 +1,80 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import java.util.List;
-import java.util.Objects;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.CategoriaEntity;
+import br.com.postechfiap.jlapp.interfaces.dto.CategoriaDTO;
+
 public class Categoria {
 
-    private Long id;
-    private String nomeCategoria;
-    private String descricao;
-    private List<Produto> produtos;
+	private Long id;
 
-    /**
-     * Define o nome da categoria.
-     *
-     * @param nomeCategoria
-     * @throws IllegalArgumentException se o nome da categoria for nulo ou vazio.
-     */
-    public void setNomeCategoria(String nomeCategoria) {
-        if (Objects.requireNonNull(nomeCategoria).isEmpty()) {
-            throw new IllegalArgumentException("O nome da categoria não pode ser vazio.");
-        }
-        this.nomeCategoria = nomeCategoria;
-    }
+	private String nome;
 
-    /**
-     * Define a descrição da categoria.
-     *
-     * @param descricao
-     * @throws IllegalArgumentException se a descrição for nula ou vazia.
-     */
-    public void setDescricao(String descricao) {
-        if (Objects.requireNonNull(descricao).isEmpty()) {
-            throw new IllegalArgumentException("A descrição não pode ser vazia.");
-        }
-        this.descricao = descricao;
-    }
+	private String descricao;
 
-    /**
-     * Define a lista de produtos da categoria.
-     *
-     * @param produtos 
-     * @throws IllegalArgumentException se a lista de produtos for nula.
-     */
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = Objects.requireNonNull(produtos, "A lista de produtos não pode ser nula.");
-    }
-	
+	private List<Produto> produtos;
+
+	public Categoria() {
+
+	}
+
+	public Categoria(Long id, String nome, String descricao, List<Produto> produtos) {
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.produtos = produtos;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
+	@Override
+	public String toString() {
+		return "Categoria [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", produtos=" + produtos + "]";
+	}
+
+	public Categoria toCategoria(CategoriaDTO categoriaDTO) {
+		this.id = categoriaDTO.getId();
+		this.nome = categoriaDTO.getNome();
+		this.descricao = categoriaDTO.getDescricao();
+		return this;
+	}
+
+	public Categoria toCategoria(CategoriaEntity categoriaEntity) {
+		this.id = categoriaEntity.getId();
+		this.nome = categoriaEntity.getNome();
+		this.descricao = categoriaEntity.getDescricao();
+		return this;
+	}
+
 }

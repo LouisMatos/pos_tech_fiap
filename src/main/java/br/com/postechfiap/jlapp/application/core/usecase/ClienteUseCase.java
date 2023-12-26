@@ -1,5 +1,7 @@
 package br.com.postechfiap.jlapp.application.core.usecase;
 
+import java.util.List;
+
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import br.com.postechfiap.jlapp.application.exception.BadRequestException;
 import br.com.postechfiap.jlapp.application.exception.NotFoundException;
@@ -8,43 +10,65 @@ import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
 import br.com.postechfiap.jlapp.interfaces.dto.ClienteDTO;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 import br.com.postechfiap.jlapp.shared.utils.ValidaCPF;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class ClienteUseCase implements ClienteInputPort {
 
-    private final Logger log;
-    private final ClienteOutputPort clienteOutputPort;
+	private final Logger log;
 
-    @Override
-    public ClienteDTO inserir(ClienteDTO clienteDTO) {
-        validaCpf(clienteDTO.getCpf());
-        log.info("Convertendo DTO para domínio Cliente");
-        Cliente cliente = convertToCliente(clienteDTO);
-        ClienteDTO dto = convertToClienteDTO(clienteOutputPort.inserir(cliente));
-        log.info("Cliente salvo com sucesso: {}", dto);
-        return dto;
-    }
+	private final ClienteOutputPort clienteOutputPort;
 
-    @Override
-    public ClienteDTO buscarClientePorCpf(String cpf) {
-        validaCpf(cpf);
-        return clienteOutputPort.buscarClientePorCpf(cpf)
-                .map(this::convertToClienteDTO)
-                .orElseThrow(() -> new NotFoundException("Cliente com o cpf " + cpf + " não encontrado!"));
-    }
+	public ClienteUseCase(ClienteOutputPort clienteOutputPort, Logger log) {
+		this.clienteOutputPort = clienteOutputPort;
+		this.log = log;
+	}
 
-    private void validaCpf(String cpf) {
-        if (!ValidaCPF.isValidCPF(cpf)) {
-            throw new BadRequestException("CPF " + cpf + " inválido!");
-        }
-    }
+	@Override
+	public ClienteDTO inserir(ClienteDTO clienteDTO) {
 
-    private Cliente convertToCliente(ClienteDTO clienteDTO) {
-        return new Cliente().toCliente(clienteDTO);
-    }
+		validaCpf(clienteDTO.getCpf());
 
-    private ClienteDTO convertToClienteDTO(Cliente cliente) {
-        return new ClienteDTO().toClienteDTO(cliente);
-    }
+		log.info("Convertendo para Dominio Cliente");
+		Cliente cliente = new Cliente().toCliente(clienteDTO);
+		
+		ClienteDTO dto = new ClienteDTO().toClienteDTO(clienteOutputPort.inserir(cliente));
+		log.info("{} salvo com sucesso!", dto.toString());
+		return dto;
+	}
+
+	@Override
+	public void atualizar(ClienteDTO clienteDTO) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void deletar(Long id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<ClienteDTO> buscarTodos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ClienteDTO buscarClientePorCpf(String cpf) {
+
+		validaCpf(cpf);
+
+		ClienteDTO dto = new ClienteDTO().toClienteDTO(clienteOutputPort.buscarClientePorCpf(cpf)
+				.orElseThrow(() -> new NotFoundException("Cliente com o cpf " + cpf + " encontrado!")));
+		log.info("Cliente com o cpf {} encontrado!", cpf);
+		return dto;
+	}
+
+	private void validaCpf(String cpf) {
+		if (!ValidaCPF.isValidCPF(cpf)) {
+			log.info("CPF {} não é valido!", cpf);
+			throw new BadRequestException("CPF " + cpf + " não é valido!");
+		}
+	}
+
 }

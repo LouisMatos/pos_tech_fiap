@@ -8,44 +8,35 @@ import br.com.postechfiap.jlapp.application.ports.in.ItemPedidoInputPort;
 import br.com.postechfiap.jlapp.application.ports.out.ItemPedidoOutputPort;
 import br.com.postechfiap.jlapp.interfaces.dto.ItemPedidoDTO;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class ItemPedidoUseCase implements ItemPedidoInputPort {
 
-    private final ItemPedidoOutputPort itemPedidoOutputPort;
-    private final Logger log;
+	private final ItemPedidoOutputPort itemPedidoOutputPort;
 
-    @Override
-    public List<ItemPedidoDTO> inserir(List<ItemPedidoDTO> dtos) {
-        log.info("Convertendo DTOs para o domínio de ItemPedido e salvando");
-        List<ItemPedido> itemPedidos = dtos.stream()
-                                           .map(this::convertToItemPedido)
-                                           .collect(Collectors.toList());
+	private final Logger log;
 
-        List<ItemPedido> savedItemPedidos = itemPedidoOutputPort.inserir(itemPedidos);
-        log.info("Itens de pedido salvos com sucesso");
+	public ItemPedidoUseCase(ItemPedidoOutputPort itemPedidoOutputPort, Logger log) {
+		this.itemPedidoOutputPort = itemPedidoOutputPort;
+		this.log = log;
+	}
 
-        return savedItemPedidos.stream()
-                               .map(this::convertToItemPedidoDTO)
-                               .collect(Collectors.toList());
-    }
+	@Override
+	public List<ItemPedidoDTO> inserir(List<ItemPedidoDTO> dtos) {
+		log.info("Convertendo para o dominio de Item Pedido!");
+		List<ItemPedido> itemPedidos = itemPedidoOutputPort
+				.inserir(dtos.stream().map(it -> new ItemPedido().toItemPedido(it)).collect(Collectors.toList()));
 
-    @Override
-    public List<ItemPedidoDTO> buscarItemPedido(Long idPedido) {
-        List<ItemPedido> itemPedidos = itemPedidoOutputPort.buscarItemPedido(idPedido);
-        log.info("Itens de pedido encontrados para o pedido ID: {}", idPedido);
+		log.info("{} salvos com sucesso!", itemPedidos);
+		return itemPedidos.stream().map(it -> new ItemPedidoDTO().toItemPedidoDTO(it)).collect(Collectors.toList());
+	}
 
-        return itemPedidos.stream()
-                          .map(this::convertToItemPedidoDTO)
-                          .collect(Collectors.toList());
-    }
+	@Override
+	public List<ItemPedidoDTO> buscarItemPedido(Long id_pedido) {
+		List<ItemPedido> itemPedidos = itemPedidoOutputPort.buscarItemPedido(id_pedido);
 
-    private ItemPedido convertToItemPedido(ItemPedidoDTO dto) {
-        return new ItemPedido().toItemPedido(dto);
-    }
+		log.info("Itens Pedido com o pedido ID: {} encontrados {} !", id_pedido, itemPedidos);
+		return itemPedidos.stream().map(it -> new ItemPedidoDTO().toItemPedidoDTO(it)).collect(Collectors.toList());
 
-    private ItemPedidoDTO convertToItemPedidoDTO(ItemPedido itemPedido) {
-        return new ItemPedidoDTO().toItemPedidoDTO(itemPedido);
-    }
+	}
+
 }

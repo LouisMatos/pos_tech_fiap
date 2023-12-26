@@ -1,75 +1,114 @@
 package br.com.postechfiap.jlapp.application.core.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-/**
- * Classe que representa um produto disponível para venda.
- */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ProdutoEntity;
+import br.com.postechfiap.jlapp.interfaces.dto.ProdutoDTO;
+
 public class Produto {
 
-    private Long id;
-    private String nome;
-    private String descricao;
-    private BigDecimal preco;
-    private Categoria categoria;
-    private List<String> imagens;
+	private Long id;
 
-    /**
-     * Define o nome do produto.
-     *
-     * @param nome O nome do produto.
-     * @throws NullPointerException se o nome for nulo.
-     */
-    public void setNome(String nome) {
-        this.nome = Objects.requireNonNull(nome, "O nome não pode ser nulo.");
-    }
+	private String nome;
 
-    /**
-     * Define a descrição do produto.
-     *
-     * @param descricao A descrição do produto.
-     * @throws NullPointerException se a descrição for nula.
-     */
-    public void setDescricao(String descricao) {
-        this.descricao = Objects.requireNonNull(descricao, "A descrição não pode ser nula.");
-    }
+	private String descricao;
 
-    /**
-     * Define o preço do produto.
-     *
-     * @param preco O preço do produto.
-     * @throws NullPointerException se o preço for nulo.
-     */
-    public void setPreco(BigDecimal preco) {
-        this.preco = Objects.requireNonNull(preco, "O preço não pode ser nulo.");
-    }
+	private BigDecimal preco;
 
-    /**
-     * Define a categoria do produto.
-     *
-     * @param categoria A categoria a qual o produto pertence.
-     * @throws NullPointerException se a categoria for nula.
-     */
-    public void setCategoria(Categoria categoria) {
-        this.categoria = Objects.requireNonNull(categoria, "A categoria não pode ser nula.");
-    }
+	private Categoria categoria;
 
-    /**
-     * Define a lista de imagens do produto.
-     *
-     * @param imagens A lista de URLs das imagens do produto.
-     * @throws NullPointerException se a lista de imagens for nula.
-     */
-    public void setImagens(List<String> imagens) {
-        this.imagens = Objects.requireNonNull(imagens, "A lista de imagens não pode ser nula.");
-    }
+	private List<String> imagens = new ArrayList<String>();
+
+	public Produto() {
+	}
+
+	public Produto(Long id, String nome, String descricao, BigDecimal preco, Categoria categoria,
+			List<String> imagens) {
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.categoria = categoria;
+		this.imagens = imagens;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<String> getImagens() {
+		return imagens;
+	}
+
+	public void setImagens(List<String> imagens) {
+		this.imagens = imagens;
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + ", categoria="
+				+ categoria + ", imagens=" + imagens + "]";
+	}
+
+	public Produto toProduto(ProdutoDTO produtoDTO) {
+		this.categoria = new Categoria();
+		this.id = produtoDTO.getId();
+		this.categoria.setNome(produtoDTO.getCategoria_nome());
+		this.categoria.setId(produtoDTO.getCategoria_id());
+		this.nome = produtoDTO.getNome();
+		this.descricao = produtoDTO.getDescricao();
+		this.preco = produtoDTO.getPreco();
+		this.categoria.setId(produtoDTO.getCategoria_id());
+		this.imagens = produtoDTO.getImagens();
+		return this;
+	}
+
+	public Produto toProduto(ProdutoEntity produtoEntity) {
+		this.id = produtoEntity.getId();
+		this.categoria = produtoEntity.getCategoriaEntity().toCategoria();
+		this.nome = produtoEntity.getNome();
+		this.descricao = produtoEntity.getDescricao();
+		this.preco = produtoEntity.getPreco();
+		this.imagens = produtoEntity.getImagens();
+		return this;
+	}
 
 }

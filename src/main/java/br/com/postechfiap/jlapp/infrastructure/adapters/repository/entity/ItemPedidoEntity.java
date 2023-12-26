@@ -28,21 +28,27 @@ public class ItemPedidoEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_item_pedido")
 	private Long id;
-
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_pedido", referencedColumnName = "id_pedido")
-	private PedidoEntity pedidoEntity;
+	
 
 	@Column(name = "pedidoid")
 	private Long pedidoid;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
+    @JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
 	private ProdutoEntity produtoEntity;
 
 	private int quantidade;
 
 	private String observacao;
+
+	public ItemPedidoEntity toItensPedidosEntities(ItemPedido itemPedido) {
+		this.id = itemPedido.getId();
+		this.pedidoid = itemPedido.getPedidoid();
+		this.produtoEntity = new ProdutoEntity().toProdutoEntity(itemPedido.getProduto());
+		this.quantidade = itemPedido.getQuantidade();
+		this.observacao = itemPedido.getObservacao();
+		return this;
+	}
 
 	public ItemPedidoEntity toItemPedidoEntity(ItemPedido itemPedido) {
 		this.id = itemPedido.getId();

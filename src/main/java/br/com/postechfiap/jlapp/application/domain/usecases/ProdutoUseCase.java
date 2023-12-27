@@ -1,4 +1,4 @@
-package br.com.postechfiap.jlapp.application.core.usecase;
+package br.com.postechfiap.jlapp.application.domain.usecases;
 
 import java.util.List;
 import java.util.stream.Collectors;

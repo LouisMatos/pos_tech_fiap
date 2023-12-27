@@ -151,10 +151,41 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
     ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)
 
-
    
 6. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html
     ```
+
+7. Estrutura Clean Architecture
+
+```
+src/
+└── main/
+    └── java/
+        └── br/
+            └── com/
+                └── postechfiap/
+                    └── application/
+                        ├── domain/
+                        │   ├── entities/           
+                        │   └── usecases/
+                        ├── interfaces/
+                        │   ├── controllers/        
+                        │   └── dtos/               
+                        ├── infrastructure/
+                        │   ├── adapters/           
+                        │   └── repository/         
+                        │       └── entity/
+                        │   ├── config/
+                        │   ├── db/          
+                        └── shared/
+                            ├── config/             
+                            ├── exception/          
+                            ├── filter/             
+                            ├── logger/             
+                            └── utils/                
+
+```
+

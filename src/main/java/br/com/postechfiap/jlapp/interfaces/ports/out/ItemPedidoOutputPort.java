@@ -8,6 +8,6 @@ public interface ItemPedidoOutputPort {
 
 	public List<ItemPedido> inserir(List<ItemPedido> itemPedidos);
 
-	public List<ItemPedido> buscarItemPedido(Long idPedido);
+	public List<ItemPedido> buscarItemPedido(Long id_pedido);
 
 }

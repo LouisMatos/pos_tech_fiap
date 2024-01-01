@@ -3,7 +3,6 @@ package br.com.postechfiap.jlapp.interfaces.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.postechfiap.jlapp.application.core.domain.Cliente;
-import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 @Data
@@ -18,7 +17,6 @@ public class ClienteDTO {
 	@JsonProperty("cpf")
 	private String cpf;
 
-	@Email
 	@JsonProperty("email")
 	private String email;
 

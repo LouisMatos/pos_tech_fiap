@@ -10,6 +10,9 @@ springdoc:
   api-docs:
     path: "/api-docs"
 
+server:
+  port: 8070
+
 spring:
   sql:
     init:

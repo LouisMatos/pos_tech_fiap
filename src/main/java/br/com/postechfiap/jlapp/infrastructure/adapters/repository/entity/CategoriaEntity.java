@@ -35,7 +35,7 @@ public class CategoriaEntity implements Serializable {
 	private String descricao;
 
 	@OneToMany(mappedBy = "categoriaEntity", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	private List<ProdutoEntity> produtoEntities = new ArrayList<>();
+	private List<ProdutoEntity> produtoEntities = new ArrayList<ProdutoEntity>();
 
 	public Categoria toCategoria() {
 		return new Categoria().toCategoria(this);

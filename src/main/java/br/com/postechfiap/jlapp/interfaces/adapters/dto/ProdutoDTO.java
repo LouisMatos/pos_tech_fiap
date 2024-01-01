@@ -27,10 +27,10 @@ public class ProdutoDTO {
 
 	@JsonProperty("categoria")
 	@JsonInclude(Include.NON_NULL)
-	private Long categoriaId;
+	private Long categoria_id;
 	
 	@JsonProperty("categoria_nome")
-	private String categoriaNome;
+	private String categoria_nome;
 
 	@JsonProperty("imagens")
 	private List<String> imagens;
@@ -40,8 +40,8 @@ public class ProdutoDTO {
 		this.nome = produto.getNome();
 		this.descricao = produto.getDescricao();
 		this.preco = produto.getPreco();
-		this.categoriaId = produto.getCategoria().getId();
-		this.categoriaNome = produto.getCategoria().getNome();
+		this.categoria_id = produto.getCategoria().getId();
+		this.categoria_nome = produto.getCategoria().getNome();
 		this.imagens = produto.getImagens();
 		return this;
 	}

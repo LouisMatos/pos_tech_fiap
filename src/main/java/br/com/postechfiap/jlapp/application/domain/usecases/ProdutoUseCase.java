@@ -1,7 +1,7 @@
-package br.com.postechfiap.jlapp.application.core.usecase;
+package br.com.postechfiap.jlapp.application.domain.usecases;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import br.com.postechfiap.jlapp.application.core.domain.Produto;
@@ -83,7 +83,7 @@ public class ProdutoUseCase implements ProdutoInputPort {
 			throw new UnprocessableEntityException("Nenhum produto cadastrado!");
 		}
 		log.info("Produtos encontrados! {}", produtos);
-		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).toList();
+		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -100,14 +100,14 @@ public class ProdutoUseCase implements ProdutoInputPort {
 		List<Produto> produtos = produtoOutputPort.buscarTodosProdutos();
 
 		log.info("Recuperando produtos com a categoria ID: {}", categoriaId);
-		produtos.removeIf(p -> !Objects.equals(p.getCategoria().getId(), categoriaId));
+		produtos.removeIf(p -> p.getCategoria().getId() != categoriaId);
 
 		if (produtos.isEmpty()) {
 			throw new UnprocessableEntityException("Nenhum produto cadastrado com essa categoria!");
 		}
 
 		log.info("Produtos com a categoria ID: {} encontrados {} !", categoriaId, produtos);
-		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).toList();
+		return produtos.stream().map(produto -> new ProdutoDTO().toProdutoDTO(produto)).collect(Collectors.toList());
 	}
 
 }

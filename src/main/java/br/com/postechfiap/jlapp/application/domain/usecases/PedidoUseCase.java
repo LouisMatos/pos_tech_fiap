@@ -3,6 +3,7 @@ package br.com.postechfiap.jlapp.application.core.usecase;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
@@ -48,7 +49,7 @@ public class PedidoUseCase implements PedidoInputPort {
 		}
 
 		pedidoDTO.setEstado(Estado.RECEBIDO);
-		pedidoDTO.setDataPedido(LocalDateTime.now());
+		pedidoDTO.setData_pedido(LocalDateTime.now());
 
 		log.info("Convertendo para o dominio de Pedido!");
 		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
@@ -64,7 +65,7 @@ public class PedidoUseCase implements PedidoInputPort {
 		pedidoDTO.setItemPedidoDTOs(itemPedidoInputPort.inserir(pedidoDTO.getItemPedidoDTOs()));
 
 		log.info("Calculando o valor do Pedido!");
-		pedidoDTO.setValorPedido(calcularValorTotalPedido(pedidoDTO.getItemPedidoDTOs()));
+		pedidoDTO.setValor_pedido(calcularValorTotalPedido(pedidoDTO.getItemPedidoDTOs()));
 
 		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
 		log.info("{} salvo com sucesso!", pedidoDTO.toString());
@@ -76,7 +77,7 @@ public class PedidoUseCase implements PedidoInputPort {
 	@Override
 	public List<PedidoDTO> buscarTodos() {
 		List<PedidoDTO> pedidoDTOs = pedidoOutputPort.buscarTodos().stream()
-				.map(pedido -> new PedidoDTO().toPedidoDTO(pedido)).toList();
+				.map(pedido -> new PedidoDTO().toPedidoDTO(pedido)).collect(Collectors.toList());
 
 		for (int i = 0; i < pedidoDTOs.size(); i++) {
 			pedidoDTOs.get(i).setItemPedidoDTOs(itemPedidoInputPort.buscarItemPedido(pedidoDTOs.get(i).getId()));

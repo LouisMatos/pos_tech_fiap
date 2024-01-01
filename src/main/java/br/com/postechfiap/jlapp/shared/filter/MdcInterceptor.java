@@ -3,7 +3,6 @@ package br.com.postechfiap.jlapp.shared.filter;
 import java.util.UUID;
 
 import org.slf4j.MDC;
-import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,12 +18,12 @@ public class MdcInterceptor implements HandlerInterceptor {
 	}
 
 	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex)
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		MDC.remove("X-ReqId");
 	}
 
 	private String getXReqId() {
-		return UUID.randomUUID().toString().replace("-", "");
+		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 }

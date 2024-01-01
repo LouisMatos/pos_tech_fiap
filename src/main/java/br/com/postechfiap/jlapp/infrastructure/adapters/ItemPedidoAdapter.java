@@ -2,6 +2,7 @@ package br.com.postechfiap.jlapp.infrastructure.adapters;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,24 +25,24 @@ public class ItemPedidoAdapter implements ItemPedidoOutputPort {
 	@Override
 	public List<ItemPedido> inserir(List<ItemPedido> itemPedidos) {
 
-		List<ItemPedidoEntity> list = new ArrayList<>();
+		List<ItemPedidoEntity> list = new ArrayList<ItemPedidoEntity>();
 
 		for (ItemPedido itemPedido : itemPedidos) {
 			log.info("Cadastrando novo {} na base de dados!", itemPedido);
 			list.add(itemPedidoRepository.save(new ItemPedidoEntity().toItemPedidoEntity(itemPedido)));
 		}
 
-		return list.stream().map(it -> new ItemPedido().toItemPedido(it)).toList();
+		return list.stream().map(it -> new ItemPedido().toItemPedido(it)).collect(Collectors.toList());
 
 	}
 
 	@Override
-	public List<ItemPedido> buscarItemPedido(Long idPedido) {
+	public List<ItemPedido> buscarItemPedido(Long id_pedido) {
 
-		log.info("Buscando item pedido com o ID: {} na base de dados!", idPedido);
-		List<ItemPedidoEntity> list = itemPedidoRepository.findAllByPedidoid(idPedido);
+		log.info("Buscando item pedido com o ID: {} na base de dados!", id_pedido);
+		List<ItemPedidoEntity> list = itemPedidoRepository.findAllByPedidoid(id_pedido);
 
-		return list.stream().map(it -> new ItemPedido().toItemPedido(it)).toList();
+		return list.stream().map(it -> new ItemPedido().toItemPedido(it)).collect(Collectors.toList());
 	}
 
 }

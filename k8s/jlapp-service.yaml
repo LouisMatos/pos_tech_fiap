@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jlapp-service
+spec:
+  selector:
+    app: jlapp
+  ports:
+  - port: 8070
+    targetPort: 8070
+  type: LoadBalancer

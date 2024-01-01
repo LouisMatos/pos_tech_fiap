@@ -132,7 +132,28 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     ```
     docker-compose build --no-cache && docker-compose up -d
     ```
-4. Acesse o swagger pela url: 
+
+4. Executar em ambiente Kubernetes
+
+   Execute os comandos abaixo para aplicar os manifestos do K8S:
+   
+   API
+
+    ```
+    pos_tech_fiap\k8s> kubectl apply -f.
+    ```
+
+   Banco de dados:
+
+    ```
+    pos_tech_fiap\k8s\db> kubectl apply -f.
+    ```
+
+    ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)
+
+
+   
+5. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html

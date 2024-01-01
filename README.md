@@ -153,7 +153,7 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
 
    
-6. Acesse o swagger pela url: 
+5. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html

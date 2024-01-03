@@ -10,9 +10,6 @@ springdoc:
   api-docs:
     path: "/api-docs"
 
-server:
-  port: 8070
-
 spring:
   main:
     banner-mode: "CONSOLE"   # por algum motivo tem que ser entre aspas duplas

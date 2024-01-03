@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.postechfiap.jlapp.application.core.domain.Categoria;
-import br.com.postechfiap.jlapp.application.ports.out.CategoriaOutputPort;
+import br.com.postechfiap.jlapp.application.domain.entities.Categoria;
+import br.com.postechfiap.jlapp.interfaces.ports.out.CategoriaOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.CategoriaRepository;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.CategoriaEntity;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;

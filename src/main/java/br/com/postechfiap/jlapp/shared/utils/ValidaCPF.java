@@ -5,10 +5,6 @@ public class ValidaCPF {
 	private static final int[] pesoCPF = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 	private static final int[] pesoCNPJ = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-	private ValidaCPF() {
-
-	}
-
 	private static int calcularDigito(String str, int[] peso) {
 		int soma = 0;
 		for (int indice = str.length() - 1, digito; indice >= 0; indice--) {

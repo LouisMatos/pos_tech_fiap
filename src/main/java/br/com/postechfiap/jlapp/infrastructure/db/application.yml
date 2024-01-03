@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: ${APP_PROFILE:dev}
+  devtools:
+    add-properties: false
+  main: 
+    allow-circular-references: true
+
+
+jlapp:
+  openapi:
+    dev-url: http://localhost:8070
+    hom-url: http://localhost:8070
+    prod-url: https://localhost:8070

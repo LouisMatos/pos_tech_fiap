@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.postechfiap.jlapp.application.ports.in.ClienteInputPort;
-import br.com.postechfiap.jlapp.interfaces.dto.ClienteDTO;
+import br.com.postechfiap.jlapp.interfaces.ports.in.ClienteInputPort;
+import br.com.postechfiap.jlapp.interfaces.adapters.dto.ClienteDTO;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 

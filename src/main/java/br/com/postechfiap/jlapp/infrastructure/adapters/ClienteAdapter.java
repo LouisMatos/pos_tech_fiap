@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.postechfiap.jlapp.application.core.domain.Cliente;
+import br.com.postechfiap.jlapp.application.domain.entities.Cliente;
 import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityException;
-import br.com.postechfiap.jlapp.application.ports.out.ClienteOutputPort;
+import br.com.postechfiap.jlapp.interfaces.ports.out.ClienteOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ClienteRepository;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ClienteEntity;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;

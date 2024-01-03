@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.postechfiap.jlapp.application.core.domain.Categoria;
-import br.com.postechfiap.jlapp.application.core.domain.Produto;
-import br.com.postechfiap.jlapp.application.ports.out.ProdutoOutputPort;
+import br.com.postechfiap.jlapp.application.domain.entities.Categoria;
+import br.com.postechfiap.jlapp.application.domain.entities.Produto;
+import br.com.postechfiap.jlapp.interfaces.ports.out.ProdutoOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.ProdutoRepository;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.ProdutoEntity;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import br.com.postechfiap.jlapp.application.domain.entities.Produto;
+import br.com.postechfiap.jlapp.application.core.domain.Produto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

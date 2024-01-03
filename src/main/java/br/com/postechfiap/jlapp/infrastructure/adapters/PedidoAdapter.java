@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.postechfiap.jlapp.application.domain.entities.Pedido;
-import br.com.postechfiap.jlapp.interfaces.ports.out.PedidoOutputPort;
+import br.com.postechfiap.jlapp.application.core.domain.Pedido;
+import br.com.postechfiap.jlapp.application.ports.out.PedidoOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.PedidoRepository;
 import br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity.PedidoEntity;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;

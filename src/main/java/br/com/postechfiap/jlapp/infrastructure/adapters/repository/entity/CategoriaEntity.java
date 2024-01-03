@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.postechfiap.jlapp.application.domain.entities.Categoria;
+import br.com.postechfiap.jlapp.application.core.domain.Categoria;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

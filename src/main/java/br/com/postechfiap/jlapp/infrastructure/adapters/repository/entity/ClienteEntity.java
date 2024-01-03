@@ -3,7 +3,7 @@ package br.com.postechfiap.jlapp.infrastructure.adapters.repository.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import br.com.postechfiap.jlapp.application.domain.entities.Cliente;
+import br.com.postechfiap.jlapp.application.core.domain.Cliente;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

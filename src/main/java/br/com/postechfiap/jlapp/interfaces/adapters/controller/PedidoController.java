@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.postechfiap.jlapp.application.ports.in.PedidoInputPort;
-import br.com.postechfiap.jlapp.interfaces.dto.PedidoDTO;
+import br.com.postechfiap.jlapp.interfaces.ports.in.PedidoInputPort;
+import br.com.postechfiap.jlapp.interfaces.adapters.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 import jakarta.validation.Valid;
 

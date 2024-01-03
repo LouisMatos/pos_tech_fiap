@@ -3,7 +3,7 @@ package br.com.postechfiap.jlapp.infrastructure.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.postechfiap.jlapp.application.core.usecase.ItemPedidoUseCase;
+import br.com.postechfiap.jlapp.application.domain.usecase.ItemPedidoUseCase;
 import br.com.postechfiap.jlapp.infrastructure.adapters.ItemPedidoAdapter;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 

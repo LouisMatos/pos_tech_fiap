@@ -1,0 +1,30 @@
+server:
+  port: 8070
+  forward-headers-strategy: native
+  use-forward-headers: true
+
+spring:
+  profiles:
+    active: ${APP_PROFILE:dev}
+  devtools:
+    add-properties: false
+  main: 
+    allow-circular-references: true
+
+
+management: 
+  security:
+    enabled: false
+  endpoints:
+    web:
+      exposure: 
+        include: '*'
+  health:
+    show-details: always
+
+
+jlapp:
+  openapi:
+    dev-url: http://localhost:8070
+    hom-url: http://localhost:8070
+    prod-url: https://localhost:8070

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import br.com.postechfiap.jlapp.application.domain.entities.Pedido;
+import br.com.postechfiap.jlapp.application.core.domain.Pedido;
 import br.com.postechfiap.jlapp.application.enums.Estado;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

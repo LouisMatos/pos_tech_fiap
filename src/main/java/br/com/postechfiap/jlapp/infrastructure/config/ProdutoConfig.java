@@ -3,8 +3,8 @@ package br.com.postechfiap.jlapp.infrastructure.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.postechfiap.jlapp.application.domain.usecase.CategoriaUseCase;
-import br.com.postechfiap.jlapp.application.domain.usecase.ProdutoUseCase;
+import br.com.postechfiap.jlapp.application.core.usecase.CategoriaUseCase;
+import br.com.postechfiap.jlapp.application.core.usecase.ProdutoUseCase;
 import br.com.postechfiap.jlapp.infrastructure.adapters.ProdutoAdapter;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 

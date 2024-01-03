@@ -158,32 +158,3 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     ```
     http://localhost:8070/swagger-ui/index.html
     ```
-
-
-6. Estrutura Clean Architecture
-
-src/
-└── main/
-    └── java/
-        └── br/
-            └── com/
-                └── postechfiap/
-                    └── application/
-                        ├── domain/
-                        │   ├── entities/           
-                        │   └── usecases/
-                        ├── interfaces/
-                        │   ├── controllers/        
-                        │   └── dtos/               
-                        ├── infrastructure/
-                        │   ├── adapters/           
-                        │   └── repository/         
-                        │       └── entity/
-                        │   ├── config/
-                        │   ├── db/          
-                        └── shared/
-                            ├── config/             
-                            ├── exception/          
-                            ├── filter/             
-                            ├── logger/             
-                            └── utils/                

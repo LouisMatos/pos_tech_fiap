@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.postechfiap.jlapp.application.exception.BadRequestException;
-import br.com.postechfiap.jlapp.application.exception.NotFoundException;
-import br.com.postechfiap.jlapp.application.exception.UnprocessableEntityException;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 import jakarta.servlet.http.HttpServletRequest;
 

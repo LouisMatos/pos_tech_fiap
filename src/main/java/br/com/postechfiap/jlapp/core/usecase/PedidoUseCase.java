@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import br.com.postechfiap.jlapp.core.entities.Pedido;
 import br.com.postechfiap.jlapp.core.enums.Estado;
+import br.com.postechfiap.jlapp.core.enums.StatusPagamento;
 import br.com.postechfiap.jlapp.core.ports.in.ClienteInputPort;
 import br.com.postechfiap.jlapp.core.ports.in.ItemPedidoInputPort;
 import br.com.postechfiap.jlapp.core.ports.in.PedidoInputPort;
@@ -13,6 +16,8 @@ import br.com.postechfiap.jlapp.core.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.core.ports.out.PedidoOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.ItemPedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoDTO;
+import br.com.postechfiap.jlapp.shared.exception.NotFoundException;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 
 public class PedidoUseCase implements PedidoInputPort {
@@ -48,6 +53,7 @@ public class PedidoUseCase implements PedidoInputPort {
 		}
 
 		pedidoDTO.setEstado(Estado.RECEBIDO);
+		pedidoDTO.setStatusPagamento(StatusPagamento.AGUARDANDO);
 		pedidoDTO.setDataPedido(LocalDateTime.now());
 
 		log.info("Convertendo para o dominio de Pedido!");
@@ -65,6 +71,9 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		log.info("Calculando o valor do Pedido!");
 		pedidoDTO.setValorPedido(calcularValorTotalPedido(pedidoDTO.getItemPedidoDTOs()));
+
+		log.info("Gerando numero de pedido!");
+		pedidoDTO.setNumeroPedido(gerarNumeroPedido());
 
 		pedidoDTO.toPedidoDTO(pedidoOutputPort.inserir(new Pedido().toPedido(pedidoDTO)));
 		log.info("{} salvo com sucesso!", pedidoDTO.toString());
@@ -86,6 +95,18 @@ public class PedidoUseCase implements PedidoInputPort {
 		return pedidoDTOs;
 	}
 
+	@Override
+	public StatusPedidoDTO buscarStatusPagamentoPedido(String numero_pedido) {
+
+		PedidoDTO dto = new PedidoDTO().toPedidoDTO(pedidoOutputPort.buscarStatusPagamentoPedido(numero_pedido)
+				.orElseThrow(() -> new NotFoundException("Pedido: " + numero_pedido + " não foi encontrado!")));
+
+		log.info("Pedido encontrado! {}", dto);
+
+		return StatusPedidoDTO.builder().numeroPedido(dto.getNumeroPedido()).statusPagamento(dto.getStatusPagamento())
+				.build();
+	}
+
 	private BigDecimal calcularValorTotalPedido(List<ItemPedidoDTO> itemPedidoDTOs) {
 		BigDecimal valorPedido = BigDecimal.ZERO;
 
@@ -96,6 +117,20 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		log.info("Valor do Pedido: R$ {}", valorPedido);
 		return valorPedido;
+	}
+
+	private String gerarNumeroPedido() {
+		String numeroPedido = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
+		log.info("Numero de Pedido: {}", numeroPedido);
+
+		if (!pedidoOutputPort.buscarStatusPagamentoPedido(numeroPedido).isEmpty()) {
+			log.info("Numero de Pedido: {} já existe gerando novo numero", numeroPedido);
+			gerarNumeroPedido();
+		} else {
+			log.info("Numero de Pedido: {} disponivel para ser utilizado!", numeroPedido);
+		}
+
+		return numeroPedido;
 	}
 
 }

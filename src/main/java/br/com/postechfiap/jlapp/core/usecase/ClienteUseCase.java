@@ -39,7 +39,7 @@ public class ClienteUseCase implements ClienteInputPort {
 		validaCpf(cpf);
 
 		ClienteDTO dto = new ClienteDTO().toClienteDTO(clienteOutputPort.buscarClientePorCpf(cpf)
-				.orElseThrow(() -> new NotFoundException("Cliente com o cpf " + cpf + " encontrado!")));
+				.orElseThrow(() -> new NotFoundException("Cliente com o cpf " + cpf + " não encontrado!")));
 		log.info("Cliente com o cpf {} encontrado!", cpf);
 		return dto;
 	}

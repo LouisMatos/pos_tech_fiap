@@ -7,12 +7,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.postechfiap.jlapp.core.enums.Estado;
+import br.com.postechfiap.jlapp.core.enums.StatusPagamento;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.persistence.entity.PedidoEntity;
 
 public class Pedido {
 
 	private Long id;
+
+	private String numeroPedido;
+
+	private StatusPagamento statusPagamento;
 
 	private Cliente cliente;
 
@@ -28,9 +33,11 @@ public class Pedido {
 
 	}
 
-	public Pedido(Long id, Cliente cliente, List<ItemPedido> itens, Estado estado, LocalDateTime dataPedido,
-			BigDecimal valorPedido) {
+	public Pedido(Long id, String numeroPedido, StatusPagamento statusPagamento, Cliente cliente,
+			List<ItemPedido> itens, Estado estado, LocalDateTime dataPedido, BigDecimal valorPedido) {
 		this.id = id;
+		this.numeroPedido = numeroPedido;
+		this.statusPagamento = statusPagamento;
 		this.cliente = cliente;
 		this.itens = itens;
 		this.estado = estado;
@@ -86,14 +93,33 @@ public class Pedido {
 		this.valorPedido = valorPedido;
 	}
 
+	public String getNumeroPedido() {
+		return numeroPedido;
+	}
+
+	public void setNumeroPedido(String numeroPedido) {
+		this.numeroPedido = numeroPedido;
+	}
+
+	public StatusPagamento getStatusPagamento() {
+		return statusPagamento;
+	}
+
+	public void setStatusPagamento(StatusPagamento statusPagamento) {
+		this.statusPagamento = statusPagamento;
+	}
+
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", estado=" + estado + ", dataPedido="
-				+ dataPedido + ", valorPedido=" + valorPedido + "]";
+		return "Pedido [id=" + id + ", numeroPedido=" + numeroPedido + ", statusPagamento=" + statusPagamento
+				+ ", cliente=" + cliente + ", itens=" + itens + ", estado=" + estado + ", dataPedido=" + dataPedido
+				+ ", valorPedido=" + valorPedido + "]";
 	}
 
 	public Pedido toPedido(PedidoDTO pedidoDTO) {
 		this.id = pedidoDTO.getId();
+		this.numeroPedido = pedidoDTO.getNumeroPedido();
+		this.statusPagamento = pedidoDTO.getStatusPagamento();
 		if (pedidoDTO.getClienteDTO() != null) {
 			this.cliente = new Cliente().toCliente(pedidoDTO.getClienteDTO());
 		}
@@ -108,6 +134,8 @@ public class Pedido {
 
 	public Pedido toPedido(PedidoEntity pedidoEntity) {
 		this.id = pedidoEntity.getId();
+		this.numeroPedido = pedidoEntity.getNumeroPedido();
+		this.statusPagamento = pedidoEntity.getStatusPagamento();
 		if (pedidoEntity.getClienteEntity() != null) {
 			this.cliente = new Cliente().toCliente(pedidoEntity.getClienteEntity());
 		}

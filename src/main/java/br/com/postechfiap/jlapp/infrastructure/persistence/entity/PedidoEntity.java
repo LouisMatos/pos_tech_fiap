@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.com.postechfiap.jlapp.core.entities.Pedido;
 import br.com.postechfiap.jlapp.core.enums.Estado;
+import br.com.postechfiap.jlapp.core.enums.StatusPagamento;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +36,11 @@ public class PedidoEntity implements Serializable {
 	@Column(name = "id_pedido")
 	private Long id;
 
+	private String numeroPedido;
+
+	@Enumerated
+	private StatusPagamento statusPagamento;
+
 	@ManyToOne(optional = true, cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(nullable = true, name = "id_cliente")
 	private ClienteEntity clienteEntity;
@@ -51,6 +57,8 @@ public class PedidoEntity implements Serializable {
 
 	public PedidoEntity toPedidoEntity(Pedido pedido) {
 		this.id = pedido.getId();
+		this.numeroPedido = pedido.getNumeroPedido();
+		this.statusPagamento = pedido.getStatusPagamento();
 		if (pedido.getCliente() != null) {
 			this.clienteEntity = new ClienteEntity().toClienteEntity(pedido.getCliente());
 		}

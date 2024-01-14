@@ -10,12 +10,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.postechfiap.jlapp.core.entities.Pedido;
 import br.com.postechfiap.jlapp.core.enums.Estado;
+import br.com.postechfiap.jlapp.core.enums.StatusPagamento;
 import lombok.Data;
 
 @Data
 public class PedidoDTO {
 
 	private Long id;
+
+	@JsonProperty("numero_pedido")
+	private String numeroPedido;
+	
+	@JsonProperty("status_pagamento")
+	private StatusPagamento statusPagamento;
 
 	@JsonProperty("cliente")
 	private ClienteDTO clienteDTO;
@@ -34,6 +41,8 @@ public class PedidoDTO {
 
 	public PedidoDTO toPedidoDTO(Pedido pedido) {
 		this.id = pedido.getId();
+		this.numeroPedido = pedido.getNumeroPedido();
+		this.statusPagamento = pedido.getStatusPagamento();
 		if (pedido.getCliente() != null) {
 			this.clienteDTO = new ClienteDTO().toClienteDTO(pedido.getCliente());
 		}

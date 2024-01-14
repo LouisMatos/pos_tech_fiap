@@ -13,5 +13,8 @@ public interface PedidoInputPort {
 
 	public StatusPedidoDTO buscarStatusPagamentoPedido(String numero_pedido);
 
+	public PedidoDTO buscaPedidoNumeroPedido(String numeroPedido);
+
+	PedidoDTO atualizar(PedidoDTO pedidoDTO, String numeroPedido);
 
 }

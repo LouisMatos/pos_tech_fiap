@@ -13,4 +13,8 @@ public interface PedidoOutputPort {
 
 	public Optional<Pedido> buscarStatusPagamentoPedido(String numero_pedido);
 
+	public Optional<Pedido> buscaPedidoNumeroPedido(String numeroPedido);
+
+	public Pedido atualizar(Pedido pedido);
+
 }

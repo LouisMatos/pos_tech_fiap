@@ -107,6 +107,32 @@ public class PedidoUseCase implements PedidoInputPort {
 				.build();
 	}
 
+	@Override
+	public PedidoDTO buscaPedidoNumeroPedido(String numeroPedido) {
+		PedidoDTO dto = new PedidoDTO().toPedidoDTO(pedidoOutputPort.buscaPedidoNumeroPedido(numeroPedido)
+				.orElseThrow(() -> new NotFoundException("Pedido numero " + numeroPedido + " não encontrado!")));
+		log.info("Pedido: {} encontrado com sucesso!", numeroPedido);
+		return dto;
+	}
+
+	@Override
+	public PedidoDTO atualizar(PedidoDTO pedidoDTO, String numeroPedido) {
+		this.buscaPedidoNumeroPedido(numeroPedido);
+
+		log.info("Convertendo para o dominio de Pedido!");
+		Pedido pedido = new Pedido().toPedido(pedidoDTO);
+
+
+		log.info("Atualizando o pedido de numero: {} !", numeroPedido);
+		pedido.setNumeroPedido(numeroPedido);
+
+		PedidoDTO dto = new PedidoDTO().toPedidoDTO(pedidoOutputPort.atualizar(pedido));
+		log.info("{} alterado com sucesso!", dto.toString());
+
+		return dto;
+
+	}
+
 	private BigDecimal calcularValorTotalPedido(List<ItemPedidoDTO> itemPedidoDTOs) {
 		BigDecimal valorPedido = BigDecimal.ZERO;
 

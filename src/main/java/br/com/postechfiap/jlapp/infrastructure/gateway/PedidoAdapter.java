@@ -39,7 +39,21 @@ public class PedidoAdapter implements PedidoOutputPort {
 	public Optional<Pedido> buscarStatusPagamentoPedido(String numero_pedido) {
 		log.info("Buscando o pedido: {} na base de dados!", numero_pedido);
 		Optional<PedidoEntity> pedidoEntity = pedidoRepository.findByNumeroPedido(numero_pedido);
-		return pedidoEntity.map(entity -> new Pedido().toPedido(entity)) ;
+		return pedidoEntity.map(entity -> new Pedido().toPedido(entity));
+	}
+
+	@Override
+	public Optional<Pedido> buscaPedidoNumeroPedido(String numero_pedido) {
+		log.info("Buscando o pedido: {} na base de dados!", numero_pedido);
+		Optional<PedidoEntity> pedidoEntity = pedidoRepository.findByNumeroPedido(numero_pedido);
+		return pedidoEntity.map(entity -> new Pedido().toPedido(entity));
+	}
+
+	@Override
+	public Pedido atualizar(Pedido pedido) {
+		PedidoEntity pedidoEntity = new PedidoEntity().toPedidoEntity(pedido);
+		log.info("Alterando pedido na base de dados!");
+		return pedido.toPedido(pedidoRepository.save(pedidoEntity));
 	}
 
 }

@@ -26,7 +26,7 @@ public class WebhookDTO {
 	@JsonProperty("id_webhook")
 	private String idWebhook;
 
-	@JsonProperty("payload")
+	@JsonProperty("data")
 	private Object payload;
 
 	public WebhookDTO toWebhookDTO(Webhook webhook) {

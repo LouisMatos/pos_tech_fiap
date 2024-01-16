@@ -20,15 +20,12 @@ public class PedidoDTO {
 
 	@JsonProperty("numero_pedido")
 	private String numeroPedido;
-	
+
+	@JsonProperty("valor_pedido")
+	private BigDecimal valorPedido;
+
 	@JsonProperty("status_pagamento")
 	private StatusPagamento statusPagamento;
-
-	@JsonProperty("cliente")
-	private ClienteDTO clienteDTO;
-
-	@JsonProperty("itens")
-	private List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<>();
 
 	@JsonProperty("estado")
 	private Estado estado;
@@ -36,8 +33,11 @@ public class PedidoDTO {
 	@JsonProperty("data_pedido")
 	private LocalDateTime dataPedido;
 
-	@JsonProperty("valor_pedido")
-	private BigDecimal valorPedido;
+	@JsonProperty("cliente")
+	private ClienteDTO clienteDTO;
+
+	@JsonProperty("itens")
+	private List<ItemPedidoDTO> itemPedidoDTOs = new ArrayList<>();
 
 	public PedidoDTO toPedidoDTO(Pedido pedido) {
 		this.id = pedido.getId();

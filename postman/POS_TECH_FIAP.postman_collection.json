@@ -568,7 +568,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id_notificacao\": \"10000P0001\",\n    \"tipo_evento\": \"notificacao_atualizacao_status_pagamento\",\n    \"data_evento\": \"14/01/2024 13:23:41\",\n    \"id_webhook\": \"10000W0001\",\n    \"payload\": {\n        \"numero_pedido\": \"BWDRL1\",\n        \"pagamento\": \"APROVADO\",\n        \"valor_pago\": 194.39,\n        \"meio_pagamento\": \"credito\"\n    }\n}",
+							"raw": "{\n    \"id_notificacao\": \"10000P0001\",\n    \"tipo_evento\": \"notificacao_atualizacao_status_pagamento\",\n    \"data_evento\": \"14/01/2024 13:23:41\",\n    \"id_webhook\": \"10000W0001\",\n    \"data\": {\n        \"numero_pedido\": \"ZWDRLA\",\n        \"pagamento\": \"NEGADO\",\n        \"valor_pago\": 194.39,\n        \"meio_pagamento\": \"credito\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"

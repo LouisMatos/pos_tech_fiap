@@ -2,7 +2,9 @@ package br.com.postechfiap.jlapp.core.usecase;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -15,6 +17,7 @@ import br.com.postechfiap.jlapp.core.ports.in.PedidoInputPort;
 import br.com.postechfiap.jlapp.core.ports.in.ProdutoInputPort;
 import br.com.postechfiap.jlapp.core.ports.out.PedidoOutputPort;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.ItemPedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoAcompanhamentoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoDTO;
 import br.com.postechfiap.jlapp.shared.exception.NotFoundException;
@@ -122,7 +125,6 @@ public class PedidoUseCase implements PedidoInputPort {
 		log.info("Convertendo para o dominio de Pedido!");
 		Pedido pedido = new Pedido().toPedido(pedidoDTO);
 
-
 		log.info("Atualizando o pedido de numero: {} !", numeroPedido);
 		pedido.setNumeroPedido(numeroPedido);
 
@@ -131,6 +133,24 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		return dto;
 
+	}
+
+	@Override
+	public List<PedidoAcompanhamentoDTO> buscarPedidosAcompanhamento() {
+
+		List<PedidoDTO> pedidoDTOs = pedidoOutputPort.buscarTodos().stream()
+				.map(pedido -> new PedidoDTO().toPedidoDTO(pedido)).toList();
+
+		List<PedidoAcompanhamentoDTO> lista = pedidoDTOs.stream()
+				.map(pedido -> new PedidoAcompanhamentoDTO().toPedidoAcompanhamento(pedido))
+				.collect((Collectors.toList()));
+
+		lista.removeIf(t -> t.getEstado().estaFinalizado());
+		
+		lista.sort(Comparator.comparing(PedidoAcompanhamentoDTO::getEstado).reversed().thenComparing(t -> t.getDataPedido()));
+		
+
+		return lista;
 	}
 
 	private BigDecimal calcularValorTotalPedido(List<ItemPedidoDTO> itemPedidoDTOs) {

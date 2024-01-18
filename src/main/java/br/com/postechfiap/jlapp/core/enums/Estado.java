@@ -25,6 +25,10 @@ public enum Estado {
 		return PRONTO.getValorEstado() == this.estado;
 	}
 	
+	public boolean estaFinalizado() {
+		return FINALIZADO.getValorEstado() == this.estado;
+	}
+	
 	public int getValorEstado() {
 		return this.estado;
 	}

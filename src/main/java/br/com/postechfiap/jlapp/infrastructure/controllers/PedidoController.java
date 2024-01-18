@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.postechfiap.jlapp.core.ports.in.PedidoInputPort;
+import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoAcompanhamentoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoDTO;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
@@ -43,6 +44,12 @@ public class PedidoController {
 	public ResponseEntity<StatusPedidoDTO> buscarStatusPagamentoPedido(@PathVariable final String numero_pedido ) {
 		log.info("Iniciando a busca pelo status do pedido: {}", numero_pedido);
 		return ResponseEntity.ok().body(pedidoInputPort.buscarStatusPagamentoPedido(numero_pedido));
+	}
+	
+	@GetMapping("/acompanhamento")
+	public ResponseEntity<List<PedidoAcompanhamentoDTO>> buscarPedidosAcompanhamento() {
+		log.info("Iniciando a busca dos pedidos para o acompanhamento!");
+		return ResponseEntity.ok().body(pedidoInputPort.buscarPedidosAcompanhamento());
 	}
 
 }

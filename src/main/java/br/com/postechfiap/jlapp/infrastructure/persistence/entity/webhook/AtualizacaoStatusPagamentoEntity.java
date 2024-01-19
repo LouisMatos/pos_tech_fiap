@@ -4,11 +4,13 @@ import br.com.postechfiap.jlapp.core.entities.webhook.AtualizacaoStatusPagamento
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "atualizacao_status_pagamento")
 public class AtualizacaoStatusPagamentoEntity extends EventoEntity {
 

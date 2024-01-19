@@ -141,18 +141,18 @@ public class PedidoUseCase implements PedidoInputPort {
 		List<PedidoDTO> pedidoDTOs = pedidoOutputPort.buscarTodos().stream()
 				.map(pedido -> new PedidoDTO().toPedidoDTO(pedido)).toList();
 
-		log.info("Convertendo para o dominio de Acompanhamento de pedido!");
 		List<PedidoAcompanhamentoDTO> lista = pedidoDTOs.stream()
 				.map(pedido -> new PedidoAcompanhamentoDTO().toPedidoAcompanhamento(pedido))
 				.collect((Collectors.toList()));
+		log.info("Convertendo para o dominio de Acompanhamento de pedido!");
 
-		log.info("Removendo os pedido em Estdo: Finalizado");
 		lista.removeIf(t -> t.getEstado().estaFinalizado());
+		log.info("Removendo os pedido em Estdo: Finalizado");
 
-		log.info(
-				"Ordenando pedidos na seguinte ordem [Pronto > Em Preparação > Recebido] sendo pedidos mais antigos primeiro que os mais novos");
 		lista.sort(Comparator.comparing(PedidoAcompanhamentoDTO::getEstado).reversed()
 				.thenComparing(t -> t.getDataPedido()));
+		log.info(
+				"Ordenando pedidos na seguinte ordem [Pronto > Em Preparação > Recebido] sendo pedidos mais antigos primeiro que os mais novos");
 
 		return lista;
 	}

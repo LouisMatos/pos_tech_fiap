@@ -161,7 +161,7 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
         verifique se foi gerado a imagem latest na sua maquina
         comando: docker images | grep jlapp_local
         ```
-    4. Banco de dados:
+   4. Banco de dados:
         ```
         cd k8s
         ```

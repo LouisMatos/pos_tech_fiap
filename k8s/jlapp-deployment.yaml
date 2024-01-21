@@ -20,12 +20,14 @@ spec:
         - containerPort: 8070
         resources:
           requests:
-            cpu: 500m
-            memory: 500Mi
+            cpu: 600m
+            memory: 756Mi
           limits:
             cpu: 1000m
-            memory: 1024Mi
+            memory: 1536Mi
         env:
+          - name: JAVA_OPTS
+            value: "-server -Xmx1536M -Xms756M -Xss128m -XX:+UseParallelGC -XX:MaxRAMPercentage=75 -XX:ActiveProcessorCount=2 -XX:+UnlockExperimentalVMOptions"
           - name: SPRING_DATASOURCE_URL
             value: jdbc:postgresql://postgres:5432/db_lanchonete
           - name: SPRING_DATASOURCE_USERNAME

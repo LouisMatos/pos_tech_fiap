@@ -114,7 +114,7 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     :warning: [JDK Development Kit 20](https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html) 
 
 
-## Como rodar a aplicação :arrow_forward:
+## Como rodar a aplicação dokerizado :arrow_forward:
 
 1. No terminal, clone o projeto: 
 
@@ -132,29 +132,56 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     ```
     docker-compose build --no-cache && docker-compose up -d
     ```
+## Como rodar a aplicação Kubernetes :arrow_forward:
 
-4. Executar em ambiente Kubernetes
-
-   Execute os comandos abaixo para aplicar os manifestos do K8S:
+   Execute os comandos abaixo e na ordem para aplicar os manifestos do K8S:
    
-   API
+   1. API
+        ```
+        OBS: caminho da pasta k8s -> pos_tech_fiap\k8s>
+        ```
+        ```
+        pos_tech_fiap\k8s> kubectl apply -f .
+        ```
 
-    ```
-    pos_tech_fiap\k8s> kubectl apply -f.
-    ```
+   2. Banco de dados:
 
-   Banco de dados:
+        ```
+        cd DB
+        ```
+        ```
+        OBS: caminho da pasta DB -> pos_tech_fiap\k8s\DB>
+        ```
+        ```
+        kubectl apply -f .
+        ```
 
-    ```
-    pos_tech_fiap\k8s\db> kubectl apply -f.
-    ```
+   3. Servidor de Metricas:
 
-    ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)
+        ```
+        cd ..
+        ```
+        ```
+        cd Metrics
+        ```
+        ```
+        OBS: caminho da pasta Metrics -> pos_tech_fiap\k8s\Metrics>
+        ```
+        ```
+        kubectl apply -f .
+        ```
+        ```
+        Verifique se o servidor de metricas esta rodando corretamente para o funcionamento adequado do HPA
+        Comando: kubectl get deployment metrics-server -n kube-system
+        ```
 
+## Swagger da aplicação :arrow_forward:
 
-   
-5. Acesse o swagger pela url: 
+1. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html
     ```
+
+## Arquitetura da aplicação utilizando o Kubernetes :arrow_forward:
+![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)

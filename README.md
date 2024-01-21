@@ -97,17 +97,21 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
 ## Pré-requisitos
 
-1. Para rodar a aplicação via ambiente docker:
+1. Para rodar a aplicação via ambiente docker/kubernetes:
 
     :warning: [Docker](https://docs.docker.com/engine/install/)
 
     :warning: [Docker compose](https://docs.docker.com/compose/install/)
 
+    :warning: [Kubernetes](https://kubernetes.io/docs/tasks/tools/)
+    
 2. Para rodar  a aplicação em localhost:
 
     :warning: [Docker](https://docs.docker.com/engine/install/)
 
     :warning: [Docker compose](https://docs.docker.com/compose/install/)
+
+    :warning: [Kubernetes](https://kubernetes.io/docs/tasks/tools/)
 
     :warning: [Eclipse](https://www.eclipse.org/downloads/) ou [IntelliJ](https://www.jetbrains.com/idea/download/)
 
@@ -135,17 +139,32 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 ## Como rodar a aplicação Kubernetes :arrow_forward:
 
    Execute os comandos abaixo e na ordem para aplicar os manifestos do K8S:
+    
+   1. No terminal, clone o projeto: 
+        ```
+        git clone https://github.com/LouisMatos/pos_tech_fiap.git
+        ```
+
+   2. Entre na pasta do projeto: 
+        ```
+        cd pos_tech_fiap
+        ```
    
-   1. API
+   3. Gerar imagem da aplicação
         ```
-        OBS: caminho da pasta k8s -> pos_tech_fiap\k8s>
+        OBS: caminho da pasta para gerar a imagem -> pos_tech_fiap>
         ```
         ```
-        pos_tech_fiap\k8s> kubectl apply -f .
+        docker build --no-cache -t jlapp_local . 
         ```
-
-   2. Banco de dados:
-
+        ```
+        verifique se foi gerado a imagem latest na sua maquina
+        comando: docker images | grep jlapp_local
+        ```
+    4. Banco de dados:
+        ```
+        cd k8s
+        ```
         ```
         cd DB
         ```
@@ -155,12 +174,19 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
         ```
         kubectl apply -f .
         ```
-
-   3. Servidor de Metricas:
-
+   
+   5. API
         ```
         cd ..
         ```
+        ```
+        OBS: caminho da pasta DB -> pos_tech_fiap\k8s>
+        ```
+        ```
+        kubectl apply -f .
+        ```
+
+   6. Servidor de Metricas:
         ```
         cd Metrics
         ```

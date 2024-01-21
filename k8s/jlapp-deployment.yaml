@@ -14,15 +14,16 @@ spec:
     spec:
       containers:
       - name: jlapp
-        image: jeff192/jlapp:1.0.0
+        image: jlapp_local:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8070
         resources:
           requests:
-            cpu: 200m
+            cpu: 500m
             memory: 500Mi
           limits:
-            cpu: 500m
+            cpu: 1000m
             memory: 1024Mi
         env:
           - name: SPRING_DATASOURCE_URL

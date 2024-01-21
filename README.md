@@ -201,13 +201,17 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
         Comando: kubectl get deployment metrics-server -n kube-system
         ```
 
-## Swagger da aplicação :arrow_forward:
+## Swagger/Collection da aplicação :arrow_forward:
 
 1. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html
     ```
+2. Acesse a pasta postman, no caminho "pos_tech_fiap/postman>": 
 
+    ```
+    Nome arquivo: POS_TECH_FIAP.postman_collection.json
+    ```
 ## Arquitetura da aplicação utilizando o Kubernetes :arrow_forward:
 ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)

@@ -446,6 +446,125 @@
 					"response": []
 				},
 				{
+					"name": "Acompanhamento de Pedidos Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `",
+									"<style type=\"text/css\">",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+									"    .tftable tr {background-color:#ffffff;}",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+									"    .tftable tr:hover {background-color:#e0ffff;}",
+									"</style>",
+									"",
+									"<table class=\"tftable\" border=\"1\">",
+									"    <tr>",
+									"        <th>ID</th>",
+									"        <th>Cliente ID</th>",
+									"        <th>Cliente Nome</th>",
+									"        <th>Cliente CPF</th>",
+									"        <th>Cliente Email</th>",
+									"        <th>Itens</th>",
+									"        <th>Estado</th>",
+									"        <th>Data Pedido</th>",
+									"        <th>Valor Pedido</th>",
+									"    </tr>",
+									"    ",
+									"    {{#each response}}",
+									"        <tr>",
+									"            <td>{{id}}</td>",
+									"            <td>{{cliente.id}}</td>",
+									"            <td>{{cliente.nome}}</td>",
+									"            <td>{{cliente.cpf}}</td>",
+									"            <td>{{cliente.email}}</td>",
+									"            <td>",
+									"                <table class=\"tftable\" border=\"1\">",
+									"                    <tr>",
+									"                        <th>Item ID</th>",
+									"                        <th>Pedido ID</th>",
+									"                        <th>Produto ID</th>",
+									"                        <th>Produto Nome</th>",
+									"                        <th>Produto Descrição</th>",
+									"                        <th>Produto Preço</th>",
+									"                        <th>Produto Categoria</th>",
+									"                        <th>Produto Categoria Nome</th>",
+									"                        <th>Produto Imagens</th>",
+									"                        <th>Quantidade</th>",
+									"                        <th>Observação</th>",
+									"                    </tr>",
+									"                    {{#each itens}}",
+									"                        <tr>",
+									"                            <td>{{id}}</td>",
+									"                            <td>{{pedido}}</td>",
+									"                            <td>{{produto.id}}</td>",
+									"                            <td>{{produto.nome}}</td>",
+									"                            <td>{{produto.descricao}}</td>",
+									"                            <td>{{produto.preco}}</td>",
+									"                            <td>{{produto.categoria}}</td>",
+									"                            <td>{{produto.categoria_nome}}</td>",
+									"                            <td>{{produto.imagens}}</td>",
+									"                            <td>{{quantidade}}</td>",
+									"                            <td>{{observacao}}</td>",
+									"                        </tr>",
+									"                    {{/each}}",
+									"                </table>",
+									"            </td>",
+									"            <td>{{estado}}</td>",
+									"            <td>{{data_pedido}}</td>",
+									"            <td>{{valor_pedido}}</td>",
+									"        </tr>",
+									"    {{/each}}",
+									"</table>",
+									"`;",
+									"",
+									"function constructVisualizerPayload() {",
+									"    return { response: pm.response.json() }",
+									"}",
+									"",
+									"pm.visualizer.set(template, constructVisualizerPayload());// Stores the first pedido ID in a variable",
+									"var pedidos = pm.response.json();",
+									"var firstPedidoId = pedidos[0].id;",
+									"pm.globals.set(\"firstPedidoId\", firstPedidoId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numero_pedido\": \"LUKPNF\",\n    \"estado\": \"APROVADO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8070/api/v1/pedidos/status_pagamento/teste",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"api",
+								"v1",
+								"pedidos",
+								"status_pagamento",
+								"teste"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Buscar Status Pagamento Pedido",
 					"event": [
 						{

@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoAcompanhamentoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoTesteDTO;
 
 public interface PedidoInputPort {
 
@@ -19,5 +20,7 @@ public interface PedidoInputPort {
 	PedidoDTO atualizar(PedidoDTO pedidoDTO, String numeroPedido);
 
 	public List<PedidoAcompanhamentoDTO> buscarPedidosAcompanhamento();
+
+	public StatusPedidoTesteDTO atualizaStatusPedidoTeste(StatusPedidoTesteDTO statusPedidoTesteDTO);
 
 }

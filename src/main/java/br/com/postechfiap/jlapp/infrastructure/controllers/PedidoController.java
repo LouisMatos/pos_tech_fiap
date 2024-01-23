@@ -15,6 +15,7 @@ import br.com.postechfiap.jlapp.core.ports.in.PedidoInputPort;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoAcompanhamentoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoTesteDTO;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 import jakarta.validation.Valid;
 
@@ -32,6 +33,11 @@ public class PedidoController {
 	public ResponseEntity<PedidoDTO> inserir(@Valid @RequestBody PedidoDTO pedidoDTO) {
 		log.info("Iniciando o cadastro de Pedido!");
 		return ResponseEntity.ok().body(pedidoInputPort.inserir(pedidoDTO));
+	}
+	
+	@PostMapping("/status_pagamento/teste")
+	public ResponseEntity<StatusPedidoTesteDTO> atualizaStatusPedidoTeste(@RequestBody StatusPedidoTesteDTO statusPedidoTesteDTO) {
+		return ResponseEntity.ok().body(pedidoInputPort.atualizaStatusPedidoTeste(statusPedidoTesteDTO));
 	}
 
 	@GetMapping
@@ -51,5 +57,7 @@ public class PedidoController {
 		log.info("Iniciando a busca dos pedidos para o acompanhamento!");
 		return ResponseEntity.ok().body(pedidoInputPort.buscarPedidosAcompanhamento());
 	}
+	
+	
 
 }

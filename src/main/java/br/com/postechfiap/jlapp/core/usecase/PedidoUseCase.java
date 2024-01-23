@@ -20,6 +20,7 @@ import br.com.postechfiap.jlapp.infrastructure.controllers.dto.ItemPedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoAcompanhamentoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.PedidoDTO;
 import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoDTO;
+import br.com.postechfiap.jlapp.infrastructure.controllers.dto.StatusPedidoTesteDTO;
 import br.com.postechfiap.jlapp.shared.exception.NotFoundException;
 import br.com.postechfiap.jlapp.shared.logger.log.Logger;
 
@@ -156,6 +157,21 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		return lista;
 	}
+	
+	@Override
+	public StatusPedidoTesteDTO atualizaStatusPedidoTeste(StatusPedidoTesteDTO statusPedidoTesteDTO) {
+
+		log.info("Convertendo para o dominio de Pedido!");
+		Pedido pedido = new Pedido().toPedido(this.buscaPedidoNumeroPedido(statusPedidoTesteDTO.getNumeroPedido()));
+
+		log.info("Atualizando o pedido de numero: {} !", statusPedidoTesteDTO.getNumeroPedido());
+		pedido.setEstado(statusPedidoTesteDTO.getEstado());
+
+		PedidoDTO dto = new PedidoDTO().toPedidoDTO(pedidoOutputPort.atualizar(pedido));
+		log.info("{} alterado com sucesso!", dto.toString());
+
+		return statusPedidoTesteDTO;
+	}
 
 	private BigDecimal calcularValorTotalPedido(List<ItemPedidoDTO> itemPedidoDTOs) {
 		BigDecimal valorPedido = BigDecimal.ZERO;
@@ -182,5 +198,7 @@ public class PedidoUseCase implements PedidoInputPort {
 
 		return numeroPedido;
 	}
+
+	
 
 }

@@ -97,24 +97,28 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 
 ## Pré-requisitos
 
-1. Para rodar a aplicação via ambiente docker:
+1. Para rodar a aplicação via ambiente docker/kubernetes:
 
     :warning: [Docker](https://docs.docker.com/engine/install/)
 
     :warning: [Docker compose](https://docs.docker.com/compose/install/)
 
+    :warning: [Kubernetes](https://kubernetes.io/docs/tasks/tools/)
+    
 2. Para rodar  a aplicação em localhost:
 
     :warning: [Docker](https://docs.docker.com/engine/install/)
 
     :warning: [Docker compose](https://docs.docker.com/compose/install/)
 
+    :warning: [Kubernetes](https://kubernetes.io/docs/tasks/tools/)
+
     :warning: [Eclipse](https://www.eclipse.org/downloads/) ou [IntelliJ](https://www.jetbrains.com/idea/download/)
 
     :warning: [JDK Development Kit 20](https://www.oracle.com/java/technologies/javase/jdk20-archive-downloads.html) 
 
 
-## Como rodar a aplicação :arrow_forward:
+## Como rodar a aplicação dokerizado :arrow_forward:
 
 1. No terminal, clone o projeto: 
 
@@ -132,29 +136,88 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     ```
     docker-compose build --no-cache && docker-compose up -d
     ```
+## Como rodar a aplicação Kubernetes :arrow_forward:
 
-4. Executar em ambiente Kubernetes
+   Execute os comandos abaixo e na ordem para aplicar os manifestos do K8S:
+    
+   1. No terminal, clone o projeto: 
+        ```
+        git clone https://github.com/LouisMatos/pos_tech_fiap.git
+        ```
 
-   Execute os comandos abaixo para aplicar os manifestos do K8S:
+   2. Entre na pasta do projeto: 
+        ```
+        cd pos_tech_fiap
+        ```
    
-   API
-
-    ```
-    pos_tech_fiap\k8s> kubectl apply -f.
-    ```
-
-   Banco de dados:
-
-    ```
-    pos_tech_fiap\k8s\db> kubectl apply -f.
-    ```
-
-    ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)
-
-
+   3. Gerar imagem da aplicação
+        ```
+        OBS: caminho da pasta para gerar a imagem -> pos_tech_fiap>
+        ```
+        ```
+        docker build --no-cache -t jlapp_local . 
+        ```
+        ```
+        verifique se foi gerado a imagem latest na sua maquina
+        comando: docker images | grep jlapp_local
+        ```
+   4. Banco de dados:
+        ```
+        cd k8s
+        ```
+        ```
+        cd DB
+        ```
+        ```
+        OBS: caminho da pasta DB -> pos_tech_fiap\k8s\DB>
+        ```
+        ```
+        kubectl apply -f .
+        ```
    
-5. Acesse o swagger pela url: 
+   5. API
+        ```
+        cd ..
+        ```
+        ```
+        OBS: caminho da pasta DB -> pos_tech_fiap\k8s>
+        ```
+        ```
+        kubectl apply -f .
+        ```
+
+   6. Servidor de Metricas:
+        ```
+        cd Metrics
+        ```
+        ```
+        OBS: caminho da pasta Metrics -> pos_tech_fiap\k8s\Metrics>
+        ```
+        ```
+        kubectl apply -f .
+        ```
+        ```
+        Verifique se o servidor de metricas esta rodando corretamente para o funcionamento adequado do HPA
+        Comando: kubectl get deployment metrics-server -n kube-system
+        ```
+
+## Swagger/Collection da aplicação :arrow_forward:
+
+1. Acesse o swagger pela url: 
 
     ```
     http://localhost:8070/swagger-ui/index.html
     ```
+2. Acesse a pasta postman, no caminho "pos_tech_fiap/postman>": 
+
+    ```
+    Nome arquivo: POS_TECH_FIAP.postman_collection.json
+    ```
+## Arquitetura da aplicação utilizando o Kubernetes :arrow_forward:
+![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)
+
+
+## Link video vimeo :arrow_forward:
+
+https://vimeo.com/906045878/b75c9f66dc?share=copy
+

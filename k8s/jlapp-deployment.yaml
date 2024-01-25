@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: jlapp
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -14,10 +14,20 @@ spec:
     spec:
       containers:
       - name: jlapp
-        image: jeff192/jlapp:1.0.0
+        image: jlapp_local:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8070
+        resources:
+          requests:
+            cpu: 600m
+            memory: 756Mi
+          limits:
+            cpu: 1000m
+            memory: 1536Mi
         env:
+          - name: JAVA_OPTS
+            value: "-server -Xmx1536M -Xms756M -Xss128m -XX:+UseParallelGC -XX:MaxRAMPercentage=75 -XX:ActiveProcessorCount=2 -XX:+UnlockExperimentalVMOptions"
           - name: SPRING_DATASOURCE_URL
             value: jdbc:postgresql://postgres:5432/db_lanchonete
           - name: SPRING_DATASOURCE_USERNAME

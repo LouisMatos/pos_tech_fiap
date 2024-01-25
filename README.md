@@ -204,7 +204,6 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 ## Swagger/Collection da aplicação :arrow_forward:
 
 1. Acesse o swagger pela url: 
-
     ```
     http://localhost:8070/swagger-ui/index.html
     ```

@@ -1,0 +1,17 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: jlapp-deployment
+  namespace: default
+spec:
+  minReplicas: 1
+  maxReplicas: 5
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: jlapp-deployment
+  targetCPUUtilizationPercentage: 65
+status:
+  currentReplicas: 2
+  desiredReplicas: 0
+ 

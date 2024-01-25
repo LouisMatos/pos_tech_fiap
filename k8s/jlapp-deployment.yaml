@@ -25,6 +25,22 @@ spec:
           limits:
             cpu: 1000m
             memory: 1536Mi
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8070
+          initialDelaySeconds: 25
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8070
+          initialDelaySeconds: 35
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 20
         env:
           - name: JAVA_OPTS
             value: "-server -Xmx1536M -Xms756M -Xss128m -XX:+UseParallelGC -XX:MaxRAMPercentage=75 -XX:ActiveProcessorCount=2 -XX:+UnlockExperimentalVMOptions"

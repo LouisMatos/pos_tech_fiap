@@ -204,7 +204,6 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
 ## Swagger/Collection da aplicação :arrow_forward:
 
 1. Acesse o swagger pela url: 
-
     ```
     http://localhost:8070/swagger-ui/index.html
     ```
@@ -214,4 +213,12 @@ Foram utilizadas técnicas de Domain Driven Design para definição dos fluxos u
     Nome arquivo: POS_TECH_FIAP.postman_collection.json
     ```
 ## Arquitetura da aplicação utilizando o Kubernetes :arrow_forward:
-![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/c72b5e3d-a7d0-4640-985d-8f4005bbcdb8)
+![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/deb05bd2-a7e5-45a3-b844-8aec8e4e2a3f)
+
+
+
+## Link video vimeo :arrow_forward:
+
+
+https://vimeo.com/906045878/b75c9f66dc?share=copy
+

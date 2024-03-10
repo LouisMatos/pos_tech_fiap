@@ -23,6 +23,7 @@ jobs:
         run: aws elasticbeanstalk create-application --application-name jlapp
 
   deploy:
+    needs: create_elastic_beanstalk
     runs-on: ubuntu-latest
 
     steps:

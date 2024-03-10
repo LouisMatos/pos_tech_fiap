@@ -24,11 +24,10 @@ jobs:
       - name: Implantar no AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v14
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
           application_name: jlapp
           environment_name: jlapp-prod
           version_label: ${{ github.run_id }}
-          region: us-east-1
           deployment_package: target/jlapp_run_app.jar

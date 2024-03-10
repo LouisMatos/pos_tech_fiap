@@ -30,13 +30,13 @@ jobs:
           fi
       - name: Verificar existência do arquivo trust-policy.json
         run: |
-          if [ ! -f trust-policy.json ]; then
-            echo "Arquivo trust-policy.json não encontrado"
+          if [ ! -f trustpolicy.json ]; then
+            echo "Arquivo trustpolicy.json não encontrado"
             exit 1
           fi
       - name: Criar e associar perfil de instância
         run: |
-          aws iam create-role --role-name MyRole --assume-role-policy-document file://trust-policy.json
+          aws iam create-role --role-name MyRole --assume-role-policy-document file://trustpolicy.json
           aws iam create-instance-profile --instance-profile-name MyInstanceProfile
           aws iam add-role-to-instance-profile --instance-profile-name MyInstanceProfile --role-name MyRole
           aws elasticbeanstalk update-environment --environment-name envJlapp --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=MyInstanceProfile

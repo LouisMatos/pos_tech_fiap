@@ -24,9 +24,9 @@ jobs:
 
       - name: Criar ambiente Elastic Beanstalk se não existir
         run: |
-          ENV_EXISTS=$(aws elasticbeanstalk describe-environments --application-name jlapp --environment-names jlapp-prod --query "Environments[0].EnvironmentName" --output text)
-          if [ "$ENV_EXISTS" != "jlapp-prod" ]; then
-            aws elasticbeanstalk create-environment --application-name jlapp --environment-name jlapp-prod --solution-stack-name "64bit Amazon Linux 2 v3.6.4 running Corretto 17"
+          ENV_EXISTS=$(aws elasticbeanstalk describe-environments --application-name jlapp --environment-names envJlapp --query "Environments[0].EnvironmentName" --output text)
+          if [ "$ENV_EXISTS" != "envJlapp" ]; then
+            aws elasticbeanstalk create-environment --application-name jlapp --environment-name envJlapp --solution-stack-name "64bit Amazon Linux 2 v3.6.4 running Corretto 17"
           fi
 
   deploy:
@@ -52,6 +52,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
           application_name: jlapp
-          environment_name: jlapp-prod
+          environment_name: envJlapp
           version_label: ${{ github.run_id }}
           deployment_package: target/jlapp-0.0.1-SNAPSHOT.jar

@@ -19,18 +19,14 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region ${{ secrets.AWS_REGION }}
 
-      - name: Criar aplicação Elastic Beanstalk se não existir
-        run: |
-          APP_EXISTS=$(aws elasticbeanstalk describe-applications --application-names jlapp --query "Applications[0].ApplicationName" --output text)
-          if [ "$APP_EXISTS" != "jlapp" ]; then
-            aws elasticbeanstalk create-application --application-name jlapp
-          fi
+      - name: Criar aplicação Elastic Beanstalk
+        run: aws elasticbeanstalk create-application --application-name jlapp
 
       - name: Criar ambiente Elastic Beanstalk se não existir
         run: |
           ENV_EXISTS=$(aws elasticbeanstalk describe-environments --application-name jlapp --environment-names jlapp-prod --query "Environments[0].EnvironmentName" --output text)
           if [ "$ENV_EXISTS" != "jlapp-prod" ]; then
-            aws elasticbeanstalk create-environment --application-name jlapp --environment-name jlapp-prod --solution-stack-name "64bit Amazon Linux 2018.03 v2.11.4 running Java 8"
+            aws elasticbeanstalk create-environment --application-name jlapp --environment-name jlapp-prod --solution-stack-name "64bit Amazon Linux 2 v3.1.2 running Corretto 8"
           fi
 
   deploy:

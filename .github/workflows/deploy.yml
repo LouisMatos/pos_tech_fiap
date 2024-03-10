@@ -28,13 +28,18 @@ jobs:
           if [ "$ENV_EXISTS" != "envJlapp" ]; then
             aws elasticbeanstalk create-environment --application-name jlapp --environment-name envJlapp --solution-stack-name "64bit Amazon Linux 2 v3.6.4 running Corretto 17"
           fi
+      - name: Verificar existência do arquivo trust-policy.json
+        run: |
+          if [ ! -f trust-policy.json ]; then
+            echo "Arquivo trust-policy.json não encontrado"
+            exit 1
+          fi
       - name: Criar e associar perfil de instância
         run: |
           aws iam create-role --role-name MyRole --assume-role-policy-document file://trust-policy.json
           aws iam create-instance-profile --instance-profile-name MyInstanceProfile
           aws iam add-role-to-instance-profile --instance-profile-name MyInstanceProfile --role-name MyRole
           aws elasticbeanstalk update-environment --environment-name envJlapp --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=MyInstanceProfile
-
   deploy:
     needs: create_elastic_beanstalk
     runs-on: ubuntu-latest

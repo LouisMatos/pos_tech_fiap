@@ -30,4 +30,4 @@ jobs:
           application_name: jlapp
           environment_name: jlapp-prod
           version_label: ${{ github.run_id }}
-          deployment_package: target/jlapp_run_app.jar
+          deployment_package: target/jlapp-0.0.1-SNAPSHOT.jar

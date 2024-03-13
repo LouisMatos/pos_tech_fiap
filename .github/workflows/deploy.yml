@@ -1,66 +1,26 @@
-name: Implantar no AWS Elastic Beanstalk
+name: Deploy to AWS EKS
 
 on:
-  push:
+  pull_request:
     branches:
       - master
 
 jobs:
-  create_elastic_beanstalk:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Instalar e configurar AWS CLI
-        run: |
-          curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install --update
-          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws configure set default.region ${{ secrets.AWS_REGION }}
-
-      - name: Listar soluções stack disponíveis
-        run: aws elasticbeanstalk list-available-solution-stacks
-
-      - name: Criar ambiente Elastic Beanstalk se não existir
-        run: |
-          ENV_EXISTS=$(aws elasticbeanstalk describe-environments --application-name jlapp --environment-names envJlapp --query "Environments[0].EnvironmentName" --output text)
-          if [ "$ENV_EXISTS" != "envJlapp" ]; then
-            aws elasticbeanstalk create-environment --application-name jlapp --environment-name envJlapp --solution-stack-name "64bit Amazon Linux 2 v3.6.4 running Corretto 17"
-          fi
-      - name: Criar e associar perfil de instância
-        run: |
-          INSTANCE_PROFILE_EXISTS=$(aws iam get-instance-profile --instance-profile-name MyInstanceProfile || echo "not_exists")
-          if [ "$INSTANCE_PROFILE_EXISTS" == "not_exists" ]; then
-            aws iam create-instance-profile --instance-profile-name MyInstanceProfile
-          fi
-          aws iam create-role --role-name MyRole --assume-role-policy-document '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":{"Service":"elasticbeanstalk.amazonaws.com"},"Action":"sts:AssumeRole"}]}'
-          aws iam add-role-to-instance-profile --instance-profile-name MyInstanceProfile --role-name MyRole
-          aws elasticbeanstalk update-environment --environment-name envJlapp --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=MyInstanceProfile
-
   deploy:
-    needs: create_elastic_beanstalk
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do código
+      - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: Configurar JDK 20
-        uses: actions/setup-java@v1
-        with:
-          java-version: 20
 
-      - name: Construir com Maven
-        run: mvn clean install
-
-      - name: Implantar no AWS Elastic Beanstalk
-        uses: einaregilsson/beanstalk-deploy@v14
+      - name: Deploy to AWS EKS
+        uses: giovannirossini/aws-eks-kubectl-action@v1
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: ${{ secrets.AWS_REGION }}
-          application_name: jlapp
-          environment_name: envJlapp
-          version_label: ${{ github.run_id }}
-          deployment_package: target/jlapp-0.0.1-SNAPSHOT.jar
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          cluster-name: 'jlapp-cluster'
+          command: |
+            kubectl apply -f k8s/DB
+            kubectl apply -f k8s/
+            kubectl apply -f k8s/Metrics

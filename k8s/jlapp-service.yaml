@@ -2,10 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jlapp-service
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Cluster
   selector:
     app: jlapp
   ports:
   - port: 8070
     targetPort: 8070
-  type: LoadBalancer

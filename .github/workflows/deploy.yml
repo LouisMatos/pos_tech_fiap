@@ -1,9 +1,11 @@
 name: Deploy to AWS EKS
 
 on:
+  push:
+    branches: [ "*" ]
   pull_request:
-    branches:
-      - master
+permissions:
+  contents: read
 
 jobs:
 
@@ -51,6 +53,7 @@ jobs:
           docker push testeluismatos/jlapp-eks:latest
 
   deploy:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: publish
     steps:

@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: jlapp
-        image: jlapp_local:latest
-        imagePullPolicy: Never
+        image: testeluismatos/jlapp-eks:latest
+#        imagePullPolicy: Never
         ports:
         - containerPort: 8070
         resources:

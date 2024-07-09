@@ -7,7 +7,7 @@ Arquitetura Coreografada
 
 Decidimos escolher a arquitetura Coreografada por se basear em eventos e se assemelha ao que ja vivenciamos no cotidiano da empresa onde trabalhamos. 
 
-segue alguns alguns pontos que fortaleceu a nossa decisão diferente da orquestrada.
+Segue alguns alguns pontos que fortaleceu a nossa decisão diferente da orquestrada.
 
 
 1. Desacoplamento dos Serviços
@@ -38,6 +38,8 @@ Redução de Latência: Processos que não precisam de resposta imediata podem s
 Pedido Service: Cria o pedido e o salva no banco de dados PostgreSQL. Em seguida, envia o pedido para a fila do RabbitMQ.
 Pagamento Service: Lê o pedido da fila do RabbitMQ, salva no banco de dados MongoDB, e confirma o pagamento.
 Produção Service: Lê o pedido confirmado da fila do RabbitMQ, grava no banco de dados H2, e finaliza o pedido.
+
+
 
 ### Tópicos 
 

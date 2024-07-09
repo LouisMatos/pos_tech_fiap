@@ -39,6 +39,7 @@ Pedido Service: Cria o pedido e o salva no banco de dados PostgreSQL. Em seguida
 Pagamento Service: Lê o pedido da fila do RabbitMQ, salva no banco de dados MongoDB, e confirma o pagamento.
 Produção Service: Lê o pedido confirmado da fila do RabbitMQ, grava no banco de dados H2, e finaliza o pedido.
 
+![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/a6b232dc-3c47-4064-b17c-2a736b81b057)
 
 
 ### Tópicos 

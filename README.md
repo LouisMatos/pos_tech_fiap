@@ -3,6 +3,41 @@
 
 > Status do Projeto: em desenvolvimento :warning:
 
+Arquitetura Coreografada
+
+Decidimos escolher a arquitetura Coreografada por se basear em eventos e se assemelha ao que ja vivenciamos no cotidiano da empresa onde trabalhamos. 
+
+segue alguns alguns pontos que fortaleceu a nossa decisão diferente da orquestrada.
+
+
+1. Desacoplamento dos Serviços
+Flexibilidade: Cada serviço é independente e pode ser desenvolvido, implantado e escalado separadamente.
+Resiliência: Falhas em um serviço não afetam diretamente os outros serviços. A comunicação através de filas como o RabbitMQ garante que os pedidos sejam processados mesmo se um dos serviços estiver temporariamente indisponível.
+
+2. Escalabilidade
+Escala Independente: Permite escalar individualmente os serviços de acordo com a demanda. Por exemplo, se o serviço de pagamento tiver mais carga, ele pode ser escalado sem impactar os outros serviços.
+Gerenciamento de Carga: Filas como RabbitMQ ajudam a gerenciar picos de carga, mantendo os pedidos em uma fila até que os serviços estejam prontos para processá-los.
+
+3. Manutenibilidade e Evolução
+Atualizações Isoladas: Cada serviço pode ser atualizado sem necessidade de sincronizar com outros serviços, reduzindo o risco de impacto em toda a aplicação.
+Facilidade de Mudança: Adicionar novas funcionalidades ou modificar existentes torna-se mais fácil e seguro, já que a lógica está dividida em serviços específicos.
+
+4. Distribuição de Responsabilidades
+Claridade no Domínio: Cada serviço tem uma responsabilidade clara e específica. Por exemplo, o serviço de pagamento lida exclusivamente com operações de pagamento, enquanto o serviço de pedidos lida com a criação e gerenciamento de pedidos.
+Especialização: Permite a especialização de cada equipe em um conjunto específico de serviços, melhorando a eficiência e a qualidade do desenvolvimento.
+
+5. Tolerância a Falhas
+Retries e Dead Letter Queues: Filas como RabbitMQ podem ser configuradas para tentar processar mensagens novamente em caso de falhas e mover mensagens problemáticas para filas de erro, permitindo uma análise posterior.
+Persistência de Mensagens: Mensagens persistentes garantem que os dados não sejam perdidos mesmo que os serviços estejam temporariamente fora do ar.
+
+6. Simplicidade na Comunicação
+Eventos Assíncronos: Comunicação assíncrona reduz a complexidade de lidar com falhas de rede e aumenta a eficiência geral do sistema.
+Redução de Latência: Processos que não precisam de resposta imediata podem ser tratados de forma assíncrona, liberando os serviços para outras tarefas.
+
+7. Exemplificação na Implementação
+Pedido Service: Cria o pedido e o salva no banco de dados PostgreSQL. Em seguida, envia o pedido para a fila do RabbitMQ.
+Pagamento Service: Lê o pedido da fila do RabbitMQ, salva no banco de dados MongoDB, e confirma o pagamento.
+Produção Service: Lê o pedido confirmado da fila do RabbitMQ, grava no banco de dados H2, e finaliza o pedido.
 
 ### Tópicos 
 

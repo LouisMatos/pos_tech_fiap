@@ -7,7 +7,7 @@ Arquitetura Coreografada
 
 Decidimos escolher a arquitetura Coreografada por se basear em eventos e se assemelha ao que ja vivenciamos no cotidiano da empresa onde trabalhamos. 
 
-Segue alguns alguns pontos que fortaleceu a nossa decisão diferente da orquestrada.
+Segue alguns pontos relevantes para a nossa decisão.
 
 
 1. Desacoplamento dos Serviços

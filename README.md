@@ -1,7 +1,6 @@
 
 <h1 align="center"> Sistema de Controle de Pedidos de Lanchonete </h1>
 
-> Status do Projeto: em desenvolvimento :warning:
 
 Arquitetura Coreografada
 

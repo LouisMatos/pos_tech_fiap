@@ -41,6 +41,21 @@ Produção Service: Lê o pedido confirmado da fila do RabbitMQ, grava no banco 
 ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/a6b232dc-3c47-4064-b17c-2a736b81b057)
 
 
+### Microsserviços desenvolvidos na fase 4:
+
+API Pedido
+
+https://github.com/LouisMatos/pos_tech_fiap_pedido
+
+API Pagamento
+
+https://github.com/LouisMatos/pos_tech_fiap_pagamento
+
+API Produção
+
+https://github.com/LouisMatos/pos_tech_fiap_producao
+
+
 ### Tópicos 
 
 :small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)

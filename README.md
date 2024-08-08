@@ -41,6 +41,11 @@ Produção Service: Lê o pedido confirmado da fila do RabbitMQ, grava no banco 
 ![image](https://github.com/LouisMatos/pos_tech_fiap/assets/40615923/a6b232dc-3c47-4064-b17c-2a736b81b057)
 
 
+Link Arquitetura Coreografada:
+
+https://grupo-21.s3.sa-east-1.amazonaws.com/fase5_coreografada.drawio
+
+
 ### Microsserviços desenvolvidos na fase 4:
 
 API Pedido

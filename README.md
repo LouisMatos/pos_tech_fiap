@@ -43,8 +43,6 @@ Produção Service: Lê o pedido confirmado da fila do RabbitMQ, grava no banco 
 
 Link Arquitetura Coreografada:
 
-Obs: Ter o drawio instaldo.
-
 https://app.diagrams.net/#G1ACmf8tPcEGAsOK5CK8hOgZzFZ4BXfvrv#%7B%22pageId%22%3A%22e0Y3W5YshDSWm-MVab-a%22%7D
 
 

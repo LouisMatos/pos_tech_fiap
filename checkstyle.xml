@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+  Minimal custom Checkstyle ruleset for pos_tech_fiap (legacy monolith).
+  Intentionally narrow: catches the highest-value issues (unused imports,
+  missing braces, overly long lines) without pulling in the full Sun/Google
+  style (javadoc, naming, import order, etc.) which would produce an
+  unmanageable number of violations on the existing codebase.
+
+  Note: FileTabCharacter is deliberately NOT enabled here (unlike the sibling
+  pedido/pagamento/producao services) — this codebase's established
+  indentation convention is tabs, consistently, across the whole tree. Flagging
+  that would be ~80 false-positive violations for a non-issue, not a real
+  quality signal.
+-->
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="warning"/>
+
+    <module name="LineLength">
+        <property name="max" value="160"/>
+        <property name="ignorePattern" value="^import .*$"/>
+    </module>
+
+    <module name="TreeWalker">
+        <module name="UnusedImports">
+            <property name="processJavadoc" value="false"/>
+        </module>
+        <module name="RedundantImport"/>
+        <module name="NeedBraces"/>
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        <module name="EqualsHashCode"/>
+    </module>
+</module>

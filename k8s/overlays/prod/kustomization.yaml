@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# This repo (legacy monolith) deploys to a single target today — see the
+# workflow's "master only" deploy gate. Kept as a single "prod" overlay
+# (rather than dev/hom/prod like the newer choreographed services) to avoid
+# inventing environments that don't exist for this app, while still getting
+# the Kustomize base/overlay structure for future extensibility.
+#
+# Replica counts here intentionally match the previous flat-manifest values
+# (jlapp: 1 replica, HPA min 1 / max 5) so this migration does not change
+# runtime behavior.
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: jlapp-deployment
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      kind: HorizontalPodAutoscaler
+      name: jlapp-deployment
+    patch: |-
+      - op: replace
+        path: /spec/minReplicas
+        value: 1
+      - op: replace
+        path: /spec/maxReplicas
+        value: 5

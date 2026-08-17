@@ -153,7 +153,8 @@ public class PedidoUseCase implements PedidoInputPort {
 		lista.sort(Comparator.comparing(PedidoAcompanhamentoDTO::getEstado).reversed()
 				.thenComparing(t -> t.getDataPedido()));
 		log.info(
-				"Ordenando pedidos na seguinte ordem [Pronto > Em Preparação > Recebido] sendo pedidos mais antigos primeiro que os mais novos");
+				"Ordenando pedidos na seguinte ordem [Pronto > Em Preparação > Recebido] "
+						+ "sendo pedidos mais antigos primeiro que os mais novos");
 
 		return lista;
 	}

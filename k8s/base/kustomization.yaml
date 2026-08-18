@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - jlapp-deployment.yaml
+  - jlapp-service.yaml
+  - hpa.yaml
+  - nginx-config.yaml
+  - nginx-deployment.yaml
+  - nginx-service.yaml
+  - DB/configmap.yaml
+  - DB/postgres-deployment.yaml
+  - DB/postgres-pv.yaml
+  - DB/postgres-pvc.yaml
+  - DB/postgres-service.yaml
+  - Metrics/components.yaml
+
+images:
+  - name: jlapp-monolith
+    newName: jlapp-monolith
+    newTag: latest

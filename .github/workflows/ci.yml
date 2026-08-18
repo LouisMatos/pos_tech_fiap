@@ -1,0 +1,200 @@
+name: CI
+
+# Monolito legado (sendo substituido pelos microsservicos coreografados) so tem
+# overlay k8s pra prod - por isso deploy.yml so oferece environment=prod ate que
+# outros overlays existam. O resto do gitflow (feature->develop->release/N->master)
+# e o mesmo dos outros repos.
+
+on:
+  push:
+    branches: [ "feature/**", "develop", "release/**", "master" ]
+  pull_request:
+    branches: [ "develop", "release/**", "master" ]
+
+permissions:
+  contents: write
+  id-token: write   # required for OIDC (aws-actions/configure-aws-credentials)
+  pull-requests: write
+
+jobs:
+
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '20'
+          distribution: 'adopt'
+          cache: maven
+      - run: mvn verify
+
+  build:
+    runs-on: ubuntu-latest
+    needs: unit-test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '20'
+          distribution: 'adopt'
+          cache: maven
+      - name: Package
+        run: mvn package -DskipTests
+
+  publish:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: build
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-pos_tech_fiap
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker image
+        id: image
+        run: |
+          IMAGE="${{ steps.login-ecr.outputs.registry }}/jlapp-monolith:${{ github.sha }}"
+          docker build -t "$IMAGE" .
+          echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ steps.image.outputs.image }}
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+          ignore-unfixed: true
+
+      - name: Push Docker image
+        run: docker push "${{ steps.image.outputs.image }}"
+
+  # PR automatico feature/* -> develop, apos os gates (unit-test+build) passarem.
+  open-pr-to-develop:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/feature/')
+    needs: [unit-test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Abre PR feature -> develop (idempotente)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          existing=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base develop --state open --json number --jq '.[0].number')
+          if [ -z "$existing" ]; then
+            gh pr create --repo "$GITHUB_REPOSITORY" --base develop --head "$BRANCH" \
+              --title "feat: ${BRANCH#feature/}" \
+              --body "PR automatico apos pipeline 1 (build + testes + lint) passar."
+          else
+            echo "PR #$existing ja aberto $BRANCH -> develop, nada a fazer"
+          fi
+
+  # Merge em develop: resolve/cria release/N ativa e abre PR develop -> release/N.
+  open-pr-to-release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    needs: [unit-test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resolve release ativa ou cria nova, abre PR develop -> release/N
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin 'refs/heads/release/*:refs/remotes/origin/release/*' --prune
+
+          max_n=0
+          active_n=""
+          for ref in $(git for-each-ref --format='%(refname:short)' 'refs/remotes/origin/release/*'); do
+            n="${ref##*/release/}"
+            case "$n" in ''|*[!0-9]*) continue ;; esac
+            [ "$n" -gt "$max_n" ] && max_n=$n
+            if ! git merge-base --is-ancestor "origin/release/$n" origin/master; then
+              if [ -n "$active_n" ]; then
+                echo "::warning::mais de uma release ativa encontrada (release/$active_n e release/$n) - investigar manualmente"
+              fi
+              active_n=$n
+            fi
+          done
+
+          if [ -n "$active_n" ]; then
+            target="release/$active_n"
+            echo "Reutilizando release ativa: $target"
+          else
+            target="release/$((max_n + 1))"
+            git checkout -b "$target" origin/master
+            git push origin "$target"
+            echo "Nova release criada: $target"
+          fi
+
+          existing=$(gh pr list --repo "$GITHUB_REPOSITORY" --head develop --base "$target" --state open --json number --jq '.[0].number')
+          if [ -z "$existing" ]; then
+            gh pr create --repo "$GITHUB_REPOSITORY" --base "$target" --head develop \
+              --title "release: develop -> $target" \
+              --body "PR automatico: consolida develop na release ativa."
+          else
+            echo "PR #$existing ja aberto develop -> $target, nada a fazer"
+          fi
+
+  # Valida "pacote" antes de abrir PR pra master: imagem precisa existir no ECR
+  # (Trivy ja bloqueou dentro do job publish caso houvesse CRITICAL/HIGH).
+  validate-package:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-pos_tech_fiap
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Confirma imagem publicada no ECR
+        run: |
+          IMAGE_TAG="${{ needs.publish.outputs.image }}"
+          IMAGE_TAG="${IMAGE_TAG##*:}"
+          aws ecr describe-images --repository-name jlapp-monolith --image-ids imageTag="$IMAGE_TAG" > /dev/null
+
+  # Merge em release/N com pacote validado: abre PR release/N -> master.
+  open-pr-to-master:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/')
+    needs: validate-package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Abre PR release/N -> master (idempotente)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          existing=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base master --state open --json number --jq '.[0].number')
+          if [ -z "$existing" ]; then
+            gh pr create --repo "$GITHUB_REPOSITORY" --base master --head "$BRANCH" \
+              --title "release: $BRANCH -> master" \
+              --body "Pacote validado: imagem publicada no ECR, Trivy sem CRITICAL/HIGH. Deploy manual disponivel via deploy.yml apos o merge."
+          else
+            echo "PR #$existing ja aberto $BRANCH -> master, nada a fazer"
+          fi

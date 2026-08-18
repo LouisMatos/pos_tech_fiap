@@ -1,59 +1,31 @@
-name: Deploy to AWS EKS
+name: Deploy
 
-# This repo (legacy monolith, being phased out in favor of the choreographed
-# microservices) only ever deploys to a single target from `master` — unlike
-# the newer services there is no dev/hom/prod branch model here, so this
-# workflow does not carry a resolve-env job. Build/test still run on every
-# push and PR; publish/deploy are gated to `master` pushes only.
+# Deploy manual dedicado. Nunca dispara sozinho - so via "Run workflow" (workflow_dispatch).
+# CI (ci.yml) testa/publica a imagem automaticamente; fazer deploy e sempre acao humana.
+# So existe overlay k8s/overlays/prod hoje (monolito legado, sem modelo dev/hom),
+# entao environment fica limitado a prod ate que outros overlays existam.
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Ambiente alvo'
+        required: true
+        type: choice
+        options:
+          - prod
+      image_tag:
+        description: 'Tag da imagem ja publicada no ECR (ex: SHA do commit)'
+        required: true
 
 permissions:
   contents: read
-  id-token: write   # required for OIDC (aws-actions/configure-aws-credentials)
+  id-token: write
 
 jobs:
-
-  unit-test:
+  deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '20'
-          distribution: 'adopt'
-          cache: maven
-      - run: mvn verify
-
-  build:
-    runs-on: ubuntu-latest
-    needs: unit-test
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '20'
-          distribution: 'adopt'
-          cache: maven
-      - name: Package
-        run: mvn package -DskipTests
-
-  publish:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    needs: build
-    outputs:
-      image: ${{ steps.image.outputs.image }}
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -68,37 +40,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build Docker image
-        id: image
+      - name: Confirma imagem existe no ECR
         run: |
-          IMAGE="${{ steps.login-ecr.outputs.registry }}/jlapp-monolith:${{ github.sha }}"
-          docker build -t "$IMAGE" .
-          echo "image=$IMAGE" >> "$GITHUB_OUTPUT"
-
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: ${{ steps.image.outputs.image }}
-          severity: 'CRITICAL,HIGH'
-          exit-code: '1'
-          ignore-unfixed: true
-
-      - name: Push Docker image
-        run: docker push "${{ steps.image.outputs.image }}"
-
-  deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    needs: publish
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-pos_tech_fiap
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws ecr describe-images --repository-name jlapp-monolith --image-ids imageTag="${{ inputs.image_tag }}" > /dev/null
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v4
@@ -108,19 +52,17 @@ jobs:
 
       - name: Set image tag in overlay
         run: |
-          IMAGE_FULL="${{ needs.publish.outputs.image }}"
-          IMAGE_REPO="${IMAGE_FULL%:*}"
-          IMAGE_TAG="${IMAGE_FULL##*:}"
-          cat >> k8s/overlays/prod/kustomization.yaml <<EOF
+          IMAGE_REPO="${{ steps.login-ecr.outputs.registry }}/jlapp-monolith"
+          cat >> k8s/overlays/${{ inputs.environment }}/kustomization.yaml <<EOF
           images:
             - name: jlapp-monolith
               newName: ${IMAGE_REPO}
-              newTag: ${IMAGE_TAG}
+              newTag: ${{ inputs.image_tag }}
           EOF
 
       - name: Deploy via Kustomize
         run: |
-          kubectl apply -k k8s/overlays/prod
+          kubectl apply -k k8s/overlays/${{ inputs.environment }}
 
       - name: Wait for rollout
         run: |

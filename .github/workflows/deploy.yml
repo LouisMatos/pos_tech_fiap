@@ -101,7 +101,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v4
+        uses: azure/setup-kubectl@v5
 
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name jlapp-cluster
